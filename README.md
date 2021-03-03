@@ -469,7 +469,7 @@ TODO
 
      - 1、xx软件股份有限公司
                 
-   > 更多接入的公司，欢迎在 [登记地址](https://github.com/xuxueli/xxl-job/issues/1 ) 登记，登记仅仅为了产品推广。 
+   > 更多接入的公司，欢迎在 [登记地址](https://gitee.com/yaukie/x-smart-kettle-server/issues/I39TQV) 登记，登记仅仅为了产品推广。 
  
 ## 参考资料
 
