@@ -53,14 +53,14 @@
 - 界面更加美观、组件更加丰富
 - 平台功能架构见如下图：  
 
-![平台功能架构](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/struc.png)
+![平台功能架构](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
 ![平台功能架构](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
 ![平台功能架构](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
 
 ## 项目简介
 整个工程的目录结构如下：  
 后端工程：
-- [内部网站：x-smart-kettle-server](http://open.inspur.com/yuenbin/x-smart-kettle-server.git)
+- [内部网站：x-smart-kettle-server](https://gitee.com/yaukie/x-smart-kettle-server.git)
 - [github.com：x-smart-kettle-server](http://github.com/yaukie/x-smart-kettle-server.git)
 - [gitee.com：x-smart-kettle-server](https://gitee.com/yaukie/x-smart-kettle-server.git)
 
@@ -209,49 +209,49 @@
 
 ## 功能概览
 - 登录界面  
-![登录界面](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/登录/login.png)  
+![登录界面](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/登录/login.png)  
 登录界面内置了两个账号，一个是admin，一个是superadmin，密码随便输入即可   
 - 系统菜单  
-![系统菜单](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/左侧菜单/1.png)  
+![系统菜单](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/左侧菜单/1.png)  
 - 调度大盘  
-![调度大盘](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/大屏/2.png)    
+![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏/2.png)    
 调度大盘上半部分，展示近期实例运行详情，包括运行成功、运行失败、运行中、以及未运行的实例总体概况  
-![调度大盘](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/大屏/3.png)    
+![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏/3.png)    
 调度大盘中间部分，则通过图表统计作业以及转换实例的分类情况  
-![调度大盘](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/大屏/4.png)    
+![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏/4.png)    
 调度大盘下半部分，则主要展示实例在某段时间的运行趋势如何，可以透过折线图很直观的看出每个时间段的
 执行情况，包括运行失败、运行成功的次数分布 
 调度大盘的最下面则主要统计任务告警情况  
 
 - 调度管理  
-![调度管理](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/调度管理/5.png)
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/5.png)
   调度管理分为作业调度以及转换调度，作业调度包括作业名称、描述、运行状态以及运行时间等信息展示 ，
   在作业调度查询界面，选择创建作业（按模板），则将会根据选定模板创建作业  
-![调度管理](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/调度管理/6.png)    
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/6.png)    
    在作业调度查询界面，选择新建作业（已有），则将会从资源库中选择已通过客户端配置好的  
      作业  
-![调度管理](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/调度管理/7.png)    
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/7.png)    
    在作业调度查询界面，选中目标作业之后，在上方点击合适的执行按钮，将会执行对应任务，并实时监控任务状态   
-![调度管理](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/调度管理/13.png)    
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/13.png)    
    在作业调度查询界面，选中目标作业之后，点击调度监控，则可以查看作业的调度图  
    上述所有操作，转换调度的操作方式同作业类似    
 
 - 定时调度  
 在作业调度界面，选中执行方式，在执行方式中，选择定时任务执行，则进入到定时执行调度界面  
-![定时调度](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/定时调度/9.png)  
+![定时调度](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/定时调度/9.png)  
  在作业定时界面中，您可以选择任意的定时规则  
-![定时调度](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/定时调度/10.png)    
+![定时调度](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/定时调度/10.png)    
 
 - 资源库管理   
 可以维护多个资源库，本系统同时支持文件库以及数据库资源库，但建议使用数据库作为资源库，文件库作为 
 资源库使用过程中，经常会出现一些奇怪的问题，并且从数据备份角度来讲，不安全  
-![资源库](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/资源库管理/14.png)    
+![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/资源库管理/14.png)    
 
 - 告警监控   
 告警监控主要采集作业任务或转换任务在某段时间内的执行细节，并将执行细节以异常记录的形式存储下来  
-![告警监控](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/告警监控/11.png)     
+![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/告警监控/11.png)     
 便于后续任务调度过程中任务执行细节的跟踪，方便开发或运维人员精准找出任务异常原因    
-![告警监控](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/告警监控/12.png)       
+![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/告警监控/12.png)       
 
 ## 使用方式
    - 下载源码，自行搭建环境
@@ -413,7 +413,7 @@
         启动应用，并在浏览器访问：http://ip:port/xtl-server/swagger-ui.hml ,出现如下截图，那么恭喜您启动成功：
         ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start.png)
         ![启动截图](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/start.png)
-        ![启动截图](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/start.png)
+        ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start.png)
         
 - 下载 x-smart-kettle-font 前端应用 ，下载地址详见上述简介   
      - 步骤一  
@@ -446,7 +446,7 @@
 ```
    然后执行 `npm run dev` 本地启动应用，出现如下控制台打印的信息，则恭喜您前端也启动成功！  
            ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start2.png)
-           ![启动截图](http://open.inspur.com/yuenbin/x-smart-kettle-server/raw/master/folder/start2.png)
+           ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start2.png)
            ![启动截图](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/start2.png)
 
 ### 2. 插件访问
