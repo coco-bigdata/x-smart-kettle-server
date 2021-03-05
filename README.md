@@ -511,7 +511,15 @@ Smart Kettle 官方交流群②(500人)：668964239
 ## 联系我们
 联系邮箱： 869952837@qq.com
 ## 捐赠
+开源不易，感谢捐赠  
 No matter how much the donation amount is enough to express your thought, thank you very much ：）   
   [To donate](https://my.oschina.net/yaukie/blog/4968854)
 无论捐赠金额多少都足够表达您这份心意，非常感谢 ：）    
   [前往捐赠](https://my.oschina.net/yaukie/blog/4968854)  
+  ## 作者简介
+ @Author: yuenbin  
+        屌丝一枚，码农搬运工，正努力成为互联网行业的土豪，多多益善，来者不拒！  
+        佛祖保佑捐赠这些人写程序永无bug，工资翻倍，迎娶白富美，走上人生巅峰！  
+       
+![支付宝](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/wechat.jpg)  
+       
