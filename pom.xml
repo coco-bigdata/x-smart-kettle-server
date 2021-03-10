@@ -47,7 +47,7 @@
             <groupId>org.yaukie.core</groupId>
             <artifactId>x-common-base</artifactId>
             <version>2021.3</version>
-        </dependency>
+              </dependency>
 		 <dependency>
 			<groupId>org.yaukie.xtl</groupId>
 			<artifactId>x-kettle-core</artifactId>
@@ -60,7 +60,6 @@
          </dependency>
     <!--kettle核心包引入结束-->
     </dependencies>
-
     <!--定义spring boo maven 插件-->
     <build>
         <resources>
@@ -110,8 +109,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
+              </plugin>
         </plugins>
     </build>
 
