@@ -20,7 +20,16 @@
 - kettle自带web管理工具，极其简陋，异常难用，无法投入生产环境
 - kettle客户端工具无法在linux系统使用
 - kettle客户端无法做到真正意义上的跨平台，bat及shell脚本切换繁杂
-- kettle客户端迁移麻烦，每次都要安装一遍，耗费精力
+- kettle客户端迁移麻烦，每次都要安装一遍，耗费精力 
+
+ 
+ ## 官方交流
+ Smart Kettle 官方交流群①(500人)：668964239
+ Smart Kettle 官方交流群②(500人)：668964239
+ 
+ ## 联系我们
+ 联系邮箱： 869952837@qq.com
+
 ## 简介
      Smart Kettle是针对上述企业的痛点，对kettle的使用做了一些包装、优化，使其在web端也能
      具备基础的kettle作业、转换的配置、调度、监控，能在很大一定程度上协助企业完成不同业务场景下
@@ -504,12 +513,6 @@ TODO
 - Vue 那点事儿：https://my.oschina.net/yaukie/blog/1547678
 - Docker 那点事儿：https://my.oschina.net/yaukie/blog/3165074
 
-## 官方交流
-Smart Kettle 官方交流群①(500人)：668964239
-Smart Kettle 官方交流群②(500人)：668964239
-
-## 联系我们
-联系邮箱： 869952837@qq.com
 ## 捐赠
 开源不易，感谢捐赠  
 No matter how much the donation amount is enough to express your thought, thank you very much ：）   
