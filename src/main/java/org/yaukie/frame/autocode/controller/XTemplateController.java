@@ -68,9 +68,9 @@ public class XTemplateController extends BaseController {
         }
         OutputStream os =null ;
         try {
-            String rootPath =Thread.currentThread().getContextClassLoader()
-                    .getResource("").getPath();
+            String rootPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath() ;//Thread.currentThread().getContextClassLoader()                    .getResource("").getPath();
             rootPath=rootPath.substring(1);
+            log.info("模板路径，{}",rootPath);
             JobMeta jobMeta = new JobMeta(rootPath+xTemplate.getTemplatePath(), null) ;
 
             BufferedImage bufferedImage = KettleUtil.generateJobImage(jobMeta);
