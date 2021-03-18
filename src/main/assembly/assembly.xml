@@ -56,6 +56,10 @@
             <outputDirectory>${file.separator}front</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>src/main/bin/server/simple-jndi</directory>
+            <outputDirectory>${file.separator}server/simple-jndi</outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>${project.build.directory}</directory>
             <outputDirectory>${file.separator}server</outputDirectory>
             <includes>

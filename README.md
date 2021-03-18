@@ -431,6 +431,43 @@
         步骤四完成之后，开始配置kettle资源库数据库，虽然本系统同时支持文件库以及数据库资源库，但还是强烈建议使用数据库作为  
         资源库，考虑数据移植方便性、安全性、高效性，使用数据库作为资源库，资源库请自行建立，并完善yml配置。
  - 步骤六 
+        上述步骤执行完毕之后，请将如下内容复制到`pom.xml` 文件中去，如果不加此文件，本地跑会有问题
+     ```
+             <resources>
+                        <resource>
+                            <directory>src/main/java</directory>
+                            <includes>
+                                <include>**/*.yml</include>
+                                <include>**/*.xml</include>
+                            </includes>
+                            <filtering>false</filtering>
+                        </resource>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                            <includes>
+                                <include>**/*.yml</include>
+                                <include>**/*.xml</include>
+                            </includes>
+                            <filtering>false</filtering>
+                        </resource>
+              </resources>
+            
+      ```
+      如果要构建一键启动，重新打包，请按照如下方式修改`pom.xml` 文件,这种方式打成的jar包，不会包括xml以及kjb文件
+     ```xml
+               <resources>
+                   <resource>
+                       <directory>src/main/resources</directory>
+                       <excludes>
+                           <exclude>**/*.yml</exclude>
+                           <exclude>**/*.kjb</exclude>
+                       </excludes>
+                       <filtering>true</filtering>
+                   </resource>
+               </resources>
+    ```
+          减少jar包的体积
+ - 步骤七 
         上述内容都配置好之后，这里运行：
         ```
             Start.java
