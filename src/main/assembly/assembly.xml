@@ -40,6 +40,14 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>src/main/resources/template</directory>
+            <outputDirectory>${file.separator}server/template</outputDirectory>
+            <fileMode>0644</fileMode>
+            <includes>
+                 <include>*.kjb</include>
+             </includes>
+        </fileSet>
+        <fileSet>
             <directory>src/main/bin/log</directory>
             <outputDirectory>${file.separator}log</outputDirectory>
         </fileSet>

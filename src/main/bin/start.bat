@@ -33,5 +33,5 @@ echo second step Starting Smart Kettle Server...
 echo Please check log file in ../log/smart-kettle.log for more information
 echo You can get help in our official homesite: https://my.oschina.net/yaukie
 echo If this project is helpful to you, please star it on https://my.oschina.net/yaukie
-java -Djava.ext.dirs=./lib -Xms500m -Xmx1g -XX:MaxDirectMemorySize=1g -Dsun.net.client.defaultConnectTimeout=60000  -Dspring.config.location=.\config\application-dev.yml -jar smart-kettle-2021.3.jar -> ..\log\smart-kettle.log
+java -Djava.ext.dirs=./lib -Xms500m -Xmx1g -XX:MaxDirectMemorySize=1g -Dsun.net.client.defaultConnectTimeout=60000  -Dspring.config.location=.\config\application-dev.yml -jar smart-kettle-2021.4.jar -> ..\log\smart-kettle.log
 @pause

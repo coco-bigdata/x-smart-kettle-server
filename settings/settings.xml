@@ -2,34 +2,14 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-		  <!-- 本地仓库的配置【注：这里换成自己的目录】 -->
-<!--<localRepository>E:\maven\local</localRepository>-->
     <mirrors>
         <mirror>
-            <id>alimaven</id>
-            <mirrorOf>central</mirrorOf>
-            <name>aliyun maven</name>
-            <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+            <id>mirror</id>
+            <mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf>
+            <name>mirror</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
         </mirror>
-        <mirror>
-            <id>alimaven</id>
-            <name>aliyun maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <mirrorOf>central</mirrorOf>
-        </mirror>
-        <mirror>
-            <id>central</id>
-            <name>Maven Repository Switchboard</name>
-            <url>http://repo1.maven.org/maven2/</url>
-            <mirrorOf>central</mirrorOf>
-        </mirror>
-        <!-- 中央仓库在中国的镜像 -->
-        <mirror>
-        <id>maven.net.cn</id>
-        <name>oneof the central mirrors in china</name>
-        <url>http://maven.net.cn/content/groups/public/</url>
-        <mirrorOf>central</mirrorOf>
-        </mirror>
+
     </mirrors>
     <servers>
         <server>
@@ -45,7 +25,15 @@
     </servers>
     <profiles>
         <profile>
-            <id>nexus</id>
+            <id>rdc</id>
+            <properties>
+                <altReleaseDeploymentRepository>
+                    rdc-releases::default::https://repo.rdc.aliyun.com/repository/128991-release-EJH8o1/
+                </altReleaseDeploymentRepository>
+                <altSnapshotDeploymentRepository>
+                    rdc-snapshots::default::https://repo.rdc.aliyun.com/repository/128991-snapshot-NY2Ub0/
+                </altSnapshotDeploymentRepository>
+            </properties>
             <repositories>
                 <repository>
                     <id>central</id>
@@ -131,13 +119,8 @@
                 </pluginRepository>
             </pluginRepositories>
         </profile>
-
     </profiles>
-
     <activeProfiles>
-        <activeProfile>nexus</activeProfile>
-
+        <activeProfile>rdc</activeProfile>
     </activeProfiles>
-
-
 </settings>

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.yaukie.core.base.service.BaseService;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XLogService;
 import org.yaukie.frame.autocode.service.api.XParamsService;
@@ -43,7 +44,7 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 @Component
 @Slf4j
-public class JobService {
+public class JobService  {
     /**
      * 保存正在运行的作业
      */

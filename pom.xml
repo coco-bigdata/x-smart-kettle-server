@@ -5,15 +5,15 @@
     <parent>
         <artifactId>x-common-pro</artifactId>
         <groupId>org.yaukie.frame</groupId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2021.4</version>
+        <relativePath>../x-common-pro/pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.yaukie.frame</groupId>
      <artifactId>smart-kettle</artifactId>
-    <version>2021.3</version>
+    <version>2021.4</version>
 
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.yaukie.frame</groupId>
             <artifactId>x1-simple-job</artifactId>
-            <version>2021.3</version>
+            <version>2021.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -46,12 +46,12 @@
         <dependency>
             <groupId>org.yaukie.core</groupId>
             <artifactId>x-common-base</artifactId>
-            <version>2021.3</version>
+            <version>2021.4</version>
               </dependency>
 		 <dependency>
 			<groupId>org.yaukie.xtl</groupId>
 			<artifactId>x-kettle-core</artifactId>
-			<version>2021.3</version>
+			<version>2021.4</version>
 		</dependency>
         <!-- 定义 lombok 版本 -->
         <dependency>
@@ -59,12 +59,27 @@
             <artifactId>lombok</artifactId>
          </dependency>
     <!--kettle核心包引入结束-->
+
     </dependencies>
     <!--定义spring boo maven 插件-->
     <build>
+        <!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
         <resources>
             <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
                 <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
         <plugins>
@@ -112,17 +127,5 @@
               </plugin>
         </plugins>
     </build>
-
-
-    <distributionManagement>
-        <repository>
-            <id>rdc-releases</id>
-            <url>https://repo.rdc.aliyun.com/repository/128991-release-EJH8o1/</url>
-        </repository>
-        <snapshotRepository>
-            <id>rdc-snapshots</id>
-            <url>https://repo.rdc.aliyun.com/repository/128991-release-EJH8o1/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>

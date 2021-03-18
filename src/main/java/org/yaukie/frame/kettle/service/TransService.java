@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.yaukie.core.base.service.BaseService;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XLogService;
 import org.yaukie.frame.autocode.service.api.XQuartzService;
@@ -46,7 +47,7 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 @Service
 @Slf4j
-public class TransService {
+public class TransService  {
 
     private static Map<String,Trans> transMap = new ConcurrentHashMap<>();
 

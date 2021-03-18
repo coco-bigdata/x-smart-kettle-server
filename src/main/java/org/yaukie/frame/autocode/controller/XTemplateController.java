@@ -1,34 +1,34 @@
 package org.yaukie.frame.autocode.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.StringUtils;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.job.JobMeta;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.yaukie.core.annotation.EnablePage;
 import org.yaukie.core.annotation.LogAround;
 import org.yaukie.core.base.controller.BaseController;
 import org.yaukie.core.config.UniformReponseHandler;
 import org.yaukie.core.constant.BaseResult;
 import org.yaukie.core.constant.PageResult;
-import org.yaukie.frame.autocode.service.api.XTemplateService;
 import org.yaukie.frame.autocode.model.XTemplate;
 import org.yaukie.frame.autocode.model.XTemplateExample;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
+import org.yaukie.frame.autocode.service.api.XTemplateService;
 import org.yaukie.xtl.KettleUtil;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -55,8 +55,7 @@ public class XTemplateController extends BaseController {
     @ApiOperation("获取模板调度图")
     @LogAround("获取模板调度图")
     public BaseResult getModelImage(
-            @RequestParam(value = "tplKey",required = true)String tplKey
-    )   {
+            @RequestParam(value = "tplKey", required = true) String tplKey    )   {
         if(StringUtils.isEmpty(tplKey)){
             return BaseResult.fail();
         }
@@ -68,13 +67,14 @@ public class XTemplateController extends BaseController {
         }
         OutputStream os =null ;
         try {
-            String rootPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath() ;//Thread.currentThread().getContextClassLoader()                    .getResource("").getPath();
+
+            String rootPath =this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile();
             rootPath=rootPath.substring(1);
+            rootPath=rootPath.replaceAll("[\\\\/]", "/");
+            rootPath=rootPath.substring(0, rootPath.lastIndexOf("/"));
             log.info("模板路径，{}",rootPath);
-            JobMeta jobMeta = new JobMeta(rootPath+xTemplate.getTemplatePath(), null) ;
-
+            JobMeta jobMeta = new JobMeta(rootPath+"/"+xTemplate.getTemplatePath(), null) ;
             BufferedImage bufferedImage = KettleUtil.generateJobImage(jobMeta);
-
             response.setContentType("image/png");
             os = response.getOutputStream() ;
             if(bufferedImage !=null ){
@@ -177,4 +177,13 @@ public class XTemplateController extends BaseController {
         }
         return BaseResult.fail(errorMessage);
     }
+
+    public static void main(String[] args) {
+        String rootPath =XTemplateController.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+        rootPath=rootPath.substring(1);
+        rootPath=rootPath.replaceAll("[\\\\/]", "/");
+        rootPath=rootPath.substring(0, rootPath.lastIndexOf("/"));
+        System.out.println(rootPath);
+    }
+
 }

@@ -1,9 +1,9 @@
 package org.yaukie.frame.config;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.io.Serializable;
+import org.springframework.context.annotation.Configuration;
 
 /**
  *  @Author: yuenbin
@@ -13,33 +13,38 @@ import java.io.Serializable;
  * @Destrib:  配置kettle 多任务异步线程池
  *  配置一下线程池的基础参数
 **/
-@ConfigurationProperties(prefix = "kettle.pool")
 @Data
-public class KettleThreadPoolProperties implements Serializable {
+@ConfigurationProperties(prefix = "kettle.pool")
+public class KettleThreadPoolProperties {
 
     /**
      * 线程池前缀
      */
-    private String namePrefix = "kettleThreadPool";
+
+    private String namePrefix ;
 
     /**
      * 核心线程数
      */
+
     private int coreThreads;// = 20;
 
     /**
      * 最大的线程数
      */
+
     private int maxThreads;// = 50;
 
     /**
      * 队列容量
      */
+
     private int queueCapacity;// = 100;
 
     /**
      * 空闲x分钟则释放线程
      */
+
     private long keepAliveTimeMin;// = 5;
 
 

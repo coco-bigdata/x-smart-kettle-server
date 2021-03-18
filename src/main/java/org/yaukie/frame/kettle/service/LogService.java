@@ -33,7 +33,7 @@ import java.util.Map;
 @Service
 @Transactional(rollbackFor = Exception.class)
 @Slf4j
-public class LogService extends BaseService {
+public class LogService   {
 
     @Value("${kettle.log.file.path}")
     String logFilePath ;
