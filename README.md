@@ -24,7 +24,7 @@
 
  
  ## 官方交流
- Smart Kettle 官方交流群①(500人)：668964239
+ Smart Kettle 官方交流群①(500人)：668964239   
  Smart Kettle 官方交流群②(500人)：668964239
  
  ## 联系我们
@@ -519,13 +519,18 @@
            ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start2.png)
            ![启动截图](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/start2.png)
 
-### 2. 插件访问
-TODO
-   - 后续补充更加人性化的使用方式，正在完善中。。。
+### 2. 懒人模式
+    懒人模式使用方式针对那些不想下载源码，也不想自己搭建本地环境、下载依赖，说白了就是想通过傻瓜式的方式使用本系统。  
+    那么，本人也为有这类需求的读者或企业提供了最省时省力的使用方式，详情请点击如下链接访问，查看具体使用教程：
+  懒人教程请点击：-> https://my.oschina.net/yaukie/blog/4993603
+        
 ### 3. 云端访问
    - 打算搞个阿里云服务器，但太贵了，暂时没钱，，不过读者要是赞助一下，可以考虑^_^
  TODO
 ## 后续计划
+       Smart Kettle 目前尚未完全实现Kettle web 端的编排，因此使用此系统还需要借助Kettle 客户端完成复杂作业及转换  
+       的设计、测试，但提供了友好、优美、简洁的前端监控能力，kettle 组件的web端流程编排是以后本系统前进的方向，努力 
+       实现的终极目标，也期待读者能持续关注升级、更新。  
    - 功能需求方面   
     1、后续考虑增加集群子服务器远程执行  
     2、后续考虑增加用户权限、角色权限设计  
@@ -555,8 +560,11 @@ TODO
  
 ## 参考资料
 
-- Vue 那点事儿：https://my.oschina.net/yaukie/blog/1547678
-- Docker 那点事儿：https://my.oschina.net/yaukie/blog/3165074
+- Smart Kettle之后端介绍：https://my.oschina.net/yaukie/blog/4973081   
+- Smart Kettle之新品推介：https://my.oschina.net/yaukie/blog/4969927   
+- Vue 那点事儿：https://my.oschina.net/yaukie/blog/1547678  
+- Docker 那点事儿：https://my.oschina.net/yaukie/blog/3165074  
+
 
 ## 捐赠
 开源不易，感谢捐赠  
