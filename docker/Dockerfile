@@ -29,7 +29,6 @@ ENV XTL_KETTLE_DB_PASS root
 ENV XTL_APP_LOG_PATH /opt/smart-kettle/log
 ENV XTL_APP_LOG_LEVEL info
 ENTRYPOINT ["java",
-"-Djava.ext.dirs=/opt/smart-kettle/lib",
 "-Xms500m","-Xmx1g","-XX:MaxDirectMemorySize=1g",
 "-Dsun.net.client.defaultConnectTimeout=60000",
 "-Dfile.encoding=UTF-8",
