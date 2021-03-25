@@ -1,16 +1,14 @@
 #基础镜像
-FROM centos:centos7.6.1810
+FROM openjdk:12
 #作者信息
 MAINTAINER yuenbin "yaukie@163.com"
 #解压压缩文件到容器指定目录
 ADD smart-kettle-*.tar.gz /opt/smart-kettle
 #挂载容器日志目录到虚拟机上
 VOLUME /opt/aps/logs:/opt/smart-kettle/log
-RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup &&\
-    curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &&\
-    sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo &&\
-    yum makecache &&\
-    yum install -y java-1.8.0-openjdk.x86_64
+#设置环境变量
+ENV JAVA_HOME /usr/java/jdk1.8.0_121 
+ENV PATH $JAVA_HOME/bin:$PATH 
 #容器启动时需要执行的命令
 CMD ["java","-version"]
 ENV XTL_APP_SERVER_PORT 9876
