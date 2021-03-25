@@ -2,9 +2,9 @@
     def img_version = '${img_version}'
     def project_name = "smart-kettle"
     def img_name = project_name
-    def package_name = "yaukie"
+    def name_space = "yaukie"
     def setting_name = "settings"
-    def repo_url = "registry.cn-hangzhou.aliyuncs.com"
+    def repo_url = "registry.cn-qingdao.aliyuncs.com"
     def user_name = "yaukie@163.com"
     def pass_word = "wst123456"
 
@@ -36,10 +36,10 @@
                  sh 'rm -f  *.tar.gz'
                  echo project_name+'.jar删除成功,准备登录阿里云....'
              }
-               sh 'docker login -u '+user_name+ ' -p '+pass_word+' registry.cn-hangzhou.aliyuncs.com'
+               sh 'docker login -u '+user_name+ ' -p '+pass_word+' '+repo_url
              echo '阿里云镜像仓库登录成功....'
              sh 'cp target/*.tar.gz  docker/'
-             def img_url = repo_url + '/'+ package_name+'/'+project_name+':'+img_version
+             def img_url = repo_url + '/'+ name_space+'/'+project_name+':'+img_version
              sh 'cd  docker/ && docker build -t '+ img_url + ' .'
              sh 'docker push '+ img_url
              echo '镜像已成功推送至阿里云....'
