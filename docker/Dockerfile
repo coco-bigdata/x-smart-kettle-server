@@ -10,8 +10,7 @@ RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
     curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &&\
     sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo &&\
     yum makecache &&\
-    yum install -y java-1.8.0-openjdk.x86_64 &&\
-    fc-cache -fv
+    yum install -y java-1.8.0-openjdk.x86_64
 #容器启动时需要执行的命令
 CMD ["java","-version"]
 ENV XTL_APP_SERVER_PORT 9876
@@ -28,4 +27,4 @@ ENV XTL_KETTLE_DB_USERNAME root
 ENV XTL_KETTLE_DB_PASS root
 ENV XTL_APP_LOG_PATH /opt/smart-kettle/log
 ENV XTL_APP_LOG_LEVEL info
-ENTRYPOINT ["java","-jar","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/smart-kettle/server/config/application-dev.yml","/opt/smart-kettle/server/smart-kettle-*.jar"]
+ENTRYPOINT ["java","-jar","-Xms500m","-Xmx1g","-XX:MaxDirectMemorySize=1g","-Dsun.net.client.defaultConnectTimeout=60000","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/smart-kettle/server/config/application-dev.yml","/opt/smart-kettle/server/smart-kettle-*.jar"]
