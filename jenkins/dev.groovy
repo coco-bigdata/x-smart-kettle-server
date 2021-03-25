@@ -36,14 +36,18 @@
                  sh 'rm -f  *.tar.gz'
                  echo project_name+'.jar删除成功,准备登录阿里云....'
              }
-               sh 'docker login -u '+user_name+ ' -p '+pass_word+' '+repo_url
+             sh 'docker login -u '+user_name+ ' -p '+pass_word+' '+repo_url
              echo '阿里云镜像仓库登录成功....'
+             echo '准备删除本地镜像文件 smart-kettle ...'
+             sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+             echo '准备删除本地镜像文件 smart-kettle-'+img_version
+             sh 'docker rmi `docker images | grep -v grep | grep \'smart-kettle\' | awk \'{print $3}\'`'
+             echo '本地镜像文件删除成功...!'
              sh 'cp target/*.tar.gz  docker/'
              def img_url = repo_url + '/'+ name_space+'/'+project_name+':'+img_version
              sh 'cd  docker/ && docker build -t '+ img_url + ' .'
              sh 'docker push '+ img_url
              echo '镜像已成功推送至阿里云....'
-
          }
 
      }
