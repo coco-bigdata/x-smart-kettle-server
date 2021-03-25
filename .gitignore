@@ -10,6 +10,7 @@ pom.xml.versionsBackup
 .factorypath
 
 out/
+transaction-logs/
 
 # Gradel
 .gradle/
