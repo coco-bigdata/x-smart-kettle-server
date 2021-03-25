@@ -5,7 +5,7 @@ MAINTAINER yuenbin "yaukie@163.com"
 #解压压缩文件到容器指定目录
 ADD smart-kettle-*.tar.gz /opt
 #挂载容器日志目录到虚拟机上
-VOLUME /opt/aps/logs:/opt/smart-kettle-2021.3-make-assembly/smart-kettle-2021.3/log
+VOLUME /opt/aps/logs:/opt/smart-kettle-2021.4-make-assembly/smart-kettle-2021.4/log
 #设置环境变量
 ENV JAVA_HOME /usr/java/jdk1.8.0_121 
 ENV PATH $JAVA_HOME/bin:$PATH 
@@ -23,6 +23,6 @@ ENV XTL_KETTLE_DB_PORT 3308
 ENV XTL_KETTLE_DB_NAME etl
 ENV XTL_KETTLE_DB_USERNAME root
 ENV XTL_KETTLE_DB_PASS root
-ENV XTL_APP_LOG_PATH /opt/smart-kettle-2021.3-make-assembly/smart-kettle-2021.3/log
+ENV XTL_APP_LOG_PATH /opt/smart-kettle-2021.4-make-assembly/smart-kettle-2021.4/log
 ENV XTL_APP_LOG_LEVEL info
-ENTRYPOINT ["java","-jar","-Xms500m","-Xmx1g","-XX:MaxDirectMemorySize=1g","-Dsun.net.client.defaultConnectTimeout=60000","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/smart-kettle-2021.3-make-assembly/smart-kettle-2021.3/server/config/application-dev.yml","/opt/smart-kettle-2021.3-make-assembly/smart-kettle-2021.3/server/smart-kettle-2021.3.jar"]
+ENTRYPOINT ["java","-jar","-Xms500m","-Xmx1g","-XX:MaxDirectMemorySize=1g","-Dsun.net.client.defaultConnectTimeout=60000","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/smart-kettle-2021.4-make-assembly/smart-kettle-2021.4/server/config/application-dev.yml","/opt/smart-kettle-2021.4-make-assembly/smart-kettle-2021.4/server/smart-kettle-2021.4.jar"]
