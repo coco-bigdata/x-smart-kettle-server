@@ -40,6 +40,8 @@ import org.yaukie.frame.kettle.core.XJobSubmit;
 import org.yaukie.frame.kettle.quartz.XQuartHandleService;
 import org.yaukie.frame.kettle.service.JobService;
 import org.yaukie.frame.kettle.service.LogService;
+import org.yaukie.frame.pool.StandardPoolExecutor;
+import org.yaukie.frame.pool.StandardThreadFactory;
 import org.yaukie.xtl.KettleUtil;
 import org.yaukie.xtl.cons.Constant;
 import org.yaukie.xtl.cons.XJobStatus;
@@ -54,6 +56,7 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
 * @author: yuenbin
@@ -91,6 +94,30 @@ public class XJobApiController extends BaseController {
 
     @Resource
     private ExtendMapper extendMapper;
+
+
+    @Autowired
+    private StandardPoolExecutor executor ;
+
+    @GetMapping(value = "/move2db")
+    @ApiOperation("文件库一键搬移至数据库")
+    @EnablePage
+    @LogAround("文件库一键搬移至数据库")
+    public BaseResult doMove2Db(
+            @RequestParam(value = "flag",required = false)String flag) {
+
+        /**通过引用来记录线程池工厂中线程*/
+          Set<Thread> threadsContainer = new HashSet<>();
+
+            StandardThreadFactory threadFactory = new StandardThreadFactory("kettleThreadPool",threadsContainer);
+             executor.setThreadFactory(threadFactory);
+            executor.allowCoreThreadTimeOut(true);
+             executor.execute(()->{
+                 // to -do
+            }) ;
+             return  null ;
+    }
+
 
     @GetMapping(value = "/qryTrendData")
     @ApiOperation("趋势数据")
