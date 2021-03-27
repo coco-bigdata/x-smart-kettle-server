@@ -17,7 +17,7 @@
 //                    containerTemplate(name: 'jnlp', image: "jnlpwithssh:latest", ttyEnabled: true, command: '', args: '${computer.jnlpmac} ${computer.name}'),
                     containerTemplate(name: 'docker', image: 'library/docker:latest', ttyEnabled: true, command: 'cat', args: '')
                         ],
-            imagePullSecrets: ['artifactory-lambo'],
+            imagePullSecrets: ['artifactory-smart'],
             volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
         )
             {
