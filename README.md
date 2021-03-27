@@ -480,7 +480,7 @@
         ```
             Start.java
         ```
-        启动应用，并在浏览器访问：http://ip:port/xtl-server/swagger-ui.hml ,出现如下截图，那么恭喜您启动成功：
+        启动应用，并在浏览器访问：http://ip:port/xtl-server/swagger-ui.html ,出现如下截图，那么恭喜您启动成功：
         ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start.png)
         ![启动截图](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/start.png)
         ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start.png)

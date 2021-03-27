@@ -1,11 +1,10 @@
      def label = "mydev-${UUID.randomUUID().toString()}"
     def img_version = '${img_version}'
-    def project_name = "springboot-sharding-dev"
+    def project_name = "smart-kettle"
     def img_name = project_name
-    def package_name = "yaukie"
-    def git_address = "github.com/"+package_name+"/"+project_name+".git"
+    def name_space = "yaukie"
     def setting_name = "settings"
-    def repo_url = "registry.cn-hangzhou.aliyuncs.com"
+    def repo_url = "registry.cn-qingdao.aliyuncs.com"
     def user_name = "yaukie@163.com"
     def pass_word = "wst123456"
 
@@ -19,7 +18,7 @@
                        extensions: [],
                        submoduleCfg: [],
                        userRemoteConfigs: [[credentialsId: '67383ec2-d738-4632-b4b8-36c70180efb0',
-                       url: 'http://open.inspur.com/yuenbin/springboot-sharding-dev.git']]]
+                       url: 'https://gitee.com/yaukie/x-smart-kettle-server.git']]]
              )
              echo '仓库源码拉取成功....'
          }
@@ -34,17 +33,21 @@
              echo '准备推送镜像....'
              dir("docker/"){
                  sh 'ls -al '
-                 sh 'rm -f  *.jar'
+                 sh 'rm -f  *.tar.gz'
                  echo project_name+'.jar删除成功,准备登录阿里云....'
              }
-               sh 'docker login -u '+user_name+ ' -p '+pass_word+' registry.cn-hangzhou.aliyuncs.com'
+             sh 'docker login -u '+user_name+ ' -p '+pass_word+' '+repo_url
              echo '阿里云镜像仓库登录成功....'
-             sh 'cp target/*.jar  docker/'
-             def img_url = repo_url + '/'+ package_name+'/'+project_name+':'+img_version
+             echo '准备删除本地镜像文件 smart-kettle ...'
+             sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+             echo '准备删除本地镜像文件 smart-kettle-'+img_version
+             sh 'docker rmi `docker images | grep -v grep | grep \'smart-kettle\' | awk \'{print $3}\'`'
+             echo '本地镜像文件删除成功...!'
+             sh 'cp target/*.tar.gz  docker/'
+             def img_url = repo_url + '/'+ name_space+'/'+project_name+':'+img_version
              sh 'cd  docker/ && docker build -t '+ img_url + ' .'
              sh 'docker push '+ img_url
              echo '镜像已成功推送至阿里云....'
-
          }
 
      }
