@@ -39,7 +39,7 @@
              sh 'docker login -u '+user_name+ ' -p '+pass_word+' '+repo_url
              echo '阿里云镜像仓库登录成功....'
              echo '准备删除本地镜像文件 smart-kettle ...'
-             sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+             sh 'docker stop $(docker ps -a  | awk  \'{print $1,$NF}\' | grep -v grep | grep \'smart-kettle\'| awk -F \' \' \'{print $1}\') && docker rm $(docker ps -a  | awk  \'{print $1,$NF}\' | grep -v grep | grep \'smart-kettle\'| awk -F \' \' \'{print $1}\')'
              echo '准备删除本地镜像文件 smart-kettle-'+img_version
              sh 'docker rmi `docker images | grep -v grep | grep \'smart-kettle\' | awk \'{print $3}\'`'
              echo '本地镜像文件删除成功...!'
