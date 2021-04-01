@@ -51,6 +51,12 @@
 		 <dependency>
 			<groupId>org.yaukie.xtl</groupId>
 			<artifactId>x-kettle-core</artifactId>
+             <exclusions>
+                 <exclusion>
+                     <groupId>pentaho</groupId>
+                     <artifactId>simple-jndi</artifactId>
+                 </exclusion>
+             </exclusions>
 			<version>2021.4</version>
 		</dependency>
         <!-- 定义 lombok 版本 -->
