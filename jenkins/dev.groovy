@@ -6,7 +6,7 @@
     def setting_name = "settings"
     def repo_url = "registry.cn-qingdao.aliyuncs.com"
     def user_name = '${docker_user_name}'
-    def pass_word = "${docker_pass_word}"
+    def pass_word = '${docker_pass_word}'
      def deploy_server_name = '${remote_server_name}'
      def deploy_server_host = '${remote_server_host}'
      def deploy_server_user = '${remote_server_name}'
