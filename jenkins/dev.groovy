@@ -5,9 +5,12 @@
     def name_space = "yaukie"
     def setting_name = "settings"
     def repo_url = "registry.cn-qingdao.aliyuncs.com"
-    def user_name = "yaukie@163.com"
-    def pass_word = "wst123456"
-
+    def user_name = '${docker_user_name}'
+    def pass_word = "${docker_pass_word}"
+     def deploy_server_name = '${remote_server_name}'
+     def deploy_server_host = '${remote_server_host}'
+     def deploy_server_user = '${remote_server_name}'
+     def deploy_server_password = '${remote_server_password}'
      node {
 
          stage('Preparation') {
@@ -38,16 +41,26 @@
              }
              sh 'docker login -u '+user_name+ ' -p '+pass_word+' '+repo_url
              echo '阿里云镜像仓库登录成功....'
-             echo '准备删除本地镜像文件 smart-kettle ...'
-             sh 'docker stop $(docker ps -a  | awk  \'{print $1,$NF}\' | grep -v grep | grep \'smart-kettle\'| awk -F \' \' \'{print $1}\') && docker rm $(docker ps -a  | awk  \'{print $1,$NF}\' | grep -v grep | grep \'smart-kettle\'| awk -F \' \' \'{print $1}\')'
-             echo '准备删除本地镜像文件 smart-kettle-'+img_version
-             sh 'docker rmi `docker images | grep -v grep | grep \'smart-kettle\' | awk \'{print $3}\'`'
-             echo '本地镜像文件删除成功...!'
+           //  echo '准备删除本地镜像文件 smart-kettle ...'
+          //  sh 'docker stop $(docker ps -a  | awk  \'{print $1,$NF}\' | grep -v grep | grep \'smart-kettle\'| awk -F \' \' \'{print $1}\') && docker rm $(docker ps -a  | awk  \'{print $1,$NF}\' | grep -v grep | grep \'smart-kettle\'| awk -F \' \' \'{print $1}\')'
+        //     echo '准备删除本地镜像文件 smart-kettle-'+img_version
+            // sh 'docker rmi `docker images | grep -v grep | grep \'smart-kettle\' | awk \'{print $3}\'`'
+           //  echo '本地镜像文件删除成功...!'
              sh 'cp target/*.tar.gz  docker/'
              def img_url = repo_url + '/'+ name_space+'/'+project_name+':'+img_version
              sh 'cd  docker/ && docker build -t '+ img_url + ' .'
              sh 'docker push '+ img_url
              echo '镜像已成功推送至阿里云....'
+         }
+
+         def remote = [:]
+         remote.name = deploy_server_name
+         remote.host = deploy_server_host
+         remote.user = deploy_server_user
+         remote.password = deploy_server_password
+         remote.allowAnyHosts = true
+         stage('remote-deploy') {
+             sshCommand remote: remote, command: 'cd /opt/docker/smart-kettle && docker-compose pull ' + img_name + '  && docker-compose stop ' + img_name + ' && docker-compose up -d ' + img_name;
          }
 
      }

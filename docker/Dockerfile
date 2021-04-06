@@ -6,6 +6,8 @@ MAINTAINER yuenbin "yaukie@163.com"
 ADD smart-kettle-*.tar.gz /opt
 #挂载容器日志目录到虚拟机上
 VOLUME /opt/aps/logs:/opt/smart-kettle-2021.4/log
+# CentOS
+RUN echo "Asia/shanghai" > /etc/timezone;
 #设置环境变量
 ENV JAVA_HOME /usr/java/jdk1.8.0_121 
 ENV PATH $JAVA_HOME/bin:$PATH 
