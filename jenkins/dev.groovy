@@ -9,7 +9,7 @@
     def pass_word = '${docker_pass_word}'
      def deploy_server_name = '${remote_server_name}'
      def deploy_server_host = '${remote_server_host}'
-     def deploy_server_user = '${remote_server_name}'
+     def deploy_server_user = '${remote_server_user}'
      def deploy_server_password = '${remote_server_password}'
      node {
 
