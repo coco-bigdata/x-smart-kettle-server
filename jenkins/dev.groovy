@@ -51,16 +51,21 @@
              sh 'cd  docker/ && docker build -t '+ img_url + ' .'
              sh 'docker push '+ img_url
              echo '镜像已成功推送至阿里云....'
+             echo '准备启动 smart-kettle....'
+            sh 'cd /opt/docker/smart-kettle && docker-compose pull ' + img_name + '  && docker-compose stop ' + img_name + ' && docker-compose up -d ' + img_name
+             echo 'smart-kettle 启动成功!'
          }
 
-         def remote = [:]
-         remote.name = deploy_server_name
-         remote.host = deploy_server_host
-         remote.user = deploy_server_user
-         remote.password = deploy_server_password
-         remote.allowAnyHosts = true
-         stage('remote-deploy') {
-             sshCommand remote: remote, command: 'cd /opt/docker/smart-kettle && docker-compose pull ' + img_name + '  && docker-compose stop ' + img_name + ' && docker-compose up -d ' + img_name;
          }
 
-     }
+//         def remote = [:]
+//         remote.name = deploy_server_name
+//         remote.host = deploy_server_host
+//         remote.user = deploy_server_user
+//         remote.password = deploy_server_password
+//         remote.allowAnyHosts = true
+//         stage('remote-deploy') {
+//             sshCommand remote: remote, command: 'cd /opt/docker/smart-kettle && docker-compose pull ' + img_name + '  && docker-compose stop ' + img_name + ' && docker-compose up -d ' + img_name;
+//         }
+
+
