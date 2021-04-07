@@ -83,6 +83,15 @@
 ![平台功能架构](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
 ![平台功能架构](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
 
+
+## 技术方案
+    - 前端使用nginx 作为前端服务器 
+    - 前端使用vue作为展现框架
+    - 数据库端使用mysql作为基础数据库
+    - 数据库监控使用Druid作为基础监控
+    - 定时调度使用Quartz作为基础插件
+    - 后端框架使用Springboot+Mybatis作为组合 
+
 ## 项目简介
 整个工程的目录结构如下：  
 后端工程：
@@ -284,7 +293,7 @@
    - 给你封装好插件，本地bat或shell脚本跑
    - 基于云端地址访问（需要购买阿里云或其他什么云服务器，要收费哦）  
    
-### 1. 源码访问
+### 1. 离线部署(源码访问)
 - 下载 x-smart-kettle-server 后端应用 ，下载地址详见上述简介    
 - 步骤一  
           将源码下载到本地，建议使用IDEA打开（Eclipse的没空研究，本人很久不再使用）,至于如何下载，如何导入至IDEA，
@@ -519,14 +528,16 @@
            ![启动截图](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/start2.png)
            ![启动截图](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/start2.png)
 
-### 2. 懒人模式
+### 2. 在线部署(懒人模式)
     懒人模式使用方式针对那些不想下载源码，也不想自己搭建本地环境、下载依赖，说白了就是想通过傻瓜式的方式使用本系统。  
     那么，本人也为有这类需求的读者或企业提供了最省时省力的使用方式，详情请点击如下链接访问，查看具体使用教程：
-  懒人教程请点击：-> https://my.oschina.net/yaukie/blog/4993603
+    懒人教程请点击：  
+    -> https://my.oschina.net/yaukie/blog/4993603
         
-### 3. 云端访问
-   - 打算搞个阿里云服务器，但太贵了，暂时没钱，，不过读者要是赞助一下，可以考虑^_^
- TODO
+### 3. 云端部署(docker部署)
+    
+    
+    
 ## 后续计划
        Smart Kettle 目前尚未完全实现Kettle web 端的编排，因此使用此系统还需要借助Kettle 客户端完成复杂作业及转换  
        的设计、测试，但提供了友好、优美、简洁的前端监控能力，kettle 组件的web端流程编排是以后本系统前进的方向，努力 
