@@ -29,6 +29,7 @@
  
  ## 联系我们
  联系邮箱： 869952837@qq.com
+ 
 
 ## 简介
      Smart Kettle是针对上述企业的痛点，对kettle的使用做了一些包装、优化，使其在web端也能
@@ -85,13 +86,20 @@
 
 
 ## 技术方案
+    技术栈:  
     - 前端使用nginx 作为前端服务器 
     - 前端使用vue作为展现框架
     - 数据库端使用mysql作为基础数据库
     - 数据库监控使用Druid作为基础监控
     - 定时调度使用Quartz作为基础插件
     - 后端框架使用Springboot+Mybatis作为组合 
-
+    演示环境:  
+      - 域名访问 :
+          http://yuenbin.cn/test-kettle-admin
+          用户名-密码:superadmin或admin-1
+      - ip访问:
+          http://101.132.24.211/test-kettle-admin
+          用户名-密码:superadmin或admin-1
 ## 项目简介
 整个工程的目录结构如下：  
 后端工程：
@@ -535,8 +543,13 @@
     -> https://my.oschina.net/yaukie/blog/4993603
         
 ### 3. 云端部署(docker部署)
+      
+    - Smart Kettle 前端
+        docker pull registry.cn-qingdao.aliyuncs.com/yaukie/kettle-admin:2021.4
+        docker run --name test-kettle-admin -p 80:80 -d 4d9e5818013a  
     
-    
+    - Smart Kettle 后端
+        docker pull registry.cn-qingdao.aliyuncs.com/yaukie/smart-kettle:2021.4
     
 ## 后续计划
        Smart Kettle 目前尚未完全实现Kettle web 端的编排，因此使用此系统还需要借助Kettle 客户端完成复杂作业及转换  
