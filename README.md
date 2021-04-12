@@ -541,31 +541,31 @@
     -> https://my.oschina.net/yaukie/blog/4993603
         
 ### 3. 云端部署(docker部署)
-     本平台采用前后端分离,前后端都支持docker 远程镜像部署、拉取，支持云部署，读者可根据需要拉取镜像，完成本地化部署  
+  本平台采用前后端分离,前后端都支持docker 远程镜像部署、拉取，支持云部署，读者可根据需要拉取镜像，完成本地化部署  
     - Smart Kettle 前端
        前端镜像地址为：registry.cn-qingdao.aliyuncs.com/yaukie/kettle-admin:2021.4  
         --- 1. 登录服务器，执行如下docker命令，拉取Smart Kettle镜像， 
          docker pull registry.cn-qingdao.aliyuncs.com/yaukie/kettle-admin:2021.4  
-      ![前端镜像](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/f_1.png)  
+   ![前端镜像](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/f_1.png)  
       出现上图的images,说明镜像拉取成功了  
     
-       --- 2. 启动镜像文件  
-       执行 docker images 命令,拿到对应的镜像ID  
-            ![前端镜像](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/f_3.png)     
+   --- 2. 启动镜像文件  
+     执行 docker images 命令,拿到对应的镜像ID  
+   ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/f_3.png)     
             然后执行如下命令,   
         docker run --name test-kettle-admin -p 80:80 -d d84b07291e84    
         执行上述命令之后,在系统上再执行 docker ps ,查看已经启动的容器信息  
-      ![前端镜像](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/f_4.png)  
+      ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/f_4.png)  
       出现上述的信息表示,系统启动成功!  
         然后直接在浏览器中,输入http://ip/test-kettle-admin 访问即可,如下图所示:
-          ![前端镜像](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/f_5.png)    
+      ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/f_5.png)    
           
-    - Smart Kettle 后端
+  - Smart Kettle 后端
         Smart Kettle 后端镜像拉取、部署方式跟前端类似，具体步骤不再赘述  
         需要执行的docker 拉取镜像的命令为：  
         docker pull registry.cn-qingdao.aliyuncs.com/yaukie/smart-kettle:2021.4  
         启动之后，在浏览器访问：http://ip/xtl-server/swagger-ui.html  出现如下图:  
-        ![前端镜像](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/h_2.png)    
+        ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/h_2.png)    
         恭喜你,后端也执行成功!
   
 ## 后续计划
