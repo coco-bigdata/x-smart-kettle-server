@@ -542,7 +542,7 @@
         
 ### 3. 云端部署(docker部署)
   本平台采用前后端分离,前后端都支持docker 远程镜像部署、拉取，支持云部署，读者可根据需要拉取镜像，完成本地化部署  
-    - Smart Kettle 前端
+    - Smart Kettle 前端  
        前端镜像地址为：registry.cn-qingdao.aliyuncs.com/yaukie/kettle-admin:2021.4  
         --- 1. 登录服务器，执行如下docker命令，拉取Smart Kettle镜像， 
          docker pull registry.cn-qingdao.aliyuncs.com/yaukie/kettle-admin:2021.4  
@@ -560,7 +560,7 @@
         然后直接在浏览器中,输入http://ip/test-kettle-admin 访问即可,如下图所示:
       ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/f_5.png)    
           
-  - Smart Kettle 后端
+  - Smart Kettle 后端  
         Smart Kettle 后端镜像拉取、部署方式跟前端类似，具体步骤不再赘述  
         需要执行的docker 拉取镜像的命令为：  
         docker pull registry.cn-qingdao.aliyuncs.com/yaukie/smart-kettle:2021.4  
