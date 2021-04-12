@@ -67,7 +67,7 @@ logging:
   #系统日志存放路径
   path: ${XTL_APP_LOG_PATH:/maven/xtl-web-server/logs}
   level:
-    root: ${XTL_APP_LOG_LEVEL:info}
+    root: ${XTL_APP_LOG_LEVEL:debug}
     #扫描mapper配置,统一放到classpath目录下
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
