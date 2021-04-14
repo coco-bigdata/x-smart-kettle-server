@@ -117,23 +117,31 @@ public class XRepoApiController extends BaseController {
             @RequestParam(name = "type", required = false) String type) {
         List<RepositoryTree> repositoryTrees = getRepoTress();
         List<RepositoryTree> subTrees = new ArrayList<>() ;
-        repositoryTrees.forEach(item ->{
-            if(item.getParent().equals(pId)){
-                if(item.isLasted()){
-                    if(!StringUtils.isEmpty(type)){
-                        if (item.getType().indexOf(type) !=-1)
-                        {
+        try
+        {
+            repositoryTrees.forEach(item ->{
+                if(item.getParent().equals(pId)){
+                    if(item.isLasted()){
+                        if(!StringUtils.isEmpty(type)){
+                            if (item.getType().indexOf(type) !=-1)
+                            {
+                                subTrees.add(item) ;
+                            }
+                        }else {
                             subTrees.add(item) ;
                         }
+
                     }else {
                         subTrees.add(item) ;
                     }
-
-                }else {
-                    subTrees.add(item) ;
                 }
-            }
-        });
+            });
+        }catch (Exception e)
+        {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            throw new UserDefinedException(BaseResultConstant.UNKNOW_EXCEPTION, sw.toString().substring(0, 800));
+        }
 
         return new UniformReponseHandler()
                 .sendSuccessResponse(subTrees) ;
@@ -211,9 +219,7 @@ public class XRepoApiController extends BaseController {
                             }
 
                         } catch (KettleException e) {
-                            StringWriter sw = new StringWriter();
-                            e.printStackTrace(new PrintWriter(sw));
-                            throw new UserDefinedException(BaseResultConstant.UNKNOW_EXCEPTION, sw.toString().substring(0, 800));
+                            throw new RuntimeException(e) ;
                         }
                     } else {
                         //数据库
@@ -237,9 +243,7 @@ public class XRepoApiController extends BaseController {
                             }
 
                         } catch (KettleException e) {
-                            StringWriter sw = new StringWriter();
-                            e.printStackTrace(new PrintWriter(sw));
-                            throw new UserDefinedException(BaseResultConstant.UNKNOW_EXCEPTION, sw.toString().substring(0, 800));
+                            throw new RuntimeException(e) ;
                         }
                     }
                     RepositoryTree repositoryTree;
