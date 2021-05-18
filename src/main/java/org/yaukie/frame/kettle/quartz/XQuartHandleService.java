@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaukie.builder.QuartzManager;
-import org.yaukie.core.base.service.BaseService;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XJobService;
 import org.yaukie.frame.autocode.service.api.XQuartzService;

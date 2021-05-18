@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.pentaho.di.core.exception.KettleException;
 import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Component;
-import org.yaukie.core.util.SpringContextUtil;
+import org.yaukie.base.util.SpringContextUtil;
 import org.yaukie.frame.autocode.model.XJob;
 
 import java.io.PrintWriter;

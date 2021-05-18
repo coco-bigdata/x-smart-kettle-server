@@ -6,7 +6,7 @@ import org.pentaho.di.core.Result;
 import org.pentaho.di.job.Job;
 import org.pentaho.di.trans.Trans;
 import org.springframework.beans.factory.annotation.Autowired;
- import org.yaukie.core.util.GenCodeUtil;
+ import org.yaukie.base.util.GenCodeUtil;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XJobService;
 import org.yaukie.frame.autocode.service.api.XMonitorService;

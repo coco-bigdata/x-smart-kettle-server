@@ -32,8 +32,7 @@ import java.util.concurrent.TimeUnit;
  * @Destrib: kettle环境初始化入口工具
  **/
 @Configuration
-@EnableConfigurationProperties(KettleThreadPoolProperties.class)
-@Slf4j
+ @Slf4j
 public class KettleInitConfig {
 
 
@@ -69,17 +68,17 @@ public class KettleInitConfig {
      * 为了提高转换或作业执行效率
       * @return StandardThreadExecutor
      */
-    @Bean
-    public StandardPoolExecutor executor(KettleThreadPoolProperties properties) {
+    @Bean("executor")
+    public StandardPoolExecutor executor(KettleThreadPoolProperties kettleThreadPoolProperties) {
         log.debug("线程池准备初始化..");
         Set<Thread> threadSet = new HashSet<>();
         return new StandardPoolExecutor(
-                properties.getCoreThreads(),
-                properties.getMaxThreads(),
-                properties.getKeepAliveTimeMin(),
+                kettleThreadPoolProperties.getCoreThreads(),
+                kettleThreadPoolProperties.getMaxThreads(),
+                kettleThreadPoolProperties.getKeepAliveTimeMin(),
                 TimeUnit.SECONDS,
-                properties.getQueueCapacity(),
-                new StandardThreadFactory(properties.getNamePrefix(),threadSet),
+                kettleThreadPoolProperties.getQueueCapacity(),
+                new StandardThreadFactory(kettleThreadPoolProperties.getNamePrefix(),threadSet),
                 new ThreadPoolExecutor.AbortPolicy()
         );
     }

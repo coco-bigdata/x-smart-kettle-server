@@ -17,7 +17,7 @@ import org.yaukie.core.BaseJob;
  * @Destrib: 作业定时调度,用户适配springboot启动加载
  **/
 @Slf4j
-public abstract  class DefaultBaseJob extends BaseJob  {
+public abstract  class DefaultBaseJob extends BaseJob {
 
     public DefaultBaseJob(){
 

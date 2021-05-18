@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import net.sf.json.JSONArray;
 import org.springframework.util.CollectionUtils;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.PageResult;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.PageResult;
 import org.yaukie.frame.autocode.service.api.XParamsService;
 import org.yaukie.frame.autocode.model.XParams;
 import org.yaukie.frame.autocode.model.XParamsExample;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author: yuenbin

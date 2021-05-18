@@ -1,20 +1,16 @@
 package org.yaukie.frame.kettle.service;
 
-import com.atomikos.util.DateHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.pentaho.di.core.exception.KettleException;
-import org.pentaho.di.core.logging.*;
+import org.pentaho.di.core.logging.LogLevel;
 import org.pentaho.di.repository.Repository;
 import org.pentaho.di.trans.Trans;
 import org.pentaho.di.trans.TransMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.yaukie.core.base.service.BaseService;
+import org.yaukie.base.util.DateHelper;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XLogService;
 import org.yaukie.frame.autocode.service.api.XQuartzService;
@@ -27,11 +23,8 @@ import org.yaukie.xtl.cons.Constant;
 import org.yaukie.xtl.cons.XTransStatus;
 import org.yaukie.xtl.exceptions.XtlExceptions;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

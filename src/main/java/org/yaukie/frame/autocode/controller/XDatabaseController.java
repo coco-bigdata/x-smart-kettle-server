@@ -5,12 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.exception.KettleException;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.annotation.LogAround;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.PageResult;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.PageResult;
 import org.yaukie.frame.autocode.service.api.XDatabaseService;
 import org.yaukie.frame.autocode.model.XDatabase;
 import org.yaukie.frame.autocode.model.XDatabaseExample;

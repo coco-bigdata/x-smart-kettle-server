@@ -5,7 +5,7 @@
     <parent>
         <artifactId>x-common-pro</artifactId>
         <groupId>org.yaukie.frame</groupId>
-        <version>2021.4</version>
+        <version>2021.5</version>
         <relativePath>../x-common-pro/pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
@@ -13,7 +13,7 @@
 
     <groupId>org.yaukie.frame</groupId>
      <artifactId>smart-kettle</artifactId>
-    <version>2021.4</version>
+    <version>2021.5</version>
 
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,8 +46,13 @@
         <dependency>
             <groupId>org.yaukie.core</groupId>
             <artifactId>x-common-base</artifactId>
-            <version>2021.4</version>
-              </dependency>
+            <version>2021.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.yaukie.core</groupId>
+            <artifactId>x-common-auth</artifactId>
+            <version>2021.5</version>
+        </dependency>
 		 <dependency>
 			<groupId>org.yaukie.xtl</groupId>
 			<artifactId>x-kettle-core</artifactId>
@@ -67,11 +72,11 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/*.yml</exclude>
-                    <exclude>**/*.kjb</exclude>
-                </excludes>
-                <filtering>true</filtering>
+                <!--<excludes>-->
+                    <!--<exclude>**/*.yml</exclude>-->
+                    <!--<exclude>**/*.kjb</exclude>-->
+                <!--</excludes>-->
+                <!--<filtering>true</filtering>-->
             </resource>
         </resources>
         <plugins>

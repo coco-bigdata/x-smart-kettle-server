@@ -6,6 +6,7 @@ server:
   #配置数据源
 spring:
   redis:
+    # 默认不开启 则使用内置Map 作为缓存使用
     enabled: ${XTL_REDIS_ENABLED:false}
     host: ${XTL_REDIS_HOST:127.0.0.1}
     port: ${XTL_REDIS_PORT:6379}
@@ -21,17 +22,30 @@ spring:
   application:
     name: ${XTL_APP_NAME:xtl-app} #应用服务名称
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    #系统数据库访问地址【必填项】
-    url: ${XTL_APP_DATASOURCE_URL:jdbc:mysql://localhost:3306/xtl?useUniCode=true&characterEncoding=UTF-8}
-    #系统数据库用户名【必填项】
-    username: ${XTL_APP_DATASOURCE_USERNAME:root}
-    #系统数据库密码【必填项】
-    password: ${XTL_APP_DATASOURCE_PASS:root}
+    druid:
+      # 主库数据源
+      master:
+        #系统数据库访问地址【必填项】
+        url: ${XTL_APP_DATASOURCE_URL:jdbc:mysql://localhost:3306/xtl?useUniCode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8}
+        #系统数据库用户名【必填项】
+        username: ${XTL_APP_DATASOURCE_USERNAME:root}
+        #系统数据库密码【必填项】
+        password: ${XTL_APP_DATASOURCE_PASS:root}
+      # 从库数据源
+      slave:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url:
+        username:
+        password:
     # 关闭sharding-jdbc 必须为false
   shardingsphere:
     enabled: false
+# 设置时区
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
 kettle:
   scheduler:
     #是否开启定时调度，默认为fals，则系统启动不会自动执行定时
@@ -63,11 +77,43 @@ kettle:
     queueCapacity: ${XTL_THREAD_POOL_QUEUE_CAPACITY:100}
     # 5分钟空闲则释放
     keepAliveTimeMin: ${XTL_THREAD_POOL_KEEPALIVE:5}
+
+# Swagger配置
+swagger:
+  # 是否开启swagger
+  enabled: true
+  # 请求前缀
+  pathMapping: /
+  #当前系统版本号
+  version: V2021.5
+
+# 系统验证配置
+yaukie:
+  auth:
+    enabled: true
+    encoder:
+      type: md5
+    # 是否开启权限认证模块
+    # 如果开启登录验证模块,此配置有效
+  token:
+    # 令牌自定义标识
+    header: Authorization
+    # 令牌密钥
+    secret: yuenbin@inspur.com&yaukie@163.com
+    # 令牌有效期（默认5分钟）
+    expireTime: 5
+    # 令牌刷新间隔 1 分钟
+    refresh: 1
+
 logging:
   #系统日志存放路径
   path: ${XTL_APP_LOG_PATH:/maven/xtl-web-server/logs}
   level:
+<<<<<<< HEAD
+=======
+    org.yaukie.**.mapper: info
+>>>>>>> 1eec59c... 增加主从数据库,认证机制,内部缓存机制,优化框架
     root: ${XTL_APP_LOG_LEVEL:info}
     #扫描mapper配置,统一放到classpath目录下
 mybatis:
-  mapper-locations: classpath*:mapper/*.xml
+  mapper-locations: classpath*:mapper/**/*Mapper.xml

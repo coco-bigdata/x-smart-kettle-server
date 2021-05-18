@@ -1,6 +1,6 @@
 package org.yaukie.frame.autocode;
 
-import org.yaukie.core.util.GeneratorUtil;
+import org.yaukie.base.util.GeneratorUtil;
 
 /**
  * @Author: yuenbin
@@ -12,14 +12,14 @@ import org.yaukie.core.util.GeneratorUtil;
 public class Generator {
 
     public static void main(String[] args) {
-        GeneratorUtil.generator("jdbc:mysql://localhost:3306/xtl",
+        GeneratorUtil.generator("jdbc:mysql://localhost:3306/xtl?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC",
                 "root",
                 "root",
                 "com.mysql.jdbc.Driver",
                 "org.yaukie.frame.autocode",
                 "id",
                 true,
-                "x_template"
+                "x_oper_log"
         );
     }
 

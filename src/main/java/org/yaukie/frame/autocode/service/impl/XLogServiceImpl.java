@@ -1,6 +1,6 @@
 
 package org.yaukie.frame.autocode.service.impl;
-import org.yaukie.core.base.service.BaseService;
+import org.yaukie.base.core.service.BaseService;
 import org.springframework.stereotype.Service;
  import org.yaukie.frame.autocode.dao.mapper.XLogMapper;
 import org.yaukie.frame.autocode.model.XLog;

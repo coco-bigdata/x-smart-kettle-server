@@ -1,6 +1,5 @@
 package org.yaukie.frame.kettle.service;
 
-import com.atomikos.util.DateHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.pentaho.di.core.exception.KettleException;
@@ -13,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.yaukie.core.base.service.BaseService;
+import org.yaukie.base.util.DateHelper;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XLogService;
 import org.yaukie.frame.autocode.service.api.XParamsService;

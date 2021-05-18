@@ -1,16 +1,13 @@
 package org.yaukie.frame.kettle.api;
 
-import com.atomikos.util.DateHelper;
+import org.yaukie.base.util.DateHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.job.JobMeta;
 import org.pentaho.di.repository.Repository;
@@ -22,15 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yaukie.builder.QuartzManager;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.annotation.LogAround;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.BaseResultConstant;
-import org.yaukie.core.constant.PageResult;
-import org.yaukie.core.exception.UserDefinedException;
-import org.yaukie.core.util.GenCodeUtil;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.BaseResultConstant;
+import org.yaukie.base.constant.PageResult;
+import org.yaukie.base.exception.UserDefinedException;
+import org.yaukie.base.util.GenCodeUtil;
 import org.yaukie.frame.autocode.dao.mapper.ExtendMapper;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XJobService;
@@ -56,7 +53,6 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
 * @author: yuenbin
@@ -491,15 +487,6 @@ public class XJobApiController extends BaseController {
     }
 
 
-    @GetMapping(value = "/qryQueueTasks")
-    @ApiOperation("查询队列任务数")
-    public BaseResult qryQueueTasks() {
-        int currentTasks = xJobSubmit.getCurrentTaskCounts();
-        log.debug("当前任务数有{}个", currentTasks);
-        Map data = new HashMap();
-        data.put("TASKS", currentTasks);
-        return new UniformReponseHandler<>().sendSuccessResponse(data);
-    }
 
     @RequestMapping(value = "/startJob")
     @ApiImplicitParams({
