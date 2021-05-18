@@ -109,10 +109,7 @@ logging:
   #系统日志存放路径
   path: ${XTL_APP_LOG_PATH:/maven/xtl-web-server/logs}
   level:
-<<<<<<< HEAD
-=======
     org.yaukie.**.mapper: info
->>>>>>> 1eec59c... 增加主从数据库,认证机制,内部缓存机制,优化框架
     root: ${XTL_APP_LOG_LEVEL:info}
     #扫描mapper配置,统一放到classpath目录下
 mybatis:
