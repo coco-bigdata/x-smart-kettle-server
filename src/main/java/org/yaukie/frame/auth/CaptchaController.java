@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yaukie.auth.constant.AjaxResult;
 import org.yaukie.auth.service.api.CaptchaHandlerService;
@@ -19,6 +20,7 @@ import org.yaukie.base.util.StringTools;
  * @Destrib: 验证码获取逻辑
  **/
 @RestController
+@RequestMapping(value = "/capcha")
 @Api(value = "系统验证获取接口", description = "系统验证获取接口")
 @Slf4j
 public class CaptchaController {

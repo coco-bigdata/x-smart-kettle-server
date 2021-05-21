@@ -279,7 +279,7 @@
         log_msg logMsg,
         log_error logError,
         log_subject logSub,
-        date_format(created_time,'%Y-%m-%d %H:%i:%S') startTime
+        date_format(created_time,'%Y-%m-%d %H:%i:%s') startTime
         FROM x_log_warning
         WHERE
         log_type = 'job'
@@ -296,7 +296,7 @@
         log_msg logMsg,
         log_error logError,
         log_subject logSub,
-        date_format(created_time,'%Y-%m-%d %H:%i:%S') startTime
+        date_format(created_time,'%Y-%m-%d %H:%i:%s') startTime
         FROM x_log_warning
         WHERE
         log_type = 'trans'
@@ -314,7 +314,7 @@
         <if test="jobName !=null and jobName !=''">
             and a.name like CONCAT('%', CONCAT(#{jobName}, '%'))
         </if>
-        ORDER BY str_to_date(a.startTime,'%Y-%m-%d %H:%i:%S') DESC
+        ORDER BY str_to_date(a.startTime,'%Y-%m-%d %H:%i:%s') DESC
     </select>
     <!--取日志详情-->
     <select id="qryLogInfo" parameterType="map" resultType="map">
@@ -375,7 +375,7 @@
             and a.targetResult =#{targetResult}
         </if>
 
-        ORDER BY str_to_date(a.startTime, '%Y.%m.%d %H:%i:%S:%f') DESC
+        ORDER BY str_to_date(a.startTime, '%Y.%m.%d %H:%i:%s') DESC
 
     </select>
 
@@ -408,8 +408,8 @@
         FROM (SELECT *
         FROM x_log
         WHERE
-        STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%S:%f') IN
-        (SELECT max(STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%S:%f'))
+        STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%s') IN
+        (SELECT max(STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%s'))
         FROM x_log
         WHERE log_type='job'
         GROUP BY target_id)
@@ -455,8 +455,8 @@
         (SELECT *
         FROM x_log
         WHERE
-        STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%S:%f') IN
-        (SELECT max(STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%S:%f'))
+        STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%s') IN
+        (SELECT max(STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%s'))
         FROM x_log
         WHERE log_type='trans'
         GROUP BY target_id)
@@ -489,7 +489,7 @@
             and a.targetResult =#{targetResult}
         </if>
 
-        ORDER BY str_to_date(a.historyTime, '%Y.%m.%d %H:%i:%S:%f') DESC
+        ORDER BY str_to_date(a.historyTime, '%Y.%m.%d %H:%i:%s') DESC
 
     </select>
 
@@ -497,11 +497,11 @@
     <select id="qryTransLogText" parameterType="map" resultType="map">
         SELECT a.log_text as logText
 FROM x_log a, (SELECT max(str_to_date(start_time,
-                                      '%Y.%m.%d %H:%i:%S:%f'))
+                                      '%Y.%m.%d %H:%i:%s'))
   max_date
                FROM x_log
                WHERE target_id = #{transId} AND log_type = 'trans') b
-WHERE str_to_date(start_time, '%Y.%m.%d %H:%i:%S:%f') = b.max_date
+WHERE str_to_date(start_time, '%Y.%m.%d %H:%i:%s') = b.max_date
 
     </select>
 
@@ -509,11 +509,11 @@ WHERE str_to_date(start_time, '%Y.%m.%d %H:%i:%S:%f') = b.max_date
     <select id="qryJobLogText" parameterType="map" resultType="map">
         SELECT a.log_text as logText
 FROM x_log a, (SELECT max(str_to_date(start_time,
-                                      '%Y.%m.%d %H:%i:%S:%f'))
+                                      '%Y.%m.%d %H:%i:%s'))
   max_date
                FROM x_log
                WHERE target_id = #{jobId} AND log_type = 'job') b
-WHERE str_to_date(start_time, '%Y.%m.%d %H:%i:%S:%f') = b.max_date
+WHERE str_to_date(start_time, '%Y.%m.%d %H:%i:%s') = b.max_date
 
     </select>
 
@@ -559,13 +559,13 @@ WHERE str_to_date(start_time, '%Y.%m.%d %H:%i:%S:%f') = b.max_date
         G.STOP_TIME
         FROM X_LOG G, ( SELECT
         TARGET_ID,
-        MAX(STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%S:%f')) AS START_TIME
+        MAX(STR_TO_DATE(START_TIME, '%Y.%m.%d %H:%i:%s')) AS START_TIME
         FROM X_LOG
         WHERE LOG_TYPE = 'job'
         GROUP BY TARGET_ID
         ) A
         WHERE G.TARGET_ID = A.TARGET_ID
-        AND STR_TO_DATE(G.START_TIME, '%Y.%m.%d %H:%i:%S:%f') = A.START_TIME
+        AND STR_TO_DATE(G.START_TIME, '%Y.%m.%d %H:%i:%s') = A.START_TIME
         ) B
         WHERE 1 = 1
         <if test="startTime !=null and startTime !=''">
@@ -642,12 +642,12 @@ WHERE str_to_date(start_time, '%Y.%m.%d %H:%i:%S:%f') = b.max_date
         FROM x_log g, (SELECT
         target_id,
         max(str_to_date(start_time,
-        '%Y.%m.%d %H:%i:%S:%f')) AS start_time
+        '%Y.%m.%d %H:%i:%s')) AS start_time
         FROM x_log
         WHERE log_type = 'trans'
         GROUP BY target_id) a
         WHERE g.target_id = a.target_id AND
-        str_to_date(g.start_time, '%Y.%m.%d %H:%i:%S:%f') = a.start_time
+        str_to_date(g.start_time, '%Y.%m.%d %H:%i:%s') = a.start_time
         ) b
         WHERE 1 = 1
         <if test="startTime !=null and startTime !=''">

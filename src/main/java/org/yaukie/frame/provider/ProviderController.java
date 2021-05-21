@@ -15,9 +15,14 @@ import org.yaukie.base.core.controller.BaseController;
 import org.yaukie.base.config.UniformReponseHandler;
 import org.yaukie.base.constant.BaseResult;
 import org.yaukie.base.redis.RedisOrMapCache;
+import org.yaukie.base.util.StringTools;
+import org.yaukie.frame.autocode.model.XDict;
+import org.yaukie.frame.autocode.model.XDictExample;
+import org.yaukie.frame.autocode.service.api.XDictService;
 import org.yaukie.frame.kettle.core.XJobSubmit;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,6 +42,9 @@ public class ProviderController extends BaseController {
     @Autowired
     private RedisOrMapCache redisOrMapCache ;
 
+    @Autowired
+    private XDictService xDictService ;
+
     @GetMapping(value = "/keys")
     @ApiOperation("系统内存缓存key方法")
     @EnablePage
@@ -44,7 +52,10 @@ public class ProviderController extends BaseController {
     public AjaxResult keys(
             @RequestParam(value = "patterns",name = "patterns",required = false) String patterns
     ) {
-        Set<String> set = (Set<String>) redisOrMapCache.keys("");
+        if(StringTools.isNull(patterns)){
+            patterns="" ;
+        }
+        Set<String> set = (Set<String>) redisOrMapCache.keys(patterns);
           return AjaxResult.success(set);
     }
 
@@ -57,6 +68,16 @@ public class ProviderController extends BaseController {
         Map data = new HashMap();
         data.put("TASKS", currentTasks);
         return new UniformReponseHandler<>().sendSuccessResponse(data);
+    }
+
+    @GetMapping(value = "/getSysDicts")
+    @ApiOperation("查询系统枚举")
+    public BaseResult getSysDicts(
+            @RequestParam(value = "dictType",name = "dictType") String dictType ) {
+        XDictExample xDictExample = new XDictExample() ;
+        xDictExample.createCriteria().andDictIdEqualTo(dictType);
+        List<XDict> xDictxList = xDictService.selectByExample(xDictExample);
+        return new UniformReponseHandler<>().sendSuccessResponse(xDictxList);
     }
 
 }

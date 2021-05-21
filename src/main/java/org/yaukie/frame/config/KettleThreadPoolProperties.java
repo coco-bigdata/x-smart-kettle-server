@@ -15,38 +15,37 @@ import org.springframework.context.annotation.Configuration;
 **/
 @Data
 @Configuration(value = "kettleThreadPoolProperties")
-@ConfigurationProperties(prefix = "kettle.pool")
 public class KettleThreadPoolProperties {
 
     /**
      * 线程池前缀
      */
-    @Value("${namePrefix}")
+    @Value("${kettle.pool.namePrefix}")
     private String namePrefix ;
 
     /**
      * 核心线程数
      */
-    @Value("${coreThreads}")
+    @Value("${kettle.pool.coreThreads}")
     private int coreThreads;// = 20;
 
     /**
      * 最大的线程数
      */
-    @Value("${maxThreads}")
+    @Value("${kettle.pool.maxThreads}")
     private int maxThreads;// = 50;
 
     /**
      * 队列容量
      */
 
-    @Value("${queueCapacity}")
+    @Value("${kettle.pool.queueCapacity}")
     private int queueCapacity;// = 100;
 
     /**
      * 空闲x分钟则释放线程
      */
-    @Value("${keepAliveTimeMin}")
+    @Value("${kettle.pool.keepAliveTimeMin}")
     private long keepAliveTimeMin;// = 5;
 
 

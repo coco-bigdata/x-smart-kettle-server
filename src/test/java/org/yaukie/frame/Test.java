@@ -17,14 +17,15 @@ import java.io.InputStreamReader;
 public class Test {
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        String batPath = "C:/Philips/SIServer/PostStartupScript.bat"; // 把你的bat脚本路径写在这里
-        File batFile = new File(batPath);
-        boolean batFileExist = batFile.exists();
-        System.out.println("batFileExist:" + batFileExist);
-        if (batFileExist) {
-            callCmd(batPath);
-        }
+//        // TODO Auto-generated method stub
+//        String batPath = "C:/Philips/SIServer/PostStartupScript.bat"; // 把你的bat脚本路径写在这里
+//        File batFile = new File(batPath);
+//        boolean batFileExist = batFile.exists();
+//        System.out.println("batFileExist:" + batFileExist);
+//        if (batFileExist) {
+//            callCmd(batPath);
+//        }
+        System.out.println(11);
     }
 
     private static void  callCmd(String locationCmd){

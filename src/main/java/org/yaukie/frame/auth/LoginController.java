@@ -16,6 +16,8 @@ import org.yaukie.base.util.SpringContextUtil;
 import org.yaukie.base.util.StringTools;
 import org.yaukie.base.uuid.IdUtils;
 
+import java.util.Map;
+
 /**
  * @Author: yuenbin
  * @Date :2021/5/12
@@ -24,6 +26,7 @@ import org.yaukie.base.uuid.IdUtils;
  * @Destrib: 用于单点登录
  **/
 @RestController
+@RequestMapping(value = "/sso")
  @Api(value = "系统登录单点登录接口", description = "系统登录单点登录接口")
 @Slf4j
 public class LoginController {
@@ -37,17 +40,24 @@ public class LoginController {
     @PostMapping(value = "/login")
     @ApiOperation("单点登录方法")
     @LogAround("单点登录方法")
-    public AjaxResult login(@RequestBody LoginBody loginBody ) {
+    public AjaxResult login(@RequestBody Map params ) {
 
-        if(StringTools.isNull(loginBody)){
+        LoginBody loginBody = new LoginBody() ;
+
+        if(StringTools.isNull(params)){
             return AjaxResult.error("请求参数为空!");
         }
-
+        loginBody.setUserName(params.get("userName")+"");
+        loginBody.setPassWord(params.get("passWord")+"");
+        loginBody.setUuid(params.get("uuid")+"");
+        loginBody.setVerifyCode(params.get("verifyCode")+"");
         String jwtToken = IdUtils.fastUUID();
-
+        AjaxResult ajaxResult = AjaxResult.success() ;
         try {
             if(StringTools.isNotNull(loginHandlerService)){
                 jwtToken = loginHandlerService.login(loginBody) ;
+                ajaxResult.put(AjaxResult.MSG_FLAG,AuthCons.Login.LOGIN_SUCCESS.getDes()) ;
+                ajaxResult.put(AjaxResult.DATA_FLAG,jwtToken) ;
             }else {
                    return  AjaxResult.error(AuthCons.Login.LOGIN_FAIL.getCode(),"认证模块未初始化!");
             }
@@ -56,10 +66,10 @@ public class LoginController {
                  return AjaxResult.error(AuthCons.Login.LOGIN_FAIL.getCode(),ex.getMessage());
         }
 
-        return AjaxResult.success(AuthCons.Login.LOGIN_SUCCESS.getDes(),jwtToken) ;
+        return ajaxResult ;
     }
 
-    @DeleteMapping(value = "/{token}")
+    @DeleteMapping(value = "/force/{token}")
     @ApiOperation("注销登录")
     @LogAround("注销登录")
     public AjaxResult logout(@PathVariable String token) {
@@ -82,12 +92,12 @@ public class LoginController {
     @ApiOperation("获取登录用户信息")
     @LogAround("获取登录用户信息")
     public AjaxResult getUserInfo(){
-        AjaxResult ajaxResult = AjaxResult.success( );
+        AjaxResult ajaxResult = AjaxResult.success();
         LoginUser loginUser = tokenHandlerService.getLoginUser(SpringContextUtil.getRequest()) ;
         XUser xUser = new XUser() ;
         if(StringTools.isNotNull(loginUser)){
             xUser = loginUser.getXUser() ;
-            ajaxResult.put("user",xUser);
+            ajaxResult.put(AjaxResult.DATA_FLAG,xUser);
         }
 
         return  ajaxResult ;

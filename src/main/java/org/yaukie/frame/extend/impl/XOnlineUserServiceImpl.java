@@ -4,6 +4,7 @@ package org.yaukie.frame.extend.impl;
 import org.springframework.stereotype.Service;
 import org.yaukie.auth.entity.LoginUser;
 import org.yaukie.base.core.entity.XOnlineUser;
+import org.yaukie.base.util.DateUtils;
 import org.yaukie.base.util.StringTools;
 import org.yaukie.frame.extend.api.IXOnlineUserService;
 
@@ -86,7 +87,7 @@ public class XOnlineUserServiceImpl implements IXOnlineUserService
         XOnlineUser.setLoginLocation(user.getLoginLocation());
         XOnlineUser.setBrowser(user.getBrowser());
         XOnlineUser.setOs(user.getOs());
-        XOnlineUser.setLoginTime(user.getLoginTime());
+        XOnlineUser.setLoginTime(DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS,user.getLoginTime()));
         if (StringTools.isNotNull(user.getXUser().getDept()))
         {
             XOnlineUser.setDeptName(user.getXUser().getDept().getDeptName());

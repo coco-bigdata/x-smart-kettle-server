@@ -28,6 +28,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.yaukie.base.annotation.EnablePage;
 import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.annotation.SetDataSource;
+import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.core.controller.BaseController;
 import org.yaukie.base.config.UniformReponseHandler;
 import org.yaukie.base.constant.BaseResult;
@@ -72,6 +74,7 @@ public class XJobController extends BaseController {
     @GetMapping(value = "/listPage")
     @ApiOperation("获取列表")
     @EnablePage
+    @SetDataSource(value = SysConstant.DsType.SLAVE)
     public BaseResult getJobPageList(
             @RequestParam(value = "offset", required = false) String offset,
             @RequestParam(value = "limit", required = false) String limit,

@@ -1,5 +1,7 @@
 package org.yaukie.frame.kettle.api;
 
+import org.yaukie.base.annotation.SetDataSource;
+import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.util.DateHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -429,6 +431,7 @@ public class XJobApiController extends BaseController {
     @ApiOperation("获取作业调度情况")
     @EnablePage
     @LogAround("获取作业调度情况")
+    @SetDataSource(SysConstant.DsType.MASTER)
     public BaseResult qryJobPageInfo(
             @RequestParam(value = "offset",required = false)String offset,
             @RequestParam(value = "limit",required = false)String limit,
