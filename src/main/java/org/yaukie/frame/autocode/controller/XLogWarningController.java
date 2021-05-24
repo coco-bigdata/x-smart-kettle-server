@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.commons.lang.StringUtils;
 import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.core.controller.BaseController;
 import org.yaukie.base.constant.BaseResult;
 import org.yaukie.base.constant.PageResult;
@@ -92,6 +94,7 @@ public class XLogWarningController  extends BaseController {
                     required = true,dataTypeClass =XLogWarning.class),
                     })
                     @ApiOperation("新增")
+                    @OperLog(moduleName = "告警监控-新增",operationType = SysConstant.OperationType.INSERT)
                     public BaseResult addLog(@RequestBody @Validated XLogWarning xLogWarning, BindingResult BindingResult) {
                         if (BindingResult.hasErrors()) {
                         return this.getErrorMessage(BindingResult);
@@ -106,6 +109,7 @@ public class XLogWarningController  extends BaseController {
                         @ApiImplicitParam(name = "xLogWarning"+"", value = "xLogWarning"+"",
                             required = true,dataTypeClass =XLogWarning.class),
                         })
+                        @OperLog(moduleName = "告警监控-更新",operationType = SysConstant.OperationType.UPDATE)
                         public BaseResult updateLog(@RequestBody @Validated XLogWarning xLogWarning, BindingResult BindingResult) {
                             if (BindingResult.hasErrors()) {
                             return this.getErrorMessage(BindingResult);
@@ -120,6 +124,7 @@ public class XLogWarningController  extends BaseController {
                               @ApiImplicitParams({
                             @ApiImplicitParam(name = "ids", value = "ids", required = true, dataType = "string" ),
                             })
+                            @OperLog(moduleName = "告警监控-删除",operationType = SysConstant.OperationType.DELETE)
                             public BaseResult deleteLog(@RequestParam String ids) {
         String[] logIds = ids.split(",");
                                 XLogWarningExample xLogWarningExample = new  XLogWarningExample();

@@ -1,7 +1,10 @@
 package org.yaukie.frame.autocode.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class XRepository implements Serializable {
     /**
@@ -146,6 +149,7 @@ public class XRepository implements Serializable {
      *
      * @mbg.generated Mon Nov 23 19:21:47 CST 2020
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdTime;
 
     /**
@@ -155,6 +159,7 @@ public class XRepository implements Serializable {
      *
      * @mbg.generated Mon Nov 23 19:21:47 CST 2020
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone ="GMT+8" )
     private Date updateTime;
 
     /**

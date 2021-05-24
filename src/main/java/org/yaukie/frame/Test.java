@@ -1,5 +1,8 @@
 package org.yaukie.frame;
 
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import lombok.extern.slf4j.Slf4j;
 import org.pentaho.di.cluster.SlaveServer;
 import org.pentaho.di.core.KettleClientEnvironment;
@@ -24,7 +27,14 @@ import org.pentaho.di.trans.performance.StepPerformanceSnapShot;
 import org.pentaho.di.www.Carte;
 import org.pentaho.di.www.CarteSingleton;
 import org.pentaho.di.www.SlaveServerConfig;
+import org.yaukie.base.core.entity.SftpBean;
+import org.yaukie.base.util.DateUtils;
+import org.yaukie.base.util.Sftp;
 
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -66,10 +76,8 @@ public class Test {
         return result;
     }
     public static void main(String[] args) throws KettleException  {
-        List list =getPreDate("2021-02-27",10) ;
-        for (Object o : list) {
-            System.out.println("o.toString() = " + o.toString());
-        }
+//        System.out.println(DateUtils.getTime());
+
     }
 
     private static void runJob(KettleDatabaseRepository kettleDatabaseRepository,RepositoryDirectoryInterface directory,String jobName){
@@ -181,5 +189,6 @@ public class Test {
         }
         System.out.println(ontTimeAllStepInfo+"\n\n\n\n");
     }
+
 
 }

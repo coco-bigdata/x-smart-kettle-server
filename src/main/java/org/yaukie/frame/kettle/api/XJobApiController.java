@@ -1,5 +1,6 @@
 package org.yaukie.frame.kettle.api;
 
+import org.yaukie.base.annotation.OperLog;
 import org.yaukie.base.annotation.SetDataSource;
 import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.util.DateHelper;
@@ -496,6 +497,7 @@ public class XJobApiController extends BaseController {
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("远程启动作业")
+    @OperLog(moduleName = "作业调度-启动作业",operationType = SysConstant.OperationType.START)
     public BaseResult startJob(
             @RequestParam(name = "jobId", required = true) String jobId) {
 
@@ -535,6 +537,7 @@ public class XJobApiController extends BaseController {
             @ApiImplicitParam(name = "description" + "", value = "description" + "", required = true, dataTypeClass = String.class)
     })
     @ApiOperation("添加作业定时调度")
+    @OperLog(moduleName = "作业调度-添加定时",operationType = SysConstant.OperationType.SCHEDULER)
     public BaseResult addJob2Sche(
             @RequestParam(name = "jobId", required = true) String jobId,
             @RequestParam(name = "cron", required = true) String cron,
@@ -604,6 +607,7 @@ public class XJobApiController extends BaseController {
     }
 
     @RequestMapping(value = "/removeJobFromSche/{jobId}")
+    @OperLog(moduleName = "作业调度-移除定时",operationType = SysConstant.OperationType.SCHEDULER)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
@@ -637,6 +641,7 @@ public class XJobApiController extends BaseController {
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("强行停止作业")
+    @OperLog(moduleName = "作业调度-停止作业",operationType = SysConstant.OperationType.STOP)
     public BaseResult stopJob(
             @RequestParam(name = "jobId", required = true) String jobId) {
         if (StringUtils.isEmpty(jobId)) {
@@ -667,6 +672,7 @@ public class XJobApiController extends BaseController {
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("强行终止作业")
+    @OperLog(moduleName = "作业调度-终止作业",operationType = SysConstant.OperationType.STOP)
     public BaseResult killJob(
             @RequestParam(name = "jobId", required = true) String jobId) {
         if (StringUtils.isEmpty(jobId)) {

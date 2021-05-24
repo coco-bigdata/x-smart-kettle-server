@@ -15,6 +15,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.core.controller.BaseController;
 import org.yaukie.base.config.UniformReponseHandler;
 import org.yaukie.base.constant.BaseResult;
@@ -189,6 +191,7 @@ public class XQuartzController  extends BaseController {
                     required = true,dataTypeClass =XQuartz.class),
                     })
                     @ApiOperation("新增")
+                    @OperLog(moduleName = "定时管理-新增定时器",operationType = SysConstant.OperationType.INSERT)
                     public BaseResult addQuartz(@RequestBody @Validated XQuartz xQuartz, BindingResult BindingResult) {
                         if (BindingResult.hasErrors()) {
                         return this.getErrorMessage(BindingResult);
@@ -203,6 +206,7 @@ public class XQuartzController  extends BaseController {
                         @ApiImplicitParam(name = "xQuartz"+"", value = "xQuartz"+"",
                             required = true,dataTypeClass =XQuartz.class),
                         })
+                        @OperLog(moduleName = "定时管理-更新定时器",operationType = SysConstant.OperationType.UPDATE)
                         public BaseResult updateQuartz(@RequestBody @Validated XQuartz xQuartz, BindingResult BindingResult) {
                             if (BindingResult.hasErrors()) {
                             return this.getErrorMessage(BindingResult);
@@ -221,6 +225,7 @@ public class XQuartzController  extends BaseController {
                             @ApiImplicitParam(name = "isDel"+"", value = "isDel"+"",
                                     required = true,dataTypeClass =XQuartz.class),
                     })
+                    @OperLog(moduleName = "定时管理-切换定时开关",operationType = SysConstant.OperationType.UPDATE)
                     public BaseResult updateQuartz(@RequestParam String quartzId,
                                                    @RequestParam String isDel ) {
                         XQuartzExample xQuartzExample = new XQuartzExample() ;
@@ -287,6 +292,7 @@ public class XQuartzController  extends BaseController {
                             @ApiImplicitParam(name = "targetId", value = "targetId", required = true, dataType = "string" ),
                             @ApiImplicitParam(name = "targetType", value = "targetType", required = true, dataType = "string" )
                             })
+                            @OperLog(moduleName = "定时管理-删除定时器",operationType = SysConstant.OperationType.DELETE)
                             public BaseResult deleteQuartz(@RequestParam String targetId,
                                                            @RequestParam String targetType) {
 

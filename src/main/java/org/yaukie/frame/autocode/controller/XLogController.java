@@ -1,5 +1,7 @@
 package org.yaukie.frame.autocode.controller;
 
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.util.DateHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -66,6 +68,7 @@ public class XLogController  extends BaseController {
 
     @RequestMapping(value = "/downLog/{logId}",  produces = "application/json;charset=UTF-8")
     @ResponseBody
+    @OperLog(moduleName = "日志管理-下载日志",operationType = SysConstant.OperationType.INSERT)
     public BaseResult downLog(@PathVariable String logId)  {
         //优先从硬盘找文件,如果找不到则从数据库中取日志文件
         Map params = new HashMap() ;
@@ -257,6 +260,7 @@ public class XLogController  extends BaseController {
                     required = true,dataTypeClass =XLog.class),
                     })
                     @ApiOperation("新增")
+                    @OperLog(moduleName = "日志管理-新增日志",operationType = SysConstant.OperationType.INSERT)
                     public BaseResult addLog(@RequestBody @Validated XLog xLog, BindingResult BindingResult) {
                         if (BindingResult.hasErrors()) {
                         return this.getErrorMessage(BindingResult);
@@ -285,6 +289,7 @@ public class XLogController  extends BaseController {
                               @ApiImplicitParams({
                             @ApiImplicitParam(name = "ids", value = "ids", required = true, dataType = "string" ),
                             })
+                            @OperLog(moduleName = "日志管理-清理日志",operationType = SysConstant.OperationType.DELETE)
                             public BaseResult deleteLog(@RequestParam String ids) {
                                 String[] logIds = ids.split(",");
                                 XLogExample xLogExample = new  XLogExample();

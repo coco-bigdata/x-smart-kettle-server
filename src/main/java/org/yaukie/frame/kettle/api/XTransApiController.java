@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.yaukie.base.annotation.EnablePage;
 import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.core.controller.BaseController;
 import org.yaukie.base.config.UniformReponseHandler;
 import org.yaukie.base.constant.BaseResult;
@@ -246,6 +248,7 @@ public class XTransApiController extends BaseController {
             @ApiImplicitParam(name = "transId" + "", value = "transId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("暂停一个转换")
+    @OperLog(moduleName = "转换调度-暂停转换",operationType = SysConstant.OperationType.STOP)
     public BaseResult pauseTrans(
             @RequestParam(name = "transId",required = true) String transId) {
         if(StringUtils.isEmpty(transId)){
@@ -277,6 +280,7 @@ public class XTransApiController extends BaseController {
             @ApiImplicitParam(name = "transId" + "", value = "transId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("恢复运行转换")
+    @OperLog(moduleName = "转换调度-恢复转换",operationType = SysConstant.OperationType.OTHER)
     public BaseResult resumeTrans(
             @RequestParam(name = "transId",required = true) String transId) {
         if(StringUtils.isEmpty(transId)){
@@ -308,7 +312,8 @@ public class XTransApiController extends BaseController {
             @ApiImplicitParam(name = "transId" + "", value = "transId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("远程启动转换")
-    public BaseResult startTrans(
+        @OperLog(moduleName = "转换调度-启动转换",operationType = SysConstant.OperationType.START)
+        public BaseResult startTrans(
             @RequestParam(name = "transId",required = true) String transId) {
 
         if(StringUtils.isEmpty(transId)){
@@ -355,6 +360,7 @@ public class XTransApiController extends BaseController {
             @ApiImplicitParam(name = "transId" + "", value = "transId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("添加转换定时调度")
+    @OperLog(moduleName = "转换调度-定时",operationType = SysConstant.OperationType.SCHEDULER)
     public BaseResult addTrans2Sche(
             @RequestParam(name = "transId",required = true) String transId,
             @RequestParam(name = "cron", required = true) String cron,
@@ -432,6 +438,7 @@ public class XTransApiController extends BaseController {
             @ApiImplicitParam(name = "transId" + "", value = "transId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("移除转换定时任务")
+    @OperLog(moduleName = "转换调度-移除定时",operationType = SysConstant.OperationType.SCHEDULER)
     public BaseResult removeTransFromSche(
             @RequestParam(name = "transId", required = true) String transId) {
         if (StringUtils.isEmpty(transId)) {
@@ -462,6 +469,7 @@ public class XTransApiController extends BaseController {
             @ApiImplicitParam(name = "transId" + "", value = "transId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("强行停止转换")
+    @OperLog(moduleName = "转换调度-停止转换",operationType = SysConstant.OperationType.STOP)
     public BaseResult stopTrans(
             @RequestParam(name = "transId", required = true) String transId) {
         if (StringUtils.isEmpty(transId)) {
@@ -492,6 +500,7 @@ public class XTransApiController extends BaseController {
             @ApiImplicitParam(name = "transId" + "", value = "transId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("强行终止转换")
+    @OperLog(moduleName = "转换调度-终止转换",operationType = SysConstant.OperationType.STOP)
     public BaseResult killTrans(
             @RequestParam(name = "transId", required = true) String transId) {
         if (StringUtils.isEmpty(transId)) {

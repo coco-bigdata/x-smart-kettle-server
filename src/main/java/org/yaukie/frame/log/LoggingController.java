@@ -12,7 +12,9 @@ import org.yaukie.auth.constant.AuthCons;
 import org.yaukie.auth.entity.LoginUser;
 import org.yaukie.base.annotation.EnablePage;
 import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.annotation.OperLog;
 import org.yaukie.base.constant.PageResult;
+import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.core.controller.BaseController;
 import org.yaukie.base.constant.BaseResult;
 import org.yaukie.base.core.entity.*;
@@ -110,10 +112,10 @@ public class LoggingController extends BaseController {
             criteria.andIpaddrLike(ipAddr);
         }
         if (StringTools.isNotEmpty(userName)) {
-            criteria.andUserNameLike(userName);
+            criteria.andUserNameLike("%"+userName+"%");
         }
         if (StringTools.isNotEmpty(status)) {
-            criteria.andStatusLike(status);
+            criteria.andStatusLike("%"+status+"%");
         }
 
         if (StringTools.isEmpty(loginStartTime)) {
@@ -125,7 +127,7 @@ public class LoggingController extends BaseController {
         }
 
         criteria.andLoginTimeBetween(DateUtils.parseDate(loginStartTime), DateUtils.parseDate(loginEndTime));
-
+        xLoginInfoExample.setOrderByClause(" login_time desc");
         List<XLoginInfo> xLoginInfos = xLoginInfoService.selectByExample(xLoginInfoExample);
 
         PageResult pageResult = new PageResult(xLoginInfos);
@@ -143,6 +145,7 @@ public class LoggingController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "ids", required = true, dataType = "string" ),
     })
+    @OperLog(moduleName = "日志监控-清理登录信息",operationType = SysConstant.OperationType.DELETE)
     public BaseResult deleteLoginInfo(@RequestParam String ids) {
         String[] logIds = ids.split(",");
         XLoginInfoExample xLoginInfoExample = new  XLoginInfoExample();
@@ -165,6 +168,7 @@ public class LoggingController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "ids", required = true, dataType = "string" ),
     })
+    @OperLog(moduleName = "日志监控-清理操作日志",operationType = SysConstant.OperationType.DELETE)
     public BaseResult deleteOperLog(@RequestParam String ids) {
         String[] logIds = ids.split(",");
         XOperLogExample xOperLogExample = new  XOperLogExample();
@@ -199,14 +203,14 @@ public class LoggingController extends BaseController {
         XOperLogExample xOperLogExample = new XOperLogExample();
         XOperLogExample.Criteria criteria = xOperLogExample.createCriteria();
         if (StringTools.isNotEmpty(moduleName)) {
-            criteria.andModuleNameLike(moduleName);
+            criteria.andModuleNameLike("%"+moduleName+"%");
         }
         if (StringTools.isNotEmpty(operUserName)) {
-            criteria.andOperatorNameLike(operUserName);
+            criteria.andOperatorNameLike("%"+operUserName+"%");
         }
 
         if (StringTools.isNotEmpty(operatorName)) {
-            criteria.andOperatorNameLike(operatorName);
+            criteria.andOperatorNameLike("%"+operatorName+"%");
         }
 
         if (StringTools.isNotEmpty(status)) {
@@ -222,7 +226,7 @@ public class LoggingController extends BaseController {
         }
 
         criteria.andOperTimeBetween(DateUtils.parseDate(operStartTime), DateUtils.parseDate(operEndTime));
-
+        xOperLogExample.setOrderByClause(" oper_time desc");
         List<XOperLog> xOperLogs = xOperLogService.selectByExample(xOperLogExample);
 
         PageResult pageResult = new PageResult(xOperLogs);

@@ -1,5 +1,7 @@
 package org.yaukie.frame.kettle.service;
 
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSchException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.pentaho.di.core.exception.KettleException;
@@ -10,7 +12,10 @@ import org.pentaho.di.trans.TransMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.yaukie.base.core.entity.SftpBean;
 import org.yaukie.base.util.DateHelper;
+import org.yaukie.base.util.Sftp;
+import org.yaukie.base.util.StringTools;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XLogService;
 import org.yaukie.frame.autocode.service.api.XQuartzService;
@@ -23,6 +28,7 @@ import org.yaukie.xtl.cons.Constant;
 import org.yaukie.xtl.cons.XTransStatus;
 import org.yaukie.xtl.exceptions.XtlExceptions;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
@@ -91,6 +97,8 @@ public class TransService  {
             /**如果是资源库中的作业*/
         }else if(transType.equalsIgnoreCase(Constant.TRANS_REPO_TYPE)){
             doRunRepoTrans(xTrans);
+        }else if(transType.equalsIgnoreCase("sftp")){
+            doRunFileTransFromFtp(xTrans);
         }
     }
 
@@ -215,6 +223,108 @@ public class TransService  {
             e.printStackTrace(new PrintWriter(str));
             log.error("转换任务执行失败,原因为: {}",str.toString().substring(0,800) );
          }
+    }
+
+
+
+
+    /**
+     *  运行一个远程 转换
+     * @param xTrans
+     * @throws XtlExceptions
+     * @throws KettleException
+     */
+    private void doRunFileTransFromFtp(XTrans xTrans) throws XtlExceptions, KettleException {
+        String repositoryId = xTrans.getTransRepositoryId();
+        XRepositoryExample xRepositoryExample = new XRepositoryExample();
+        xRepositoryExample.createCriteria().andRepoIdEqualTo(repositoryId + "");
+        XRepository xRepository = xRepositoryService.selectFirstExample(xRepositoryExample);
+        if (xRepository == null) {
+            throw new XtlExceptions("请定义资源库!");
+        }
+
+        String jobPath = xTrans.getTransPath() ;
+        String type = xRepository.getType();
+        String targetFileName = xTrans.getTransName() ;
+        // 采取将文件下载到本地的方式,执行一个作业
+        if(type.equalsIgnoreCase("sftp")){
+            SftpBean sftpBean = new SftpBean();
+            sftpBean.setHost(xRepository.getDbHost());
+            sftpBean.setPort(Integer.parseInt(xRepository.getDbPort()));
+            sftpBean.setUserName(xRepository.getDbUsername());
+            sftpBean.setSecretKey(xRepository.getDbPassword());
+            Sftp sftp = new Sftp(sftpBean);
+            String downLoadPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            downLoadPath=downLoadPath.substring(1);
+            downLoadPath=downLoadPath.replaceAll("[\\\\/]", "/");
+            downLoadPath=downLoadPath.substring(0, downLoadPath.lastIndexOf("/"));
+            String absoluteDownLoadPath = downLoadPath+"/"+"download" ;
+            File file = new File(absoluteDownLoadPath +"/" + targetFileName);
+            if(file.exists()){
+                file.delete() ;
+            }
+            File outFile = new File(absoluteDownLoadPath);
+            if(!outFile.exists()){
+                outFile.mkdirs() ;
+            }
+
+            ChannelSftp channelSftp = null;
+            try {
+                channelSftp = sftp.open();
+                if(channelSftp.isConnected()){
+                    //准备下载从远程机器下载文件
+                    File loadFile = sftp.download(StringTools.substring(xTrans.getTransPath(),0,StringTools.lastIndexOf(xTrans.getTransPath(),xTrans.getTransName())),
+                            xTrans.getTransName(),file.getAbsolutePath(),channelSftp);
+                    if(loadFile.exists()){
+                        log.info("远程文件{}下载成功,位置:{}",xTrans.getTransName(),loadFile.getAbsoluteFile());
+                    }
+                    TransMeta transMeta = new TransMeta(loadFile.getAbsolutePath());
+                     Trans trans = new Trans(transMeta);
+                    trans.setLogLevel(LogLevel.DEBUG);
+                    if (StringUtils.isNotEmpty(xTrans.getTransLogLevel())) {
+                        trans.setLogLevel(Constant.logger(xTrans.getTransLogLevel()));
+                    }
+                    trans.setVariable(Constant.VARIABLE_TRANS_MONITOR_ID, xTrans.getTransId());
+                    transMeta.setCapturingStepPerformanceSnapShots(true);
+                    trans.setMonitored(true);
+                    trans.setInitializing(true);
+                    trans.setPreparing(true);
+                    trans.setRunning(true);
+                    trans.setSafeModeEnabled(true);
+                    trans.addTransListener(defaultListener);
+                    String recordStatus = XTransStatus.SUCCESS.value();
+                    String stopTime = "";
+                    try {
+                        trans.execute(null);
+                        /**添加日志监听*/
+                        String logId =  XLogListener.addLogListener(logFilePath,trans);
+                        transMap.put(xTrans.getTransId(),trans );
+                        trans.waitUntilFinished();
+                        if(trans.isFinishedOrStopped()){
+                            recordStatus = KettleUtil.getTransStatus(trans).value();
+                            stopTime = DateHelper.format(new Date());
+                            XLog xLog = new XLog();
+                            xLog.setTargetResult(recordStatus);
+                            xLog.setStopTime(stopTime);
+                            XLogExample xLogExample = new XLogExample();
+                            xLogExample.createCriteria().andLogIdEqualTo(logId);
+                            xLogService.updateByExampleSelective(xLog,xLogExample ) ;
+
+                        }
+                    } catch (Exception e) {
+                        StringWriter str = new StringWriter();
+                        e.printStackTrace(new PrintWriter(str));
+                        log.error("转换任务执行失败,原因为: {}",str.toString().substring(0,800) );
+                    }
+                }
+            } catch (JSchException e) {
+                StringWriter str = new StringWriter();
+                e.printStackTrace(new PrintWriter(str));
+                log.error("任务执行失败,原因为: {}", str.toString().substring(0, 800));
+            }
+
+        }
+
     }
 
     /**

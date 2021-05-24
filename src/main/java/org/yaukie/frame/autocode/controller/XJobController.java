@@ -28,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.yaukie.base.annotation.EnablePage;
 import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.annotation.OperLog;
 import org.yaukie.base.annotation.SetDataSource;
 import org.yaukie.base.constant.SysConstant;
 import org.yaukie.base.core.controller.BaseController;
@@ -144,6 +145,7 @@ public class XJobController extends BaseController {
             @ApiImplicitParam(name = "map" + "", value = "map" + "",
                     required = true, dataTypeClass = Map.class),
     })
+    @OperLog(moduleName = "作业管理-复制",operationType = SysConstant.OperationType.INSERT)
     public BaseResult copyJob(@RequestBody @Validated Map param, BindingResult BindingResult) {
         if (BindingResult.hasErrors()) {
             return this.getErrorMessage(BindingResult);
@@ -315,6 +317,7 @@ public class XJobController extends BaseController {
                     required = true, dataTypeClass = Map.class),
     })
     @ApiOperation("按照模板新增")
+    @OperLog(moduleName = "作业管理-模板新增",operationType = SysConstant.OperationType.INSERT)
     public BaseResult addJobByTpl(@RequestBody @Validated Map params, BindingResult BindingResult) {
         if (BindingResult.hasErrors()) {
             return this.getErrorMessage(BindingResult);
@@ -429,6 +432,7 @@ public class XJobController extends BaseController {
                     required = true, dataTypeClass = XJob.class),
     })
     @ApiOperation("新增")
+    @OperLog(moduleName = "作业管理-新增",operationType = SysConstant.OperationType.INSERT)
     public BaseResult addJob(@RequestBody @Validated XJob xJob, BindingResult BindingResult) {
         if (BindingResult.hasErrors()) {
             return this.getErrorMessage(BindingResult);
@@ -464,6 +468,7 @@ public class XJobController extends BaseController {
             @ApiImplicitParam(name = "params" + "", value = "params" + "",
                     required = true, dataTypeClass = Map.class),
     })
+    @OperLog(moduleName = "作业管理-更新",operationType = SysConstant.OperationType.UPDATE)
     public BaseResult updateJob(@RequestBody @Validated Map params, BindingResult BindingResult) {
         if (BindingResult.hasErrors()) {
             return this.getErrorMessage(BindingResult);
@@ -602,6 +607,7 @@ public class XJobController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jobId", value = "jobId", required = true, dataType = "string"),
     })
+    @OperLog(moduleName = "作业管理-设置状态",operationType = SysConstant.OperationType.UPDATE)
     public BaseResult setIsDel(@PathVariable String jobId) {
         try {
 
@@ -628,6 +634,7 @@ public class XJobController extends BaseController {
 
     @PostMapping(value = "/setIsMonitored")
     @ApiOperation("设置作业监控状态")
+    @OperLog(moduleName = "作业管理-监控设置",operationType = SysConstant.OperationType.UPDATE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jobId", value = "jobId", required = true, dataType = "string"),
             @ApiImplicitParam(name = "isMonitored", value = "isMonitored", required = true, dataType = "isMonitored")
@@ -655,6 +662,7 @@ public class XJobController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jobId", value = "jobId", required = true, dataType = "string"),
     })
+    @OperLog(moduleName = "作业管理-本地删除",operationType = SysConstant.OperationType.DELETE)
     public BaseResult delFromLocal(@RequestParam String jobId) {
         try {
             XJobExample xJobExample = new XJobExample();
@@ -674,6 +682,7 @@ public class XJobController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jobId", value = "jobId", required = true, dataType = "string")
     })
+    @OperLog(moduleName = "作业管理-资源库删除",operationType = SysConstant.OperationType.DELETE)
     public BaseResult delFromRepo(
             @RequestParam String jobId) {
         XJobExample xJobExample = new XJobExample();

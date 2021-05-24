@@ -28,7 +28,7 @@ public class Start extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication();
         //如下设置有可能不生效,,框架做了时区设置
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
+//        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
         SpringApplication.run(Start.class, args);
     }
 

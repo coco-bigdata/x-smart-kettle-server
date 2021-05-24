@@ -44,7 +44,7 @@ spring:
 # 设置时区
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: Asia/Shanghai
+    time-zone: GMT+8
 
 kettle:
   scheduler:
@@ -66,6 +66,7 @@ kettle:
     repoLoginName: ${XTL_KETTLE_REPO_LOGINNAME:admin} #资源库登录账户 默认admin【必填项】
     repoLoginPass: ${XTL_KETTLE_REPO_LOGINPASS:admin} #资源库登录密码 默认admin【必填项】
     # 该线程池会优先充满至最大的线程数（JDK默认优先将任务提交到队列，队列满了再充满至最大的线程数）
+
   pool:
     # 线程池前缀
     namePrefix: ${XTL_THREAD_POOL_PREFIX:kettleThreadPool}
