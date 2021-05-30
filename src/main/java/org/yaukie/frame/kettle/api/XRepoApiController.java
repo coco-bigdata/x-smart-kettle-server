@@ -149,8 +149,13 @@ public class XRepoApiController extends BaseController {
                 } else {
                     subTrees.add(item);
                 }
-            }
-        });
+            });
+        }catch (Exception e)
+        {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            throw new UserDefinedException(BaseResultConstant.UNKNOW_EXCEPTION, sw.toString().substring(0, 800));
+        }
 
         return new UniformReponseHandler()
                 .sendSuccessResponse(subTrees);

@@ -7,8 +7,8 @@
     def git_address = "github.com/"+package_name+"/"+project_name+".git"
     def setting_name = "settings"
     def repo_url = "registry.cn-hangzhou.aliyuncs.com"
-    def user_name = "yaukie@163.com"
-    def pass_word = "wst123456"
+    def user_name = ''
+    def pass_word = ""
 
     podTemplate(cloud: 'kubernetes', namespace: 'yaukie_dev_ops', label: label, serviceAccount: 'bald-quetzal-ibm-jenkins',
             containers: [
