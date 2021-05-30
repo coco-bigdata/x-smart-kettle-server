@@ -307,7 +307,7 @@
     如下图所示:  
 ![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/文件库_1.png)    
         
-       SFTP/FTPS/FTP的配置情况如下图所示,可以通过配置远程机器,获取到远程的资源库目录信息  
+    SFTP/FTPS/FTP的配置情况如下图所示,可以通过配置远程机器,获取到远程的资源库目录信息  
 ![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/文件库_2.png)    
 
 -  数据库资源库  
