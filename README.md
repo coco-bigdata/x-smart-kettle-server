@@ -22,7 +22,6 @@
 - kettle客户端无法做到真正意义上的跨平台，bat及shell脚本切换繁杂
 - kettle客户端迁移麻烦，每次都要安装一遍，耗费精力 
 
- 
  ## 官方交流
  Smart Kettle 官方交流群①(500人)：668964239   
  Smart Kettle 官方交流群②(500人)：668964239
@@ -42,6 +41,10 @@
 - 支持作业、转换的GUI端配置同步到web端
 - 支持作业、转换的日志自定路径配置
 - 支持作业、转换的日志文件下载管理
+- 支持文件库资源库配置
+- 支持数据库资源库配置
+- 支持SFTP/FTP/FTPS的远程资源库配置
+- 支持资源库目录树查看
 - 支持作业、转换的集群调度（远程子服务器调用）
 - 支持作业、转换的GUI端配置同步到web端
 - 支持作业、转换的调度配置
@@ -80,10 +83,7 @@
 - 平台功能架构见如下图：  
 
 ![平台功能架构](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
-![平台功能架构](http://github.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
-![平台功能架构](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/struc.png)
-
-
+ 
 ## 技术方案
     技术栈:  
     - 前端使用nginx 作为前端服务器 
@@ -251,49 +251,96 @@
 ## 功能概览
 - 登录界面  
 ![登录界面](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/登录/login.png)  
-登录界面内置了两个账号，一个是admin，一个是superadmin，密码随便输入即可   
-- 系统菜单  
-![系统菜单](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/左侧菜单/1.png)  
+登录界面内置了两个账号，一个是admin，一个是superadmin，密码1    
 - 调度大盘  
-![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏/2.png)    
+![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏_1.png)    
 调度大盘上半部分，展示近期实例运行详情，包括运行成功、运行失败、运行中、以及未运行的实例总体概况  
-![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏/3.png)    
+![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏_2.png)    
 调度大盘中间部分，则通过图表统计作业以及转换实例的分类情况  
-![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏/4.png)    
+![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏_3.png)    
 调度大盘下半部分，则主要展示实例在某段时间的运行趋势如何，可以透过折线图很直观的看出每个时间段的
 执行情况，包括运行失败、运行成功的次数分布 
 调度大盘的最下面则主要统计任务告警情况  
 
-- 调度管理  
-![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/5.png)
+- 作业调度 
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/作业调度_1.png)
   调度管理分为作业调度以及转换调度，作业调度包括作业名称、描述、运行状态以及运行时间等信息展示 ，
   在作业调度查询界面，选择创建作业（按模板），则将会根据选定模板创建作业  
-![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/6.png)    
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/作业调度_2.png)    
    在作业调度查询界面，选择新建作业（已有），则将会从资源库中选择已通过客户端配置好的  
      作业  
-![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/7.png)    
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/作业调度_3.png)    
    在作业调度查询界面，选中目标作业之后，在上方点击合适的执行按钮，将会执行对应任务，并实时监控任务状态   
-![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/调度管理/13.png)    
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/作业调度_4.png)    
    在作业调度查询界面，选中目标作业之后，点击调度监控，则可以查看作业的调度图  
    上述所有操作，转换调度的操作方式同作业类似    
 
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/作业调度_5.png)    
+
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/作业调度_6.png)    
+
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/作业调度_7.png)    
+
+- 转换调度  
+     转换调度查询列表,详细描述转换调度执行情况、执行历史、实时监控执行进度等功能  
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/转换调度_1.png)    
+     实时查看转换调度运行情况
+  ![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/转换调度_2.png)    
+     可随时编辑转换信息  
+ ![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/转换调度_3.png)    
+     可随时编辑转换信息  
+![调度管理](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/转换调度_4.png)    
+       
 - 定时调度  
 在作业调度界面，选中执行方式，在执行方式中，选择定时任务执行，则进入到定时执行调度界面  
-![定时调度](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/定时调度/9.png)  
+![定时调度](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/定时调度_1.png)  
  在作业定时界面中，您可以选择任意的定时规则  
-![定时调度](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/定时调度/10.png)    
+![定时调度](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/定时调度_1.png)    
 
-- 资源库管理   
+-  资源库目录树
 可以维护多个资源库，本系统同时支持文件库以及数据库资源库，但建议使用数据库作为资源库，文件库作为 
 资源库使用过程中，经常会出现一些奇怪的问题，并且从数据备份角度来讲，不安全  
-![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/资源库管理/14.png)    
+![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/资源库目录树.png)    
+
+-  文件库资源库  
+    支持文件库资源库的配置,可通过配置文件不同的传输类型,自定义远程服务器及本地服务的文件库配置,  
+    如下图所示:  
+![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/文件库_1.png)    
+        
+       SFTP/FTPS/FTP的配置情况如下图所示,可以通过配置远程机器,获取到远程的资源库目录信息  
+![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/文件库_2.png)    
+
+-  数据库资源库  
+    支持数据库资源库配置,可通过配置数据库地址,连接资源库,此中方式更好的保护资源库信息,  
+     使得后期业务更新、数据迁移、数据备份变得更加有效、也更加安全，如下图所示：  
+![资源库](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/数据库资源库_1.png)    
 
 - 告警监控   
 告警监控主要采集作业任务或转换任务在某段时间内的执行细节，并将执行细节以异常记录的形式存储下来  
-![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/告警监控/11.png)     
+![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/告警监控_1.png)     
 便于后续任务调度过程中任务执行细节的跟踪，方便开发或运维人员精准找出任务异常原因    
-![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/告警监控/12.png)       
+![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/告警监控_2.png)       
 
+- 调度日志  
+    支持作业/转换调度的日志检控管理,为业务场景提供全链条的日志跟踪机制,用户可以自由下载业务日志  
+    通过实时监控日志调用情况,监控业务场景      
+    ![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/日志管理_1.png)       
+
+- 登陆日志  
+
+    支持不同用户登录日志监控,此举是为了监控用户登录/使用情况  
+    ![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/登录日志_1.png)     
+      
+    ![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/登录日志_2.png)       
+
+- 操作日志    
+     支持用户操作行为监控,将系统关键节点操作行为记录下来,用作系统行为分析  
+     
+     ![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/操作日志_1.png)       
+     
+    ![告警监控](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/操作日志_2.png)       
+    
+     
 ## 使用方式
    - 下载源码，自行搭建环境
    - 给你封装好插件，本地bat或shell脚本跑
