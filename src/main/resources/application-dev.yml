@@ -7,7 +7,7 @@ server:
 spring:
   redis:
     # 默认不开启 则使用内置Map 作为缓存使用
-    enabled: ${XTL_REDIS_ENABLED:false}
+    enabled: ${XTL_REDIS_ENABLED:false} # redis缓存开关【如果有redis建议开启,提高性能】
     host: ${XTL_REDIS_HOST:127.0.0.1}
     port: ${XTL_REDIS_PORT:6379}
     password: ${XTL_REDIS_PASS:root}
@@ -20,7 +20,7 @@ spring:
     lettuce:
       shutdown-timeout: 0
   application:
-    name: ${XTL_APP_NAME:xtl-app} #应用服务名称
+    name: ${XTL_APP_NAME:xtl-app} # 应用名称【使用默认就行】
   datasource:
     druid:
       # 主库数据源
@@ -34,7 +34,7 @@ spring:
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
-        enabled: true
+        enabled: false
         url: jdbc:mysql://localhost:3306/test_01?useUniCode=true
         username: root
         password: root
@@ -91,20 +91,20 @@ swagger:
 # 系统验证配置
 yaukie:
   auth:
-    enabled: true
+    enabled: true #  系统开启权限认证模块【使用默认就行】
     encoder:
-      type: md5
+      type: md5 # 使用MD5加密方式,如果不设置,则使用强散列函数【使用默认就行】
     # 是否开启权限认证模块
     # 如果开启登录验证模块,此配置有效
   token:
     # 令牌自定义标识
-    header: Authorization
+    header: Authorization # TOKEN 头【使用默认就行】
     # 令牌密钥
-    secret: yuenbin@inspur.com&yaukie@163.com
+    secret: yuenbin@inspur.com&yaukie@163.com # TOKEN加密使用的秘钥【使用默认就行】
     # 令牌有效期（默认10分钟） 如果不配置 按照10分钟过期
-    expire: 10
+    expire: 10 # 令牌TOKEN过期时间,默认十分钟【使用默认就行】
     # 令牌刷新间隔 1 分钟
-    refresh: 1
+    refresh: 1 # 零头TOKEN刷新间隔默认1分钟【使用默认就行】
 
 logging:
   #系统日志存放路径

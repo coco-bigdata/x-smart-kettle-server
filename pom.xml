@@ -78,11 +78,11 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <!--<excludes>-->
+                <excludes>
                     <!--<exclude>**/*.yml</exclude>-->
-                    <!--<exclude>**/*.kjb</exclude>-->
-                <!--</excludes>-->
-                <!--<filtering>true</filtering>-->
+                    <exclude>**/*.kjb</exclude>
+                </excludes>
+                <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>

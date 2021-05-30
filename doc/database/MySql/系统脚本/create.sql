@@ -84,6 +84,21 @@ create table xtl.x_log_warning
 )
 ;
 
+create table xtl.x_login_info
+(
+	user_name varchar(50) default '' null,
+	ipaddr varchar(128) default '' null,
+	login_location varchar(255) default '' null,
+	browser varchar(50) default '' null,
+	os varchar(50) default '' null,
+	status char(4) default '0' null,
+	msg varchar(255) default '' null,
+	login_time datetime null,
+	id bigint not null auto_increment
+		primary key
+)
+;
+
 create table xtl.x_menu
 (
 	menu_id bigint not null auto_increment
@@ -189,75 +204,69 @@ create table xtl.x_monitor
 
 create table xtl.x_oper_log
 (
-	oper_id bigint not null auto_increment
-		primary key,
-	title varchar(50) default '' null,
-	business_type int(2) default '0' null,
 	method varchar(100) default '' null,
-	request_method varchar(10) default '' null,
-	operator_type int(1) default '0' null,
-	oper_name varchar(50) default '' null,
-	dept_name varchar(50) default '' null,
 	oper_url varchar(255) default '' null,
 	oper_ip varchar(128) default '' null,
 	oper_location varchar(255) default '' null,
 	oper_param varchar(2000) default '' null,
 	json_result varchar(2000) default '' null,
-	status int(1) default '0' null,
+	status char(7) default '0' null,
 	error_msg varchar(2000) default '' null,
-	oper_time datetime null
+	oper_time datetime null,
+	id bigint not null auto_increment
+		primary key,
+	operator_name varchar(50) default '' null,
+	module_name varchar(50) default '' null,
+	request_type varchar(10) default '' null,
+	client_type char(6) default '0' null,
+	oper_user_name varchar(50) default '0' null,
+	oper_dept_name varchar(50) default '' null
 )
 ;
 
-comment on table x_oper_log is '操作日志记录'
+comment on column x_oper_log.method is '调用方法'
 ;
 
-comment on column x_oper_log.oper_id is '日志主键'
+comment on column x_oper_log.oper_url is '请求地址'
 ;
 
-comment on column x_oper_log.title is '模块标题'
-;
-
-comment on column x_oper_log.business_type is '业务类型（0其它 1新增 2修改 3删除）'
-;
-
-comment on column x_oper_log.method is '方法名称'
-;
-
-comment on column x_oper_log.request_method is '请求方式'
-;
-
-comment on column x_oper_log.operator_type is '操作类别（0其它 1后台用户 2手机端用户）'
-;
-
-comment on column x_oper_log.oper_name is '操作人员'
-;
-
-comment on column x_oper_log.dept_name is '部门名称'
-;
-
-comment on column x_oper_log.oper_url is '请求URL'
-;
-
-comment on column x_oper_log.oper_ip is '主机地址'
+comment on column x_oper_log.oper_ip is 'IP地址'
 ;
 
 comment on column x_oper_log.oper_location is '操作地点'
 ;
 
-comment on column x_oper_log.oper_param is '请求参数'
+comment on column x_oper_log.oper_param is '请求入参'
 ;
 
-comment on column x_oper_log.json_result is '返回参数'
+comment on column x_oper_log.json_result is '返回结果'
 ;
 
-comment on column x_oper_log.status is '操作状态（0正常 1异常）'
+comment on column x_oper_log.status is '操作状态 (0 失败 1 成功)'
 ;
 
 comment on column x_oper_log.error_msg is '错误消息'
 ;
 
 comment on column x_oper_log.oper_time is '操作时间'
+;
+
+comment on column x_oper_log.operator_name is '操作名称 （0其它 1新增 2修改 3删除 4 强退 5 清空数据）'
+;
+
+comment on column x_oper_log.module_name is '模块名称'
+;
+
+comment on column x_oper_log.request_type is '请求方式'
+;
+
+comment on column x_oper_log.client_type is '操作客户端 (0 PC 1 MOBILE 2 PAD)'
+;
+
+comment on column x_oper_log.oper_user_name is '操作人'
+;
+
+comment on column x_oper_log.oper_dept_name is '操作人所属部门'
 ;
 
 create table xtl.x_params
@@ -274,40 +283,6 @@ create table xtl.x_params
 	update_time datetime default CURRENT_TIMESTAMP null,
 	obj_val varchar(30) null
 )
-;
-
-create table xtl.x_permission
-(
-	id bigint not null auto_increment
-		primary key,
-	permission_id varchar(32) not null,
-	app_id varchar(32) not null,
-	system_id varchar(32) null,
-	pid varchar(32) null,
-	tag varchar(30) null,
-	name varchar(20) null,
-	label varchar(30) null,
-	type tinyint null,
-	permission_value varchar(50) null,
-	uri varchar(100) null,
-	icon varchar(50) null,
-	status tinyint null,
-	orders bigint null,
-	create_time datetime default CURRENT_TIMESTAMP null,
-	update_time datetime default CURRENT_TIMESTAMP null
-)
-;
-
-create index app_id
-	on x_permission (app_id, system_id)
-;
-
-create index permission_id
-	on x_permission (permission_id)
-;
-
-create index permission_value
-	on x_permission (permission_value)
 ;
 
 create table xtl.x_post
@@ -527,6 +502,91 @@ create table xtl.x_trans
 	is_monitor_enabled char(2) null,
 	tpl_key varchar(150) default '' null
 )
+;
+
+create table xtl.x_user
+(
+	user_id bigint not null auto_increment
+		primary key,
+	dept_id bigint null,
+	user_name varchar(30) not null,
+	nick_name varchar(30) not null,
+	user_type varchar(2) default '00' null,
+	email varchar(50) default '' null,
+	phonenumber varchar(11) default '' null,
+	sex char default '0' null,
+	avatar varchar(100) default '' null,
+	password varchar(100) default '' null,
+	status char default '0' null,
+	del_flag char default '0' null,
+	login_ip varchar(128) default '' null,
+	login_date datetime null,
+	create_by varchar(64) default '' null,
+	create_time datetime null,
+	update_by varchar(64) default '' null,
+	update_time datetime null,
+	remark varchar(500) null
+)
+;
+
+comment on table x_user is '用户信息表'
+;
+
+comment on column x_user.user_id is '用户ID'
+;
+
+comment on column x_user.dept_id is '部门ID'
+;
+
+comment on column x_user.user_name is '用户账号'
+;
+
+comment on column x_user.nick_name is '用户昵称'
+;
+
+comment on column x_user.user_type is '用户类型（00系统用户）'
+;
+
+comment on column x_user.email is '用户邮箱'
+;
+
+comment on column x_user.phonenumber is '手机号码'
+;
+
+comment on column x_user.sex is '用户性别（0男 1女 2未知）'
+;
+
+comment on column x_user.avatar is '头像地址'
+;
+
+comment on column x_user.password is '密码'
+;
+
+comment on column x_user.status is '帐号状态（0正常 1停用）'
+;
+
+comment on column x_user.del_flag is '删除标志（0代表存在 2代表删除）'
+;
+
+comment on column x_user.login_ip is '最后登录IP'
+;
+
+comment on column x_user.login_date is '最后登录时间'
+;
+
+comment on column x_user.create_by is '创建者'
+;
+
+comment on column x_user.create_time is '创建时间'
+;
+
+comment on column x_user.update_by is '更新者'
+;
+
+comment on column x_user.update_time is '更新时间'
+;
+
+comment on column x_user.remark is '备注'
 ;
 
 create table xtl.x_user_post
