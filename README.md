@@ -657,11 +657,17 @@
         Smart Kettle 后端镜像拉取、部署方式跟前端类似，具体步骤不再赘述  
         需要执行的docker 拉取镜像的命令为：  
         docker pull registry.cn-qingdao.aliyuncs.com/yaukie/smart-kettle:2021.4  
-        启动之后，在浏览器访问：http://ip/xtl-server/swagger-ui.html  出现如下图:  
+        启动之后，在浏览器访问：http://ip/xtl-server/help/swagger  出现如下图:  
         ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/h_2.png)    
         恭喜你,后端也执行成功!
-  
-## 后续计划
+        如果使用swagger执行接口,需要在请求头加上TOKEN验证 ,如下图所示:  
+        ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/h_3.png)    
+         首先需要获取验证码,如下图所示:          
+        ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/h_4.png)    
+         然后通过青丘/sso/login接口,将上述验证码作为参数,获取登录成功后的token,填入Authorization头 
+         ![前端镜像](http://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/h_5.png)    
+
+ ## 后续计划
        Smart Kettle 目前尚未完全实现Kettle web 端的编排，因此使用此系统还需要借助Kettle 客户端完成复杂作业及转换  
        的设计、测试，但提供了友好、优美、简洁的前端监控能力，kettle 组件的web端流程编排是以后本系统前进的方向，努力 
        实现的终极目标，也期待读者能持续关注升级、更新。  
