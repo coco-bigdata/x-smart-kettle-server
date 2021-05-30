@@ -694,8 +694,10 @@
  ## 使用情况
 当前该调度监控平台于2021年初正式上线，截止最新统计时间为止，Smart Kettle已接入的公司包括不限于：
 
-     - 1、xx软件股份有限公司
-                
+     - 1、xx软件股份有限公司 http://xx.com.cn
+	 - 2、北京浪潮天元集团 https://lcjtgs.dyq.cn/
+	 - 3、南京竹石信息科技有限公司 http://www.mymedunion.com/
+                 
    > 更多接入的公司，欢迎在 [登记地址](https://gitee.com/yaukie/x-smart-kettle-server/issues/I39TQV) 登记，登记仅仅为了产品推广。 
  
 ## 参考资料
