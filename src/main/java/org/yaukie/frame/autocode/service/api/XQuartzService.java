@@ -1,10 +1,8 @@
 package org.yaukie.frame.autocode.service.api;
 
-import org.yaukie.core.base.service.Service;
+import org.yaukie.base.core.service.Service;
 import org.yaukie.frame.autocode.model.XQuartz;
 import org.yaukie.frame.autocode.model.XQuartzExample;
-
-import java.util.List;
 
 /**
 * @author: yuenbin

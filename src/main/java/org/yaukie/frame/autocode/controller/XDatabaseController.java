@@ -5,12 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.exception.KettleException;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.annotation.LogAround;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.PageResult;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.PageResult;
 import org.yaukie.frame.autocode.service.api.XDatabaseService;
 import org.yaukie.frame.autocode.model.XDatabase;
 import org.yaukie.frame.autocode.model.XDatabaseExample;
@@ -129,6 +131,7 @@ public class XDatabaseController extends BaseController {
                     required = true, dataTypeClass = XDatabase.class),
     })
     @ApiOperation("新增")
+    @OperLog(moduleName = "业务数据库-新增",operationType = SysConstant.OperationType.INSERT)
     public BaseResult addDatabase(@RequestBody @Validated XDatabase xDatabase, BindingResult BindingResult) {
         if (BindingResult.hasErrors()) {
             return this.getErrorMessage(BindingResult);
@@ -160,6 +163,7 @@ public class XDatabaseController extends BaseController {
             @ApiImplicitParam(name = "xDatabase" + "", value = "xDatabase" + "",
                     required = true, dataTypeClass = XDatabase.class),
     })
+    @OperLog(moduleName = "业务数据库-更新",operationType = SysConstant.OperationType.UPDATE)
     public BaseResult updateDatabase(@RequestBody @Validated XDatabase xDatabase, BindingResult BindingResult) {
         if (BindingResult.hasErrors()) {
             return this.getErrorMessage(BindingResult);
@@ -196,6 +200,7 @@ public class XDatabaseController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "string"),
     })
+    @OperLog(moduleName = "业务数据库-删除",operationType = SysConstant.OperationType.DELETE)
     public BaseResult deleteDatabase(@PathVariable String id) {
         XDatabaseExample xDatabaseExample = new XDatabaseExample();
          xDatabaseExample.createCriteria().andIdEqualTo(Integer.parseInt(id)) ;

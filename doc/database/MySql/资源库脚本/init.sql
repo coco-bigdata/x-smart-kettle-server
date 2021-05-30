@@ -4843,7 +4843,7 @@ INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (61, 
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (62, 'GPBulkLoader', 'Greenplum Bulk Loader', 'Greenplum Bulk Loader');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (63, 'VerticaBulkLoader', 'Vertica Bulk Loader', 'Bulk load data into a Vertica database table');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (64, 'SalesforceDelete', 'Salesforce Delete', 'Delete records in Salesforce module.');
-INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (65, 'HTTP', 'HTTP client', 'Call a web service over HTTP by supplying a base URL by allowing parameters to be set dynamically');
+INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (65, 'HTTP', 'HTTP client', 'Call a web service over HTTP by supplying a core URL by allowing parameters to be set dynamically');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (66, 'XSDValidator', 'XSD Validator', 'Validate XML source (files or streams) against XML Schema Definition.');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (67, 'SetValueConstant', '将字段值设置为常量', 'Set value of a field to a constant');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (68, 'ScriptValueMod', 'JavaScript代码', 'This is a modified plugin for the Scripting Values with improved interface and performance.
@@ -4986,7 +4986,7 @@ INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (198,
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (199, 'ExecSQL', '执行SQL脚本', '执行一个SQL脚本, 另外，可以使用输入的记录作为参数');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (200, 'Rest', 'REST Client', 'Consume RESTfull services.
 REpresentational State Transfer (REST) is a key design idiom that embraces a stateless client-server
-architecture in which the web services are viewed as resources and can be identified by their URLs');
+arch in which the web services are viewed as resources and can be identified by their URLs');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (201, 'LucidDBStreamingLoader', 'LucidDB Streaming Loader', 'Load data into LucidDB by using Remote Rows UDX.');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (202, 'TransExecutor', 'Transformation Executor', 'This step executes a Pentaho Data Integration transformation, sets parameters and passes rows.');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (203, 'StepMetastructure', '流的元数据', 'This is a step to read the metadata of the incoming stream.');
@@ -5000,7 +5000,7 @@ INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (210,
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (211, 'XSLT', 'XSL Transformation', 'Make an XSL Transformation');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (212, 'MailInput', '邮件信息输入', 'Read POP3/IMAP server and retrieve messages');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (213, 'CloneRow', '克隆行', 'Clone a row as many times as needed');
-INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (214, 'HTTPPOST', 'HTTP Post', 'Call a web service request over HTTP by supplying a base URL by allowing parameters to be set dynamically');
+INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (214, 'HTTPPOST', 'HTTP Post', 'Call a web service request over HTTP by supplying a core URL by allowing parameters to be set dynamically');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (215, 'TableAgileMart', 'Table Agile Mart', 'Load data into a table for Agile BI use cases');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (216, 'GetSubFolders', '获取子目录名', 'Read a parent folder and return all subfolders');
 INSERT INTO r_step_type (ID_STEP_TYPE, CODE, DESCRIPTION, HELPTEXT) VALUES (217, 'NumberRange', '数值范围', 'Create ranges based on numeric field');

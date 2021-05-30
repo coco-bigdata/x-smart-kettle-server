@@ -12,14 +12,16 @@ import org.pentaho.di.repository.filerep.KettleFileRepository;
 import org.pentaho.di.repository.kdr.KettleDatabaseRepository;
 import org.pentaho.di.trans.TransMeta;
 import org.springframework.util.CollectionUtils;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.annotation.LogAround;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.BaseResultConstant;
-import org.yaukie.core.constant.PageResult;
-import org.yaukie.core.exception.UserDefinedException;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.BaseResultConstant;
+import org.yaukie.base.constant.PageResult;
+import org.yaukie.base.exception.UserDefinedException;
 import org.yaukie.frame.autocode.model.XRepository;
 import org.yaukie.frame.autocode.model.XRepositoryExample;
 import org.yaukie.frame.autocode.service.api.XRepositoryService;
@@ -261,6 +263,7 @@ XTransExample xTransExample = new XTransExample();
             @ApiImplicitParam(name = "transId", value = "transId", required = true, dataType = "string" ),
             @ApiImplicitParam(name = "isMonitored", value = "isMonitored", required = true, dataType = "isMonitored" )
     })
+    @OperLog(moduleName = "转换管理-设置转换监控",operationType = SysConstant.OperationType.UPDATE)
     public BaseResult setIsMonitored(@RequestBody Map params ) {
         try {
 
@@ -298,6 +301,7 @@ XTransExample xTransExample = new XTransExample();
                     required = true,dataTypeClass =XTrans.class),
                     })
                     @ApiOperation("新增")
+                    @OperLog(moduleName = "转换管理-新增转换",operationType = SysConstant.OperationType.INSERT)
                     public BaseResult addTrans(@RequestBody @Validated XTrans xTrans, BindingResult BindingResult) {
                         if (BindingResult.hasErrors()) {
                             return this.getErrorMessage(BindingResult);
@@ -333,6 +337,7 @@ XTransExample xTransExample = new XTransExample();
                         @ApiImplicitParam(name = "xTrans"+"", value = "xTrans"+"",
                             required = true,dataTypeClass =XTrans.class),
                         })
+                        @OperLog(moduleName = "转换管理-更新转换",operationType = SysConstant.OperationType.UPDATE)
                         public BaseResult updateTrans(@RequestBody @Validated XTrans xTrans, BindingResult BindingResult) {
                             if (BindingResult.hasErrors()) {
                                 return this.getErrorMessage(BindingResult);
@@ -426,6 +431,7 @@ XTransExample xTransExample = new XTransExample();
     @ApiImplicitParams({
             @ApiImplicitParam(name = "transId", value = "transId", required = true, dataType = "string" ),
     })
+    @OperLog(moduleName = "转换管理-本地删除",operationType = SysConstant.OperationType.DELETE)
     public BaseResult delFromLocal(@RequestParam String transId) {
         try
         {
@@ -447,6 +453,7 @@ XTransExample xTransExample = new XTransExample();
     @ApiImplicitParams({
             @ApiImplicitParam(name = "transId", value = "transId", required = true, dataType = "string" )
     })
+    @OperLog(moduleName = "转换管理-资源库删除转换",operationType = SysConstant.OperationType.DELETE)
     public BaseResult delFromRepo(
             @RequestParam String transId) {
         XTransExample xTransExample = new  XTransExample();
@@ -494,6 +501,7 @@ XTransExample xTransExample = new XTransExample();
                               @ApiImplicitParams({
                             @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "string" ),
                             })
+                        @OperLog(moduleName = "转换管理-删除转换",operationType = SysConstant.OperationType.DELETE)
                             public BaseResult deleteTrans(@PathVariable String id) {
                                 XTransExample xTransExample = new  XTransExample();
                                // xTransExample.createCriteria().andIdEqualsTo(id);

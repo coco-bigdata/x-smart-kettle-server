@@ -1,16 +1,16 @@
 package org.yaukie.frame.kettle.api;
 
-import com.atomikos.util.DateHelper;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.annotation.SetDataSource;
+import org.yaukie.base.constant.SysConstant;
+import org.yaukie.base.util.DateHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.job.JobMeta;
 import org.pentaho.di.repository.Repository;
@@ -22,15 +22,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yaukie.builder.QuartzManager;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.annotation.LogAround;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.BaseResultConstant;
-import org.yaukie.core.constant.PageResult;
-import org.yaukie.core.exception.UserDefinedException;
-import org.yaukie.core.util.GenCodeUtil;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.LogAround;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.BaseResultConstant;
+import org.yaukie.base.constant.PageResult;
+import org.yaukie.base.exception.UserDefinedException;
+import org.yaukie.base.util.GenCodeUtil;
 import org.yaukie.frame.autocode.dao.mapper.ExtendMapper;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XJobService;
@@ -56,7 +56,6 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
 * @author: yuenbin
@@ -433,6 +432,7 @@ public class XJobApiController extends BaseController {
     @ApiOperation("获取作业调度情况")
     @EnablePage
     @LogAround("获取作业调度情况")
+    @SetDataSource(SysConstant.DsType.MASTER)
     public BaseResult qryJobPageInfo(
             @RequestParam(value = "offset",required = false)String offset,
             @RequestParam(value = "limit",required = false)String limit,
@@ -491,21 +491,13 @@ public class XJobApiController extends BaseController {
     }
 
 
-    @GetMapping(value = "/qryQueueTasks")
-    @ApiOperation("查询队列任务数")
-    public BaseResult qryQueueTasks() {
-        int currentTasks = xJobSubmit.getCurrentTaskCounts();
-        log.debug("当前任务数有{}个", currentTasks);
-        Map data = new HashMap();
-        data.put("TASKS", currentTasks);
-        return new UniformReponseHandler<>().sendSuccessResponse(data);
-    }
 
     @RequestMapping(value = "/startJob")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("远程启动作业")
+    @OperLog(moduleName = "作业调度-启动作业",operationType = SysConstant.OperationType.START)
     public BaseResult startJob(
             @RequestParam(name = "jobId", required = true) String jobId) {
 
@@ -545,6 +537,7 @@ public class XJobApiController extends BaseController {
             @ApiImplicitParam(name = "description" + "", value = "description" + "", required = true, dataTypeClass = String.class)
     })
     @ApiOperation("添加作业定时调度")
+    @OperLog(moduleName = "作业调度-添加定时",operationType = SysConstant.OperationType.SCHEDULER)
     public BaseResult addJob2Sche(
             @RequestParam(name = "jobId", required = true) String jobId,
             @RequestParam(name = "cron", required = true) String cron,
@@ -614,6 +607,7 @@ public class XJobApiController extends BaseController {
     }
 
     @RequestMapping(value = "/removeJobFromSche/{jobId}")
+    @OperLog(moduleName = "作业调度-移除定时",operationType = SysConstant.OperationType.SCHEDULER)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
@@ -647,6 +641,7 @@ public class XJobApiController extends BaseController {
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("强行停止作业")
+    @OperLog(moduleName = "作业调度-停止作业",operationType = SysConstant.OperationType.STOP)
     public BaseResult stopJob(
             @RequestParam(name = "jobId", required = true) String jobId) {
         if (StringUtils.isEmpty(jobId)) {
@@ -677,6 +672,7 @@ public class XJobApiController extends BaseController {
             @ApiImplicitParam(name = "jobId" + "", value = "jobId" + "", required = true, dataTypeClass = String.class),
     })
     @ApiOperation("强行终止作业")
+    @OperLog(moduleName = "作业调度-终止作业",operationType = SysConstant.OperationType.STOP)
     public BaseResult killJob(
             @RequestParam(name = "jobId", required = true) String jobId) {
         if (StringUtils.isEmpty(jobId)) {

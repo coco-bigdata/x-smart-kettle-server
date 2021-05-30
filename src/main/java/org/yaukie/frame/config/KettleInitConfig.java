@@ -1,26 +1,25 @@
 package org.yaukie.frame.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.pentaho.di.core.KettleEnvironment;
-import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.logging.KettleLogStore;
-import org.pentaho.di.core.logging.KettleLoggingEvent;
-import org.pentaho.di.repository.kdr.KettleDatabaseRepository;
-import org.pentaho.di.repository.kdr.KettleDatabaseRepositoryMeta;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.yaukie.frame.kettle.listener.XLogListener;
 import org.yaukie.frame.pool.StandardPoolExecutor;
 import org.yaukie.frame.pool.StandardThreadFactory;
+import org.yaukie.base.system.ASyncManager;
 import org.yaukie.xtl.config.KettleInit;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -32,8 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @Destrib: kettle环境初始化入口工具
  **/
 @Configuration
-@EnableConfigurationProperties(KettleThreadPoolProperties.class)
-@Slf4j
+ @Slf4j
 public class KettleInitConfig {
 
 
@@ -50,16 +48,16 @@ public class KettleInitConfig {
     @PostConstruct
     private void init(){
         try {
-            log.debug("kettle 环境准备初始化,,");
-            log.debug("kettle日志文件最大可支持{}MB",logFileSize );
-            log.debug("kettle日志默认存放路径为{}",new File(logFilePath).getAbsoluteFile());
+            log.info("===kettle 环境准备初始化===\r\n");
+            log.info("===kettle日志文件最大可支持--{}MB==\r\n",logFileSize );
+            log.info("===kettle日志默认存放路径为{}===\r\n",new File(logFilePath).getAbsoluteFile());
             KettleInit.init();
             KettleEnvironment.init();
             /**默认开启日志监听*/
             KettleLogStore.getAppender().addLoggingEventListener(new XLogListener());
-            log.debug("kettle 环境初始化完成,,");
+            log.info("===kettle 环境初始化完成===\r\n");
         } catch (KettleException e) {
-            log.error("kettle初始化出现异常,{}",e);
+            log.error("===kettle初始化出现异常--{}===",e);
         }
     }
 
@@ -69,25 +67,57 @@ public class KettleInitConfig {
      * 为了提高转换或作业执行效率
       * @return StandardThreadExecutor
      */
-    @Bean
-    public StandardPoolExecutor executor(KettleThreadPoolProperties properties) {
-        log.debug("线程池准备初始化..");
+    @Bean(name="executor")
+    public StandardPoolExecutor executor(KettleThreadPoolProperties kettleThreadPoolProperties) {
+        log.info("===Kettle任务线程池准备初始化===");
+        long start = System.currentTimeMillis() ;
         Set<Thread> threadSet = new HashSet<>();
-        return new StandardPoolExecutor(
-                properties.getCoreThreads(),
-                properties.getMaxThreads(),
-                properties.getKeepAliveTimeMin(),
+        StandardPoolExecutor standardPoolExecutor  = new StandardPoolExecutor(
+                kettleThreadPoolProperties.getCoreThreads(),
+                kettleThreadPoolProperties.getMaxThreads(),
+                kettleThreadPoolProperties.getKeepAliveTimeMin(),
                 TimeUnit.SECONDS,
-                properties.getQueueCapacity(),
-                new StandardThreadFactory(properties.getNamePrefix(),threadSet),
+                kettleThreadPoolProperties.getQueueCapacity(),
+                new StandardThreadFactory(kettleThreadPoolProperties.getNamePrefix(),threadSet),
                 new ThreadPoolExecutor.AbortPolicy()
         );
+
+        long end
+                = System.currentTimeMillis() ;
+        log.info("===Kettle任务线程池初始化完毕,总耗时--{} 毫秒===",(end-start));
+        return  standardPoolExecutor ;
+    }
+
+    /**
+     * 执行周期性或定时任务
+     */
+    @Bean(name = "executorService")
+    protected ScheduledExecutorService scheduledExecutorService(KettleThreadPoolProperties kettleThreadPoolProperties)
+    {
+        log.info("===系统日志采集任务线程池准备初始化===");
+        long start
+                = System.currentTimeMillis() ;
+        ScheduledExecutorService  scheduledExecutorService  =  new ScheduledThreadPoolExecutor(kettleThreadPoolProperties.getCoreThreads(),
+                new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build())
+        {
+            @Override
+            protected void afterExecute(Runnable r, Throwable t)
+            {
+                super.afterExecute(r, t);
+                ASyncManager.ThreadsManager.printException(r, t);
+            }
+        };
+        long end
+                = System.currentTimeMillis() ;
+        log.info("===系统日志采集任务线程池初始化完毕,总耗时--{}毫秒===",(end-start));
+
+        return  scheduledExecutorService  ;
     }
 
 
 //    @Bean
 //    public Carte carte(){
-//        log.debug("准备启动 carte 子服务器,,,");
+//        log.info("准备启动 carte 子服务器,,,");
 //        KettleClientEnvironment.getInstance().setClient(KettleClientEnvironment.ClientType.CARTE);
 //        SlaveServerConfig config = new SlaveServerConfig();
 //        SlaveServer slaveServer = new SlaveServer("localhost:8010","localhost","8010","admin","admin");
@@ -101,7 +131,7 @@ public class KettleInitConfig {
 //            CarteSingleton.setCarte(carte);
 //            carte.getWebServer().join();
 //        } catch (Exception e) {
-//            log.debug("carte 子服务器启动出现异常,{},,,",e);
+//            log.info("carte 子服务器启动出现异常,{},,,",e);
 //        }
 //         return carte;
 //    }

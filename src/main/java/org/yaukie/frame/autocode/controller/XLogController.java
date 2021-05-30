@@ -1,6 +1,8 @@
 package org.yaukie.frame.autocode.controller;
 
-import com.atomikos.util.DateHelper;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
+import org.yaukie.base.util.DateHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,13 +17,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.BaseResultConstant;
-import org.yaukie.core.constant.PageResult;
-import org.yaukie.core.exception.UserDefinedException;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.BaseResultConstant;
+import org.yaukie.base.constant.PageResult;
+import org.yaukie.base.exception.UserDefinedException;
 import org.yaukie.frame.autocode.dao.mapper.ExtendMapper;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XJobService;
@@ -66,6 +68,7 @@ public class XLogController  extends BaseController {
 
     @RequestMapping(value = "/downLog/{logId}",  produces = "application/json;charset=UTF-8")
     @ResponseBody
+    @OperLog(moduleName = "日志管理-下载日志",operationType = SysConstant.OperationType.INSERT)
     public BaseResult downLog(@PathVariable String logId)  {
         //优先从硬盘找文件,如果找不到则从数据库中取日志文件
         Map params = new HashMap() ;
@@ -257,6 +260,7 @@ public class XLogController  extends BaseController {
                     required = true,dataTypeClass =XLog.class),
                     })
                     @ApiOperation("新增")
+                    @OperLog(moduleName = "日志管理-新增日志",operationType = SysConstant.OperationType.INSERT)
                     public BaseResult addLog(@RequestBody @Validated XLog xLog, BindingResult BindingResult) {
                         if (BindingResult.hasErrors()) {
                         return this.getErrorMessage(BindingResult);
@@ -285,6 +289,7 @@ public class XLogController  extends BaseController {
                               @ApiImplicitParams({
                             @ApiImplicitParam(name = "ids", value = "ids", required = true, dataType = "string" ),
                             })
+                            @OperLog(moduleName = "日志管理-清理日志",operationType = SysConstant.OperationType.DELETE)
                             public BaseResult deleteLog(@RequestParam String ids) {
                                 String[] logIds = ids.split(",");
                                 XLogExample xLogExample = new  XLogExample();

@@ -1,10 +1,8 @@
 package org.yaukie.frame.autocode.service.api;
 
-import org.yaukie.core.base.service.Service;
+import org.yaukie.base.core.service.Service;
 import org.yaukie.frame.autocode.model.XTrans;
 import org.yaukie.frame.autocode.model.XTransExample;
-
-import java.util.List;
 
 /**
 * @author: yuenbin

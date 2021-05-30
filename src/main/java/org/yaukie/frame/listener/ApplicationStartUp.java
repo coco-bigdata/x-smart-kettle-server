@@ -14,8 +14,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.yaukie.core.constant.BaseResultConstant;
-import org.yaukie.core.exception.UserDefinedException;
 import org.yaukie.frame.autocode.model.*;
 import org.yaukie.frame.autocode.service.api.XJobService;
 import org.yaukie.frame.autocode.service.api.XQuartzService;
@@ -30,7 +28,6 @@ import org.yaukie.xtl.cons.Constant;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Author: yuenbin
@@ -150,7 +147,7 @@ public class ApplicationStartUp implements ApplicationListener<ApplicationReadyE
         } catch (KettleException e) {
             StringWriter stringWriter = new StringWriter() ;
             e.printStackTrace(new PrintWriter(stringWriter));
-            log.error("资源库{}初始化异常,原因为{}",hostName+":"+dbPort+"/"+dbName,stringWriter.toString().substring(0, 150));
+            log.error("资源库{}初始化异常,原因为{}",hostName+":"+dbPort+"/"+dbName,stringWriter.toString().substring(0, 650));
         }
 
     }

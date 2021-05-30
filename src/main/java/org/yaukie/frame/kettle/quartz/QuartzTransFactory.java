@@ -5,7 +5,7 @@ import org.pentaho.di.core.exception.KettleException;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.stereotype.Component;
-import org.yaukie.core.util.SpringContextUtil;
+import org.yaukie.base.util.SpringContextUtil;
 import org.yaukie.frame.autocode.model.XTrans;
 
 import java.io.PrintWriter;

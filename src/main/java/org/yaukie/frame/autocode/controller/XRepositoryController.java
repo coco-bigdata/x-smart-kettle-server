@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.pentaho.di.core.exception.KettleException;
-import org.pentaho.di.repository.ObjectId;
 import org.pentaho.di.repository.Repository;
 import org.pentaho.di.repository.filerep.KettleFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.PageResult;
-import org.yaukie.core.util.GenCodeUtil;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.PageResult;
+import org.yaukie.base.util.GenCodeUtil;
 import org.yaukie.frame.autocode.model.XRepository;
 import org.yaukie.frame.autocode.model.XRepositoryExample;
 import org.yaukie.frame.autocode.service.api.XRepositoryService;
@@ -49,6 +50,7 @@ public class XRepositoryController  extends BaseController {
             @ApiImplicitParam(name = "path", value = "path", required = true, dataType = "string" ),
             @ApiImplicitParam(name = "repoId", value = "repoId", required = true, dataType = "string" ),
     })
+    @OperLog(moduleName = "资源库管理-删除资源库目录",operationType = SysConstant.OperationType.DELETE)
     public BaseResult delRepoDir(@RequestParam String path,
                                  @RequestParam String repoId) {
         if(StringUtils.isEmpty(repoId)){
@@ -117,6 +119,7 @@ XRepositoryExample xRepositoryExample = new XRepositoryExample();
                     required = true,dataTypeClass =XRepository.class),
                     })
                     @ApiOperation("新增")
+                    @OperLog(moduleName = "资源库管理-新增资源库",operationType = SysConstant.OperationType.INSERT)
                     public BaseResult addRepository(@RequestBody @Validated XRepository xRepository,BindingResult BindingResult) {
                         if (BindingResult.hasErrors()) {
                             return this.getErrorMessage(BindingResult);
@@ -138,23 +141,27 @@ XRepositoryExample xRepositoryExample = new XRepositoryExample();
                         @ApiImplicitParam(name = "xRepository"+"", value = "xRepository"+"",
                             required = true,dataTypeClass =XRepository.class),
                         })
+                        @OperLog(moduleName = "资源库管理-更新资源库",operationType = SysConstant.OperationType.UPDATE)
                         public BaseResult updateRepository(@RequestBody @Validated XRepository xRepository, BindingResult BindingResult) {
                             if (BindingResult.hasErrors()) {
                             return this.getErrorMessage(BindingResult);
                             }
+
                             XRepositoryExample xRepositoryExample = new XRepositoryExample() ;
                             xRepositoryExample.createCriteria().andRepoIdEqualTo(xRepository.getRepoId()) ;
                             int affect = xRepositoryService.updateByExampleSelective(xRepository, xRepositoryExample);
                             return BaseResult.success();
                             }
 
-                            @GetMapping(value = "/delete/{id}")
+                            @GetMapping(value = "/delete/{repoId}")
                             @ApiOperation("删除")
                               @ApiImplicitParams({
                             @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "string" ),
                             })
-                            public BaseResult deleteRepository(@PathVariable String id) {
+                            @OperLog(moduleName = "资源库管理-删除一个资源库",operationType = SysConstant.OperationType.DELETE)
+                            public BaseResult deleteRepository(@PathVariable String repoId) {
                                 XRepositoryExample xRepositoryExample = new  XRepositoryExample();
+                                xRepositoryExample.createCriteria().andRepoIdEqualTo(repoId) ;
                                  this.xRepositoryService.deleteByExample(xRepositoryExample);
                                 return BaseResult.success();
                                 }

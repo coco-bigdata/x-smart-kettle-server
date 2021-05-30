@@ -14,37 +14,38 @@ import org.springframework.context.annotation.Configuration;
  *  配置一下线程池的基础参数
 **/
 @Data
-@ConfigurationProperties(prefix = "kettle.pool")
+@Configuration(value = "kettleThreadPoolProperties")
 public class KettleThreadPoolProperties {
 
     /**
      * 线程池前缀
      */
-
+    @Value("${kettle.pool.namePrefix}")
     private String namePrefix ;
 
     /**
      * 核心线程数
      */
-
+    @Value("${kettle.pool.coreThreads}")
     private int coreThreads;// = 20;
 
     /**
      * 最大的线程数
      */
-
+    @Value("${kettle.pool.maxThreads}")
     private int maxThreads;// = 50;
 
     /**
      * 队列容量
      */
 
+    @Value("${kettle.pool.queueCapacity}")
     private int queueCapacity;// = 100;
 
     /**
      * 空闲x分钟则释放线程
      */
-
+    @Value("${kettle.pool.keepAliveTimeMin}")
     private long keepAliveTimeMin;// = 5;
 
 

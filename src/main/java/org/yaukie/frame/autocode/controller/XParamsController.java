@@ -4,11 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 
 import net.sf.json.JSONArray;
 import org.springframework.util.CollectionUtils;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.PageResult;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.PageResult;
 import org.yaukie.frame.autocode.service.api.XParamsService;
 import org.yaukie.frame.autocode.model.XParams;
 import org.yaukie.frame.autocode.model.XParamsExample;
@@ -23,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author: yuenbin
@@ -88,6 +89,7 @@ public class XParamsController extends BaseController {
                     required = true, dataTypeClass = Map.class),
     })
     @ApiOperation("新增參數")
+    @OperLog(moduleName = "参数管理-新增参数",operationType = SysConstant.OperationType.INSERT)
     public BaseResult addParams(@RequestBody @Validated Map params) {
 
         String targetId = params.get("targetId") + "";
@@ -149,6 +151,7 @@ public class XParamsController extends BaseController {
             @ApiImplicitParam(name = "xParams" + "", value = "xParams" + "",
                     required = true, dataTypeClass = XParams.class),
     })
+    @OperLog(moduleName = "参数管理-更新参数",operationType = SysConstant.OperationType.UPDATE)
     public BaseResult updateParams(@RequestBody @Validated XParams xParams, BindingResult BindingResult) {
         if (BindingResult.hasErrors()) {
             return this.getErrorMessage(BindingResult);
@@ -163,6 +166,7 @@ public class XParamsController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "string"),
     })
+    @OperLog(moduleName = "参数管理-删除参数",operationType = SysConstant.OperationType.DELETE)
     public BaseResult deleteParams(@PathVariable String id) {
         XParamsExample xParamsExample = new XParamsExample();
         // xParamsExample.createCriteria().andIdEqualsTo(id);

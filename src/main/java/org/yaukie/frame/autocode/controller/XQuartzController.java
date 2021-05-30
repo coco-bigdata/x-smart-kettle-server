@@ -1,34 +1,34 @@
 package org.yaukie.frame.autocode.controller;
 
-import com.atomikos.util.DateHelper;
-import lombok.extern.slf4j.Slf4j;
-
-import org.apache.commons.httpclient.util.DateUtil;
-import org.quartz.*;
-import org.quartz.impl.triggers.CronTriggerImpl;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-import org.yaukie.builder.QuartzManager;
-import org.yaukie.core.annotation.EnablePage;
-import org.yaukie.core.base.controller.BaseController;
-import org.yaukie.core.config.UniformReponseHandler;
-import org.yaukie.core.constant.BaseResult;
-import org.yaukie.core.constant.BaseResultConstant;
-import org.yaukie.core.constant.PageResult;
-import org.yaukie.core.exception.UserDefinedException;
-import org.yaukie.frame.autocode.dao.mapper.ExtendMapper;
-import org.yaukie.frame.autocode.model.*;
-import org.yaukie.frame.autocode.service.api.XJobService;
-import org.yaukie.frame.autocode.service.api.XQuartzService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.httpclient.util.DateUtil;
+import org.quartz.*;
+import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
- import io.swagger.annotations.Api;
+import org.yaukie.base.annotation.EnablePage;
+import org.yaukie.base.annotation.OperLog;
+import org.yaukie.base.constant.SysConstant;
+import org.yaukie.base.core.controller.BaseController;
+import org.yaukie.base.config.UniformReponseHandler;
+import org.yaukie.base.constant.BaseResult;
+import org.yaukie.base.constant.BaseResultConstant;
+import org.yaukie.base.constant.PageResult;
+import org.yaukie.base.exception.UserDefinedException;
+import org.yaukie.base.util.DateHelper;
+import org.yaukie.builder.QuartzManager;
+import org.yaukie.frame.autocode.dao.mapper.ExtendMapper;
+import org.yaukie.frame.autocode.model.*;
+import org.yaukie.frame.autocode.service.api.XJobService;
+import org.yaukie.frame.autocode.service.api.XQuartzService;
 import org.yaukie.frame.autocode.service.api.XTransService;
 import org.yaukie.frame.kettle.quartz.XQuartHandleService;
 import org.yaukie.xtl.cons.Constant;
@@ -191,6 +191,7 @@ public class XQuartzController  extends BaseController {
                     required = true,dataTypeClass =XQuartz.class),
                     })
                     @ApiOperation("新增")
+                    @OperLog(moduleName = "定时管理-新增定时器",operationType = SysConstant.OperationType.INSERT)
                     public BaseResult addQuartz(@RequestBody @Validated XQuartz xQuartz, BindingResult BindingResult) {
                         if (BindingResult.hasErrors()) {
                         return this.getErrorMessage(BindingResult);
@@ -205,6 +206,7 @@ public class XQuartzController  extends BaseController {
                         @ApiImplicitParam(name = "xQuartz"+"", value = "xQuartz"+"",
                             required = true,dataTypeClass =XQuartz.class),
                         })
+                        @OperLog(moduleName = "定时管理-更新定时器",operationType = SysConstant.OperationType.UPDATE)
                         public BaseResult updateQuartz(@RequestBody @Validated XQuartz xQuartz, BindingResult BindingResult) {
                             if (BindingResult.hasErrors()) {
                             return this.getErrorMessage(BindingResult);
@@ -223,6 +225,7 @@ public class XQuartzController  extends BaseController {
                             @ApiImplicitParam(name = "isDel"+"", value = "isDel"+"",
                                     required = true,dataTypeClass =XQuartz.class),
                     })
+                    @OperLog(moduleName = "定时管理-切换定时开关",operationType = SysConstant.OperationType.UPDATE)
                     public BaseResult updateQuartz(@RequestParam String quartzId,
                                                    @RequestParam String isDel ) {
                         XQuartzExample xQuartzExample = new XQuartzExample() ;
@@ -289,6 +292,7 @@ public class XQuartzController  extends BaseController {
                             @ApiImplicitParam(name = "targetId", value = "targetId", required = true, dataType = "string" ),
                             @ApiImplicitParam(name = "targetType", value = "targetType", required = true, dataType = "string" )
                             })
+                            @OperLog(moduleName = "定时管理-删除定时器",operationType = SysConstant.OperationType.DELETE)
                             public BaseResult deleteQuartz(@RequestParam String targetId,
                                                            @RequestParam String targetType) {
 
