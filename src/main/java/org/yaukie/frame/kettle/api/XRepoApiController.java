@@ -135,6 +135,8 @@ public class XRepoApiController extends BaseController {
             @RequestParam(name = "type", required = false) String type) {
         List<RepositoryTree> repositoryTrees = getRepoTress();
         List<RepositoryTree> subTrees = new ArrayList<>();
+        try
+        {
         repositoryTrees.forEach(item -> {
             if (item.getParent().equals(pId)) {
                 if (item.isLasted()) {
@@ -149,7 +151,7 @@ public class XRepoApiController extends BaseController {
                 } else {
                     subTrees.add(item);
                 }
-            });
+            }});
         }catch (Exception e)
         {
             StringWriter sw = new StringWriter();
