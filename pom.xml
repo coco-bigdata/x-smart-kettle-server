@@ -63,12 +63,6 @@
                  </exclusion>
              </exclusions>
 			<version>2021.4</version>
-             <exclusions>
-                 <exclusion>
-                     <groupId>pentaho</groupId>
-                     <artifactId>simple-jndi</artifactId>
-                 </exclusion>
-             </exclusions>
 		</dependency>
         <!-- 定义 lombok 版本 -->
         <dependency>
