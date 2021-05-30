@@ -250,7 +250,7 @@
 
 ## 功能概览
 - 登录界面  
-![登录界面](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/登录/login.png)  
+![登录界面](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/login.png)  
 登录界面内置了两个账号，一个是admin，一个是superadmin，密码1    
 - 调度大盘  
 ![调度大盘](https://gitee.com/yaukie/x-smart-kettle-server/raw/master/folder/大屏_1.png)    
