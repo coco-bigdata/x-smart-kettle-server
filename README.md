@@ -416,6 +416,7 @@
  ```xml
  #配置服务器  
           #配置服务器
+          #配置服务器
           server:
             port: ${XTL_APP_SERVER_PORT:9876}
             servlet:
@@ -443,11 +444,11 @@
                 # 主库数据源
                 master:
                   #系统数据库访问地址【必填项】
-                  url: ${XTL_APP_DATASOURCE_URL:jdbc:mysql://localhost:3306/xtl?useUniCode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8}
+                  url: ${XTL_APP_MASTER_DATASOURCE_URL:jdbc:mysql://localhost:3306/xtl?useUniCode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8}
                   #系统数据库用户名【必填项】
-                  username: ${XTL_APP_DATASOURCE_USERNAME:root}
+                  username: ${XTL_APP_MASTER_DATASOURCE_USERNAME:root}
                   #系统数据库密码【必填项】
-                  password: ${XTL_APP_DATASOURCE_PASS:root}
+                  password: ${XTL_APP_MASTER_DATASOURCE_PASS:root}
                 # 从库数据源
                 slave:
                   # 从数据源开关/默认关闭
@@ -586,8 +587,15 @@
     2、直接使用Kettle 9.2.0.0-179版本，系统启动会报`[simple-jndi] is not directory` 异常，原因未知，为解决此问题，在根目录下面  
     建了一个`simple-jndi` 的目录，除非读者不使用9.2.0.0-179版本的Kettle，否则不要私自删除目录！  
     3、如果读者了解原因，也请留言，本人会及时更新升级  
-          
- - 步骤七 
+ - 步骤七  
+    资源库一定要设定好,按照配置文件给的信息,必须配一个资源库,默认为数据库类型的资源库,系统启动的时候需要加载、初始化,否则系统  
+    跑不起来   
+    请参考` application-dev.yml` 文件的资源库配置   
+    重申一下:  
+    默认的资源库名称为:xtl(名称可以随便更改),默认是数据库类型并且为Mysql,x_repository数据库中的默认repo_id为1326379690046259200   
+    这个值是系统初始化的时候给定的,请不要更改!请不要更改!请不要更改!  
+                  
+ - 步骤八 
         上述内容都配置好之后，这里运行：
         ```
             Start.java

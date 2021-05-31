@@ -26,11 +26,11 @@ spring:
       # 主库数据源
       master:
         #系统数据库访问地址【必填项】
-        url: ${XTL_APP_DATASOURCE_URL:jdbc:mysql://localhost:3306/xtl?useUniCode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8}
+        url: ${XTL_APP_MASTER_DATASOURCE_URL:jdbc:mysql://localhost:3306/xtl?useUniCode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8}
         #系统数据库用户名【必填项】
-        username: ${XTL_APP_DATASOURCE_USERNAME:root}
+        username: ${XTL_APP_MASTER_DATASOURCE_USERNAME:root}
         #系统数据库密码【必填项】
-        password: ${XTL_APP_DATASOURCE_PASS:root}
+        password: ${XTL_APP_MASTER_DATASOURCE_PASS:root}
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
