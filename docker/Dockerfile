@@ -5,7 +5,7 @@ MAINTAINER yuenbin "yaukie@163.com"
 #解压压缩文件到容器指定目录
 ADD smart-kettle-*.tar.gz /opt
 #挂载容器日志目录到虚拟机上
-VOLUME /opt/aps/logs:/opt/smart-kettle-2021.4/log
+VOLUME /opt/aps/logs:/opt/smart-kettle-2021.5/log
 # CentOS
 RUN echo "Asia/shanghai" > /etc/timezone;
 #设置环境变量
@@ -25,6 +25,6 @@ ENV XTL_KETTLE_DB_PORT 3306
 ENV XTL_KETTLE_DB_NAME etl
 ENV XTL_KETTLE_DB_USERNAME root
 ENV XTL_KETTLE_DB_PASS root
-ENV XTL_APP_LOG_PATH /opt/smart-kettle-2021.4/log
+ENV XTL_APP_LOG_PATH /opt/smart-kettle-2021.5/log
 ENV XTL_APP_LOG_LEVEL info
-ENTRYPOINT ["java","-jar","-Xms500m","-Xmx1g","-XX:MaxDirectMemorySize=1g","-Dsun.net.client.defaultConnectTimeout=60000","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/smart-kettle-2021.4/server/config/application-dev.yml","/opt/smart-kettle-2021.4/server/smart-kettle-2021.4.jar"]
+ENTRYPOINT ["java","-jar","-Xms500m","-Xmx1g","-XX:MaxDirectMemorySize=1g","-Dsun.net.client.defaultConnectTimeout=60000","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/smart-kettle-2021.5/server/config/application-dev.yml","/opt/smart-kettle-2021.5/server/smart-kettle-2021.5.jar"]
