@@ -7,8 +7,8 @@ server:
 spring:
   redis:
     # 默认不开启 则使用内置Map 作为缓存使用
-    enabled: ${XTL_REDIS_ENABLED:false} # redis缓存开关【如果有redis建议开启,提高性能】
-    host: ${XTL_REDIS_HOST:localhost}
+    enabled: ${XTL_REDIS_ENABLED:true} # redis缓存开关【如果有redis建议开启,提高性能】
+    host: ${XTL_REDIS_HOST:101.132.24.211}
     port: ${XTL_REDIS_PORT:6379}
     password: ${XTL_REDIS_PASS:root}
     jedis:
@@ -111,5 +111,9 @@ logging:
   path: ${XTL_APP_LOG_PATH:/maven/xtl-web-server/logs}
   level:
     org.yaukie.frame.autocode.dao.mapper: debug
-    root: ${XTL_APP_LOG_LEVEL:debug}
+    root: ${XTL_APP_LOG_LEVEL:info}
     #扫描mapper配置,统一放到classpath目录下
+mybatis:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
