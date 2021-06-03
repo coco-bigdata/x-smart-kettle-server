@@ -166,10 +166,10 @@ public class JobService  {
         String logText = "";
         XLogListener xLogListener = null ;
         try {
-            job.run();
             /**添加日志监听*/
             xLogListener =new XLogListener(logFilePath,job) ;
             KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
+            job.run();
              jobMap.put(xJob.getJobId(), job);
             job.waitUntilFinished();
             if (job.isFinished()) {
@@ -310,11 +310,11 @@ public class JobService  {
                     String stopTime = null;
                     XLogListener xLogListener = null ;
                     try {
-                        job.run();
-                        /**添加日志监听*/
+
                         /**添加日志监听*/
                         xLogListener =new XLogListener(logFilePath,job) ;
                         KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
+                        job.run();
                           jobMap.put(xJob.getJobId(), job);
                         job.waitUntilFinished();
                         if (job.isFinished()) {
