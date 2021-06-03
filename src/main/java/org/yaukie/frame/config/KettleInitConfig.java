@@ -15,6 +15,7 @@ import org.yaukie.base.system.ASyncManager;
 import org.yaukie.xtl.config.KettleInit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,6 +46,7 @@ public class KettleInitConfig {
     @Value("${kettle.scheduler.enabled}")
     private String enabled;
 
+
     @PostConstruct
     private void init(){
         try {
@@ -54,7 +56,7 @@ public class KettleInitConfig {
             KettleInit.init();
             KettleEnvironment.init();
             /**默认开启日志监听*/
-            KettleLogStore.getAppender().addLoggingEventListener(new XLogListener());
+//            KettleLogStore.getAppender().addLoggingEventListener(new XLogListener());
             log.info("===kettle 环境初始化完成===\r\n");
         } catch (KettleException e) {
             log.error("===kettle初始化出现异常--{}===",e);

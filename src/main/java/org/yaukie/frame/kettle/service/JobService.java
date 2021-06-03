@@ -8,6 +8,9 @@ import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.pentaho.di.core.exception.KettleException;
+import org.pentaho.di.core.logging.KettleLogStore;
+import org.pentaho.di.core.logging.KettleLoggingEvent;
+import org.pentaho.di.core.logging.KettleLoggingEventListener;
 import org.pentaho.di.core.logging.LogLevel;
 import org.pentaho.di.core.parameters.UnknownParamException;
 import org.pentaho.di.job.Job;
@@ -32,6 +35,7 @@ import org.yaukie.xtl.KettleUtil;
 import org.yaukie.xtl.cons.Constant;
 import org.yaukie.xtl.cons.XJobStatus;
 import org.yaukie.xtl.exceptions.XtlExceptions;
+import org.yaukie.xtl.log.LoggingEventListener;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -59,7 +63,6 @@ public class JobService  {
     private static Map<String, Job> jobMap = new ConcurrentHashMap();
 
     private static Repository repository;
-
 
     @Autowired
     private XRepositoryService xRepositoryService;
@@ -161,10 +164,13 @@ public class JobService  {
         String recordStatus = XJobStatus.SUCCESS.value();
         String stopTime = "";
         String logText = "";
+        XLogListener xLogListener = null ;
         try {
-            String logId = XLogListener.addLogListener(logFilePath, job);
-            job.start();
-            jobMap.put(xJob.getJobId(), job);
+            job.run();
+            /**添加日志监听*/
+            xLogListener =new XLogListener(logFilePath,job) ;
+            KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
+             jobMap.put(xJob.getJobId(), job);
             job.waitUntilFinished();
             if (job.isFinished()) {
                 recordStatus = KettleUtil.getJobStatus(job).value();
@@ -173,10 +179,12 @@ public class JobService  {
                 xLog.setTargetResult(recordStatus);
                 xLog.setStopTime(stopTime);
                 XLogExample xLogExample = new XLogExample();
-                xLogExample.createCriteria().andLogIdEqualTo(logId);
+                xLogExample.createCriteria().andLogIdEqualTo(xLogListener.getLogId());
                 xLogService.updateByExampleSelective(xLog, xLogExample);
+                KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
             }
         } catch (Exception e) {
+            KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
             StringWriter str = new StringWriter();
             e.printStackTrace(new PrintWriter(str));
             log.error("任务执行失败,原因为: {}", str.toString().substring(0, 800));
@@ -212,11 +220,13 @@ public class JobService  {
         }
         String recordStatus = XJobStatus.SUCCESS.value();
         String stopTime = null;
-        try {
+        XLogListener  xLogListener = null ;
+         try {
+             /**添加日志监听*/
+             xLogListener =new XLogListener(logFilePath,job) ;
+             KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
             job.run();
-            /**添加日志监听*/
-            String logId = XLogListener.addLogListener(logFilePath, job);
-            jobMap.put(xJob.getJobId(), job);
+             jobMap.put(xJob.getJobId(), job);
             job.waitUntilFinished();
             if (job.isFinished()) {
                 recordStatus = KettleUtil.getJobStatus(job).value();
@@ -225,10 +235,12 @@ public class JobService  {
                 xLog.setTargetResult(recordStatus);
                 xLog.setStopTime(stopTime);
                 XLogExample xLogExample = new XLogExample();
-                xLogExample.createCriteria().andLogIdEqualTo(logId);
+                xLogExample.createCriteria().andLogIdEqualTo(xLogListener.getLogId());
                 xLogService.updateByExampleSelective(xLog, xLogExample);
+                KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
             }
         } catch (Exception e) {
+            KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
             StringWriter str = new StringWriter();
             e.printStackTrace(new PrintWriter(str));
             log.error("任务执行失败,原因为: {}", str.toString().substring(0, 800));
@@ -296,11 +308,14 @@ public class JobService  {
                     }
                     String recordStatus = XJobStatus.SUCCESS.value();
                     String stopTime = null;
+                    XLogListener xLogListener = null ;
                     try {
                         job.run();
                         /**添加日志监听*/
-                        String logId = XLogListener.addLogListener(logFilePath, job);
-                        jobMap.put(xJob.getJobId(), job);
+                        /**添加日志监听*/
+                        xLogListener =new XLogListener(logFilePath,job) ;
+                        KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
+                          jobMap.put(xJob.getJobId(), job);
                         job.waitUntilFinished();
                         if (job.isFinished()) {
                             recordStatus = KettleUtil.getJobStatus(job).value();
@@ -309,10 +324,12 @@ public class JobService  {
                             xLog.setTargetResult(recordStatus);
                             xLog.setStopTime(stopTime);
                             XLogExample xLogExample = new XLogExample();
-                            xLogExample.createCriteria().andLogIdEqualTo(logId);
+                            xLogExample.createCriteria().andLogIdEqualTo(xLogListener.getLogId());
                             xLogService.updateByExampleSelective(xLog, xLogExample);
+                            KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
                         }
                     } catch (Exception e) {
+                        KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
                         StringWriter str = new StringWriter();
                         e.printStackTrace(new PrintWriter(str));
                         log.error("任务执行失败,原因为: {}", str.toString().substring(0, 800));

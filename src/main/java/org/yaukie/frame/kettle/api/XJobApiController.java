@@ -524,10 +524,17 @@ public class XJobApiController extends BaseController {
         if (xJob.getIsMonitorEnabled().equals("1")) {
             logService.doAddMonitor(param);
         }
-        xJobSubmit.submit(xJob);
-        int currentTasks = xJobSubmit.getCurrentTaskCounts();
-        log.debug("当前任务数有{}个", currentTasks);
-        return new UniformReponseHandler<>().sendSuccessResponse("任务提交成功,当前队列中总共" + currentTasks + "个任务");
+        try {
+            xJobSubmit.submit(xJob);
+            int currentTasks = xJobSubmit.getCurrentTaskCounts();
+            log.info("当前任务数有{}个", currentTasks);
+            return new UniformReponseHandler<>().sendSuccessResponse("任务提交成功,当前队列中总共" + currentTasks + "个任务");
+        }catch (KettleException ex )
+        {
+            return  new UniformReponseHandler<>().sendErrorResponse_UserDefined(ex);
+        }
+      
+        
     }
 
     @GetMapping(value = "/addJob2Sche")
@@ -565,7 +572,7 @@ public class XJobApiController extends BaseController {
                 return  new BaseResult(11002, "定时队列中已存在该任务,任务名称为["+jobKey.getName()+"]", null);
               }
         } catch (SchedulerException e) {
-            e.printStackTrace();
+
         }
 
         XQuartzExample xQuartzExample = new XQuartzExample();
@@ -586,7 +593,7 @@ public class XJobApiController extends BaseController {
             xQuartz.setQuartzDescription(description);
             xQuartz.setIsDel("0");
             xQuartzService.insertSelective(xQuartz) ;
-            log.debug("定时规则更新成功!");
+            log.info("定时规则更新成功!");
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {

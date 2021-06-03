@@ -5,6 +5,7 @@ import com.jcraft.jsch.JSchException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.pentaho.di.core.exception.KettleException;
+import org.pentaho.di.core.logging.KettleLogStore;
 import org.pentaho.di.core.logging.LogLevel;
 import org.pentaho.di.repository.Repository;
 import org.pentaho.di.trans.Trans;
@@ -27,6 +28,7 @@ import org.yaukie.xtl.KettleUtil;
 import org.yaukie.xtl.cons.Constant;
 import org.yaukie.xtl.cons.XTransStatus;
 import org.yaukie.xtl.exceptions.XtlExceptions;
+import org.yaukie.xtl.log.LoggingEventListener;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -118,7 +120,8 @@ public class TransService  {
         if (xRepository == null) {
             throw new XtlExceptions("请定义资源库!");
         }
-        try {
+            XLogListener xLogListener =null ;
+            try {
 
              repository  =  KettleUtil.conByNative(xRepository.getRepoId(),xRepository.getRepoName(),
                     xRepository.getRepoName(),xRepository.getRepoType(),
@@ -144,8 +147,9 @@ public class TransService  {
              String stopTime = null;
 
                  /**添加日志监听*/
-                 String logId =   XLogListener.addLogListener(logFilePath,trans);
-                 trans.execute(null);
+                 xLogListener = new XLogListener(logFilePath,trans);
+             KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
+                  trans.execute(null);
                 transMap.put(xTrans.getTransId(),trans );
                 trans.waitUntilFinished();
                 if(trans.isFinishedOrStopped()){
@@ -155,10 +159,12 @@ public class TransService  {
                     xLog.setTargetResult(recordStatus);
                     xLog.setStopTime(stopTime);
                     XLogExample xLogExample = new XLogExample();
-                    xLogExample.createCriteria().andLogIdEqualTo(logId);
+                    xLogExample.createCriteria().andLogIdEqualTo(xLogListener.getLogId());
                     xLogService.updateByExampleSelective(xLog,xLogExample ) ;
+                    KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
                 }
              } catch (Exception e) {
+              KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
                 StringWriter str = new StringWriter();
                 e.printStackTrace(new PrintWriter(str));
                 log.error("转换任务执行失败,原因为: {}",str.toString().substring(0,800) );
@@ -201,11 +207,13 @@ public class TransService  {
         trans.addTransListener(defaultListener);
          String recordStatus = XTransStatus.SUCCESS.value();
          String stopTime = "";
-         try {
+        XLogListener xLogListener =null ;
+        try {
              trans.execute(null);
             /**添加日志监听*/
-           String logId =  XLogListener.addLogListener(logFilePath,trans);
-            transMap.put(xTrans.getTransId(),trans );
+               xLogListener = new XLogListener(logFilePath,trans);
+            KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
+             transMap.put(xTrans.getTransId(),trans );
             trans.waitUntilFinished();
             if(trans.isFinishedOrStopped()){
                 recordStatus = KettleUtil.getTransStatus(trans).value();
@@ -214,11 +222,12 @@ public class TransService  {
                 xLog.setTargetResult(recordStatus);
                 xLog.setStopTime(stopTime);
                 XLogExample xLogExample = new XLogExample();
-                xLogExample.createCriteria().andLogIdEqualTo(logId);
+                xLogExample.createCriteria().andLogIdEqualTo(xLogListener.getLogId());
                 xLogService.updateByExampleSelective(xLog,xLogExample ) ;
-
+                KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
             }
          } catch (Exception e) {
+            KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
             StringWriter str = new StringWriter();
             e.printStackTrace(new PrintWriter(str));
             log.error("转换任务执行失败,原因为: {}",str.toString().substring(0,800) );
@@ -294,11 +303,13 @@ public class TransService  {
                     trans.addTransListener(defaultListener);
                     String recordStatus = XTransStatus.SUCCESS.value();
                     String stopTime = "";
+                    XLogListener xLogListener = null ;
                     try {
                         trans.execute(null);
                         /**添加日志监听*/
-                        String logId =  XLogListener.addLogListener(logFilePath,trans);
-                        transMap.put(xTrans.getTransId(),trans );
+                          xLogListener = new XLogListener(logFilePath,trans);
+                          KettleLogStore.getAppender().addLoggingEventListener(xLogListener);
+                         transMap.put(xTrans.getTransId(),trans );
                         trans.waitUntilFinished();
                         if(trans.isFinishedOrStopped()){
                             recordStatus = KettleUtil.getTransStatus(trans).value();
@@ -307,11 +318,12 @@ public class TransService  {
                             xLog.setTargetResult(recordStatus);
                             xLog.setStopTime(stopTime);
                             XLogExample xLogExample = new XLogExample();
-                            xLogExample.createCriteria().andLogIdEqualTo(logId);
+                            xLogExample.createCriteria().andLogIdEqualTo(xLogListener.getLogId());
                             xLogService.updateByExampleSelective(xLog,xLogExample ) ;
-
+                            KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
                         }
                     } catch (Exception e) {
+                        KettleLogStore.getAppender().removeLoggingEventListener(xLogListener);
                         StringWriter str = new StringWriter();
                         e.printStackTrace(new PrintWriter(str));
                         log.error("转换任务执行失败,原因为: {}",str.toString().substring(0,800) );

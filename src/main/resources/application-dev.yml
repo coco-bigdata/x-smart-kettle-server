@@ -7,8 +7,8 @@ server:
 spring:
   redis:
     # 默认不开启 则使用内置Map 作为缓存使用
-    enabled: ${XTL_REDIS_ENABLED:true} # redis缓存开关【如果有redis建议开启,提高性能】
-    host: ${XTL_REDIS_HOST:101.132.24.211}
+    enabled: ${XTL_REDIS_ENABLED:false} # redis缓存开关【如果有redis建议开启,提高性能】
+    host: ${XTL_REDIS_HOST:localhost}
     port: ${XTL_REDIS_PORT:6379}
     password: ${XTL_REDIS_PASS:root}
     jedis:
@@ -102,9 +102,9 @@ yaukie:
     # 令牌密钥
     secret: yuenbin@inspur.com&yaukie@163.com # TOKEN加密使用的秘钥【使用默认就行】
     # 令牌有效期（默认10分钟） 如果不配置 按照10分钟过期
-    expire: 10 # 令牌TOKEN过期时间,默认十分钟【使用默认就行】
+    expire: 20 # 令牌TOKEN过期时间,默认十分钟【使用默认就行】
     # 令牌刷新间隔 1 分钟
-    refresh: 1 # 零头TOKEN刷新间隔默认1分钟【使用默认就行】
+    refresh: 5 # 零头TOKEN刷新间隔默认1分钟【使用默认就行】
 
 logging:
   #系统日志存放路径
@@ -115,5 +115,5 @@ logging:
     #扫描mapper配置,统一放到classpath目录下
 mybatis:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

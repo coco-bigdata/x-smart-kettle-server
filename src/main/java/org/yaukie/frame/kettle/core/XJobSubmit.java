@@ -47,7 +47,7 @@ public class XJobSubmit {
     private static Map<String,Thread> activeMap = new ConcurrentHashMap();
 
 
-    public synchronized void submit(XJob xJob ){
+    public synchronized void submit(XJob xJob ) throws KettleException{
 
         StandardThreadFactory threadFactory = new StandardThreadFactory("kettleThreadPool",threadsContainer);
         threadFactory.setJobName(xJob.getJobName());
@@ -77,6 +77,11 @@ public class XJobSubmit {
                         xMonitor.setDescription(des);
                         xMonitor.setFailCount((Integer.parseInt(failCount)+1)+"");
                         xMonitorService.updateByExampleSelective(xMonitor,xMonitorExample);
+                    }
+                    try {
+                        throw new KettleException(ex) ;
+                    } catch (KettleException e) {
+
                     }
                 }
             });
