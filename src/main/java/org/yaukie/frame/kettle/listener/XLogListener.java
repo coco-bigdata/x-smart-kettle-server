@@ -90,7 +90,7 @@ public class XLogListener extends LoggingEventListener {
 
     }
 
-    @Override
+
     public boolean writeFileLog(KettleLoggingEvent event) {
         try {
             Object messageObject = event.getMessage();
@@ -117,7 +117,7 @@ public class XLogListener extends LoggingEventListener {
         return false;
     }
 
-    @Override
+ 
     public boolean writeDbLog(KettleLoggingEvent event) {
         LogService logService = (LogService) SpringContextUtil.getBean("logService", LogService.class);
         try {
@@ -169,8 +169,7 @@ public class XLogListener extends LoggingEventListener {
         return false;
     }
 
-    @Override
-    public void recordWarningLog(KettleLoggingEvent event) {
+     public void recordWarningLog(KettleLoggingEvent event) {
         LogService logService = (LogService) SpringContextUtil.getBean("logService", LogService.class);
         Object object = event.getMessage();
         LogMessage message = (LogMessage) object;
