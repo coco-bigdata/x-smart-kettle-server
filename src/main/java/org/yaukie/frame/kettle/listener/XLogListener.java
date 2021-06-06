@@ -1,14 +1,12 @@
 package org.yaukie.frame.kettle.listener;
 
 import com.alibaba.fastjson.JSON;
+import org.pentaho.di.core.logging.*;
 import org.yaukie.base.util.DateHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.pentaho.di.core.Const;
 import org.pentaho.di.core.exception.KettleException;
-import org.pentaho.di.core.logging.KettleLoggingEvent;
-import org.pentaho.di.core.logging.LogMessage;
-import org.pentaho.di.core.logging.LoggingRegistry;
 import org.pentaho.di.job.Job;
 import org.pentaho.di.trans.Trans;
 import org.yaukie.base.util.GenCodeUtil;
@@ -16,7 +14,6 @@ import org.yaukie.base.util.SpringContextUtil;
 import org.yaukie.frame.kettle.service.LogService;
 import org.yaukie.xtl.KettleUtil;
 import org.yaukie.xtl.exceptions.XtlExceptions;
-import org.yaukie.xtl.log.LoggingEventListener;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -35,7 +32,15 @@ import java.util.regex.Pattern;
  * @Destrib: 增加kettle执行日志完整监听
  **/
 @Slf4j
-public class XLogListener extends LoggingEventListener {
+public class XLogListener implements KettleLoggingEventListener {
+
+    public    static    Map<Object, File> jobFileMap = new ConcurrentHashMap<>();
+
+    public KettleLogLayout layout =new KettleLogLayout(true);
+
+
+    public Pattern pattern ;
+
 
     public   OutputStream outputStream ;
     /**
@@ -90,7 +95,6 @@ public class XLogListener extends LoggingEventListener {
 
     }
 
-    @Override
     public boolean writeFileLog(KettleLoggingEvent event) {
         try {
             Object messageObject = event.getMessage();
@@ -117,7 +121,7 @@ public class XLogListener extends LoggingEventListener {
         return false;
     }
 
-    @Override
+
     public boolean writeDbLog(KettleLoggingEvent event) {
         LogService logService = (LogService) SpringContextUtil.getBean("logService", LogService.class);
         try {
@@ -169,7 +173,6 @@ public class XLogListener extends LoggingEventListener {
         return false;
     }
 
-    @Override
     public void recordWarningLog(KettleLoggingEvent event) {
         LogService logService = (LogService) SpringContextUtil.getBean("logService", LogService.class);
         Object object = event.getMessage();
@@ -189,13 +192,13 @@ public class XLogListener extends LoggingEventListener {
             String targetName = "未知线程任务：" + Thread.currentThread().getName();
             if (obj instanceof Job) {
                 Job job = (Job) obj;
-                logFile = super.jobFileMap.get(job).getAbsolutePath();
+                logFile = jobFileMap.get(job).getAbsolutePath();
                 targetId = job.getObjectId().getId();
                 targetName = job.getJobMeta().getName();
                 type = "job";
             } else if (obj instanceof Trans) {
                 Trans trans = (Trans) obj;
-                logFile = super.jobFileMap.get(trans).getAbsolutePath();
+                logFile = jobFileMap.get(trans).getAbsolutePath();
                 targetId = trans.getObjectId().getId();
                 targetName = trans.getTransMeta().getName();
                 type = "trans";
@@ -206,7 +209,6 @@ public class XLogListener extends LoggingEventListener {
         }
     }
 
-    @Override
     public void eventAdded(KettleLoggingEvent event) {
         boolean failed = true;
          try {
@@ -352,5 +354,20 @@ public class XLogListener extends LoggingEventListener {
     public void setOutputStream(OutputStream outputStream) {
         this.outputStream = outputStream;
     }
+
+
+    public   String getExceptionMsg(String joblogStr, Matcher m) {
+        if (joblogStr.length() <= 3000) {
+            return joblogStr;
+        } else if (!m.find()) {
+            return joblogStr.substring(0, 3000);
+        } else if (m.start() <= 100) {
+            return joblogStr.substring(0, 3000);
+        } else {
+            return joblogStr.length() - m.start() + 100 <= 3000 ? joblogStr.substring(m.start() - 100) : joblogStr.substring(m.start() - 100, m.start() + 2900);
+        }
+    }
+
+
 
 }
