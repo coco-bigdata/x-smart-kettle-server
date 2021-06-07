@@ -4,25 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.exception.KettleException;
-import org.pentaho.di.core.logging.KettleLogStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.yaukie.frame.kettle.listener.XLogListener;
+import org.springframework.context.annotation.DependsOn;
+import org.yaukie.base.system.ASyncManager;
+import org.yaukie.base.util.SpringContextUtil;
+import org.yaukie.frame.monitor.ThreadPoolExcutorMonitor;
 import org.yaukie.frame.pool.StandardPoolExecutor;
 import org.yaukie.frame.pool.StandardThreadFactory;
-import org.yaukie.base.system.ASyncManager;
 import org.yaukie.xtl.config.KettleInit;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @Author: yuenbin
@@ -61,6 +58,7 @@ public class KettleInitConfig {
         } catch (KettleException e) {
             log.error("===kettle初始化出现异常--{}===",e);
         }
+
     }
 
 
@@ -90,6 +88,26 @@ public class KettleInitConfig {
         return  standardPoolExecutor ;
     }
 
+
+    @DependsOn("executor")
+    @Bean
+    public ThreadPoolExcutorMonitor threadPoolExcutorMonitor() {
+        log.info("===Kettle任务线程池监控任务开启===");
+        long start
+                = System.currentTimeMillis() ;
+
+        ThreadPoolExcutorMonitor monitor = new ThreadPoolExcutorMonitor();
+        monitor.setExecutorService(SpringContextUtil.getBean("executor"));
+        ExecutorService service = Executors.newSingleThreadScheduledExecutor() ;
+        // 十秒之后执行线程任务
+         ((ScheduledExecutorService) service).schedule(monitor,10,TimeUnit.SECONDS) ;
+
+                long end
+                = System.currentTimeMillis() ;
+        log.info("===Kettle任务线程池监控任务开启,总耗时--{} 毫秒===",(end-start));
+        return  monitor ;
+    }
+
     /**
      * 执行周期性或定时任务
      */
@@ -115,6 +133,8 @@ public class KettleInitConfig {
 
         return  scheduledExecutorService  ;
     }
+
+
 
 
 //    @Bean
