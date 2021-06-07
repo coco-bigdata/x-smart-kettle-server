@@ -13,10 +13,7 @@ import java.util.concurrent.ExecutorService;
  * @Motto: It is better to be clear than to be clever !
  * @Destrib:  编写一个线程池监控线程
 */
-@Data
 public abstract class IThreadPoolExcutorMonitor extends TimerTask {
-
-    public     ExecutorService executorService;
 
     public abstract void monitor() ;
 

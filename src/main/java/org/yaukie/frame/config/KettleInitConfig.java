@@ -100,7 +100,7 @@ public class KettleInitConfig {
                 = System.currentTimeMillis() ;
 
         ThreadPoolExcutorMonitor monitor = new ThreadPoolExcutorMonitor();
-        monitor.setExecutorService(SpringContextUtil.getBean("executor"));
+        monitor.setExecutor(SpringContextUtil.getBean("executor"));
         ExecutorService service = SpringContextUtil.getBean("executorService");
         // 十秒之后执行线程任务
          ((ScheduledExecutorService) service).schedule(monitor,10,TimeUnit.SECONDS) ;

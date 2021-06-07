@@ -1,5 +1,6 @@
 package org.yaukie.frame.monitor;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
@@ -13,6 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @Destrib:
  */
 @Slf4j
+@Data
 public class ThreadPoolExcutorMonitor extends IThreadPoolExcutorMonitor {
 
     private ThreadPoolExecutor executor ;
