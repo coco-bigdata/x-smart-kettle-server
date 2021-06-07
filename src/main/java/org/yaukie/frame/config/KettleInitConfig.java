@@ -10,12 +10,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.yaukie.base.system.ASyncManager;
 import org.yaukie.base.util.SpringContextUtil;
+import org.yaukie.base.util.StringTools;
+import org.yaukie.frame.monitor.IThreadPoolExcutorMonitor;
 import org.yaukie.frame.monitor.ThreadPoolExcutorMonitor;
 import org.yaukie.frame.pool.StandardPoolExecutor;
 import org.yaukie.frame.pool.StandardThreadFactory;
 import org.yaukie.xtl.config.KettleInit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -89,8 +92,8 @@ public class KettleInitConfig {
     }
 
 
-    @DependsOn("executor")
-    @Bean
+    @DependsOn({"executor","executorService"})
+     @Bean
     public ThreadPoolExcutorMonitor threadPoolExcutorMonitor() {
         log.info("===Kettle任务线程池监控任务开启===");
         long start
@@ -98,7 +101,7 @@ public class KettleInitConfig {
 
         ThreadPoolExcutorMonitor monitor = new ThreadPoolExcutorMonitor();
         monitor.setExecutorService(SpringContextUtil.getBean("executor"));
-        ExecutorService service = Executors.newSingleThreadScheduledExecutor() ;
+        ExecutorService service = SpringContextUtil.getBean("executorService");
         // 十秒之后执行线程任务
          ((ScheduledExecutorService) service).schedule(monitor,10,TimeUnit.SECONDS) ;
 
@@ -158,4 +161,11 @@ public class KettleInitConfig {
 //         return carte;
 //    }
 
+    @PreDestroy
+    private void destory(){
+        ThreadPoolExcutorMonitor threadPoolExcutorMonitor = SpringContextUtil.getBean(ThreadPoolExcutorMonitor.class);
+        if(!StringTools.isNull(threadPoolExcutorMonitor)){
+
+        }
+    }
 }
