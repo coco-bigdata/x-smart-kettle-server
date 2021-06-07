@@ -115,5 +115,5 @@ logging:
     #扫描mapper配置,统一放到classpath目录下
 mybatis:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
