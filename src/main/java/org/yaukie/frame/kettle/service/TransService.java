@@ -28,7 +28,6 @@ import org.yaukie.xtl.KettleUtil;
 import org.yaukie.xtl.cons.Constant;
 import org.yaukie.xtl.cons.XTransStatus;
 import org.yaukie.xtl.exceptions.XtlExceptions;
-import org.yaukie.xtl.log.LoggingEventListener;
 
 import java.io.File;
 import java.io.PrintWriter;
