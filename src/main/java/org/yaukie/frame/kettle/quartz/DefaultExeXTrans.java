@@ -4,6 +4,7 @@ import org.pentaho.di.core.exception.KettleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yaukie.frame.autocode.model.XTrans;
+import org.yaukie.frame.kettle.core.XTransSubmit;
 import org.yaukie.frame.kettle.service.TransService;
 
 /**
@@ -17,10 +18,10 @@ import org.yaukie.frame.kettle.service.TransService;
 public class DefaultExeXTrans {
 
     @Autowired
-    private TransService transService;
+    private XTransSubmit xTransSubmit ;
 
     public void doExeTrans(XTrans xTrans) throws Exception {
-        transService.startTrans(xTrans);
+        xTransSubmit.submit(xTrans);
     }
 
 }

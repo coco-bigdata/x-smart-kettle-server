@@ -4,6 +4,7 @@ import org.pentaho.di.core.exception.KettleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yaukie.frame.autocode.model.XJob;
+import org.yaukie.frame.kettle.core.XJobSubmit;
 import org.yaukie.frame.kettle.service.JobService;
 
 /**
@@ -17,10 +18,10 @@ import org.yaukie.frame.kettle.service.JobService;
 public class DefaultExeXJob {
 
     @Autowired
-    private JobService jobService;
+    private XJobSubmit xJobSubmit;
 
     public void doExeJob(XJob xJob) throws KettleException {
-        jobService.startJob(xJob);
+        xJobSubmit.submit(xJob);
     }
 
 }

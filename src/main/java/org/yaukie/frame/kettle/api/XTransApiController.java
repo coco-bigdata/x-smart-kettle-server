@@ -343,7 +343,7 @@ public class XTransApiController extends BaseController {
                 if(StringUtils.isNotEmpty(isMonitoredEnabled) && isMonitoredEnabled.equals("1")){
                     logService.doAddMonitor(param);
                 }
-                xTransSubmit.submit(param,xTrans);
+                xTransSubmit.submit(xTrans);
                   currentTasks = xTransSubmit.getCurrentTaskCounts() ;
                 log.debug("当前任务数有{}个",currentTasks);
             }catch (UserDefinedException ex ){

@@ -46,7 +46,7 @@ public class XTransSubmit {
 
     private static Map<String,Thread> activeMap = new ConcurrentHashMap();
 
-    public synchronized void submit(Map map, XTrans xTrans ){
+    public synchronized void submit(XTrans xTrans ){
 
         StandardThreadFactory threadFactory = new StandardThreadFactory("kettleThreadPool",threadsContainer);
         threadFactory.setJobName(xTrans.getTransName());

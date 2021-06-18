@@ -3,9 +3,11 @@ package org.yaukie.frame.kettle.quartz;
 import lombok.extern.slf4j.Slf4j;
 import org.pentaho.di.core.exception.KettleException;
 import org.quartz.JobExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yaukie.base.util.SpringContextUtil;
 import org.yaukie.frame.autocode.model.XJob;
+import org.yaukie.frame.kettle.core.XJobSubmit;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
