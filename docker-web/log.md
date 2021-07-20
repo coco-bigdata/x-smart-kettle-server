@@ -57,3 +57,8 @@ WARNING: Image for service kettle-fe was built because it did not already exist.
 Creating kettle-fe ... done
 Attaching to kettle-fe
 kettle-fe    | Error: Unable to access jarfile /home/bigdata/kettle/smart-kettle-2021.5/server/smart-kettle-2021.5.jar
+
+sudo docker-compose up
+Creating kettle-fe ... done
+Attaching to kettle-fe
+kettle-fe    | Error: Unable to access jarfile /home/bigdata/kettle/smart-kettle-2021.5/server/smart-kettle-2021.5.jar
