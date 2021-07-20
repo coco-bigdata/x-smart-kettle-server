@@ -1,0 +1,14 @@
+version: '3'
+services:
+  kettle-fe:
+    build:
+      context: kettle-fe
+      dockerfile: Dockerfile
+    container_name: kettle-fe
+    ports:
+      - "8017:8017"
+    volumes:
+      - ./kettle/smart-kettle-2021.5:/home/bigdata/kettle/smart-kettle-2021.5
+      - ./kettle/xtl:/home/bigdata/kettle/xtl/kettle/logs
+      - /etc/localtime:/etc/localtime
+    restart: always
