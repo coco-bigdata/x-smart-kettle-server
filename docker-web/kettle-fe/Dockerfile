@@ -3,7 +3,9 @@ FROM openjdk:8
 #作者信息
 LABEL maintainer="Peter Zhang <zhangchunsheng423@gmail.com>"
 
-RUN mkdir /home/bigdata/kettle
+RUN mkdir -p /home/bigdata/kettle
+RUN mkdir -p /home/bigdata/kettle/smart-kettle-2021.5/log
+RUN mkdir -p /home/bigdata/kettle/xtl/kettle/logs
 
 #解压压缩文件到容器指定目录
 ADD smart-kettle-*.tar.gz /home/bigdata/kettle
