@@ -9,6 +9,7 @@ RUN mkdir -p /home/bigdata/kettle/xtl/kettle/logs
 
 #解压压缩文件到容器指定目录
 ADD smart-kettle-*.tar.gz /home/bigdata/kettle
+
 #挂载容器日志目录到虚拟机上
 VOLUME /home/bigdata/kettle/aps/logs:/home/bigdata/kettle/smart-kettle-2021.5/log
 
