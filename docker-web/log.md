@@ -102,3 +102,23 @@ kettle-fe    |  at sun.security.ssl.TransportContext.kickstart(TransportContext.
 kettle-fe    |  at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:428)
 kettle-fe    |  at com.mysql.jdbc.ExportControlled.transformSocketToSSLSocket(ExportControlled.java:149)
 kettle-fe    |  ... 21 common frames omitted
+
+
+
+kettle-fe    | Tue Jul 20 16:46:53 GMT+08:00 2021 WARN: Establishing SSL connection without server's identity verification is not recommended. According to
+MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+kettle-fe    | 2021-07-20 16:46:54.151 ERROR 1 --- [  restartedMain] o.y.frame.listener.ApplicationStartUp    : 资源库172.21.0.5:3316/etl初始化异常,原因为org.pentaho.di.core.exception.KettleException:
+kettle-fe    | Error connecting to the repository!
+kettle-fe    |
+kettle-fe    | Error occurred while trying to connect to the database
+kettle-fe    |
+kettle-fe    | Connection failed. Verify all connection parameters and confirm that the appropriate driver is installed.
+kettle-fe    | Communications link failure
+kettle-fe    |
+kettle-fe    | The last packet successfully received from the server was 152 milliseconds ago.  The last packet sent successfully to the server was 144 milliseconds ago.
+kettle-fe    |
+kettle-fe    |
+kettle-fe    |
+kettle-fe    |  at org.pentaho.di.repository.kdr.delegates.KettleDatabaseRepositoryConnectionDelegate.connect(KettleDatabaseRepositoryConnectionDelegate.java:167)
+kettle-fe    |  at org.pentaho.di.repository.kdr.KettleDatabaseRepository.connect(K
+kettle-fe    | 2021-07-20 16:46:54.153  INFO 1 --- [  restartedMain] o.y.frame.listener.ApplicationStartUp    : 定时调度策略开关 false
