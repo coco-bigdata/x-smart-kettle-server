@@ -51,6 +51,9 @@ Downloading from central: https://repo.maven.apache.org/maven2/org/yaukie/xtl/x-
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
 
-
+Successfully built 531e986ef5b7
+Successfully tagged docker-web_kettle-fe:latest
+WARNING: Image for service kettle-fe was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
+Creating kettle-fe ... done
 Attaching to kettle-fe
 kettle-fe    | Error: Unable to access jarfile /home/bigdata/kettle/smart-kettle-2021.5/server/smart-kettle-2021.5.jar
