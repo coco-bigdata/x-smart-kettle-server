@@ -41,4 +41,6 @@ ENV XTL_KETTLE_DB_PASS root
 ENV XTL_APP_LOG_PATH /home/bigdata/kettle/smart-kettle-2021.5/log
 ENV XTL_APP_LOG_LEVEL info
 
-ENTRYPOINT ["java","-jar","-Xms200m","-Xmx1g","-XX:MaxDirectMemorySize=1g","-Dsun.net.client.defaultConnectTimeout=60000","-Dfile.encoding=UTF-8","/home/bigdata/kettle/smart-kettle-2021.5/server/smart-kettle-2021.5.jar"]
+WORKDIR /home/bigdata/kettle
+
+ENTRYPOINT ["java","-jar","-Xms200m","-Xmx1g","-XX:MaxDirectMemorySize=1g","-Dsun.net.client.defaultConnectTimeout=60000","-Dfile.encoding=UTF-8","smart-kettle-2021.5/server/smart-kettle-2021.5.jar"]
