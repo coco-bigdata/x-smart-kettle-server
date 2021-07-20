@@ -8,7 +8,7 @@ services:
     ports:
       - "8017:8017"
     volumes:
-      - ./kettle/smart-kettle-2021.5:/home/bigdata/kettle/smart-kettle-2021.5
+      - ./kettle/smart-kettle-2021.5/log:/home/bigdata/kettle/smart-kettle-2021.5/log
       - ./kettle/xtl:/home/bigdata/kettle/xtl/kettle/logs
       - /etc/localtime:/etc/localtime
     restart: always
