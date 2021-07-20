@@ -25,11 +25,11 @@ ENV PATH $JAVA_HOME/bin:$PATH
 #容器启动时需要执行的命令
 CMD ["java","-version"]
 ENV XTL_APP_SERVER_PORT 8017
-ENV XTL_APP_DATASOURCE_URL jdbc:mysql://172.21.0.5:3316/xtl?useUniCode=true&characterEncoding=UTF-8
+ENV XTL_APP_DATASOURCE_URL jdbc:mysql://172.21.0.5:3316/xtl?useUniCode=true&characterEncoding=UTF-8&useSSL=false
 ENV XTL_APP_DATASOURCE_USERNAME root
 ENV XTL_APP_DATASOURCE_PASS root
 
-ENV XTL_APP_MASTER_DATASOURCE_URL jdbc:mysql://172.21.0.5:3316/xtl?useUniCode=true&characterEncoding=UTF-8
+ENV XTL_APP_MASTER_DATASOURCE_URL jdbc:mysql://172.21.0.5:3316/xtl?useUniCode=true&characterEncoding=UTF-8&useSSL=false
 ENV XTL_APP_MASTER_DATASOURCE_USERNAME root
 ENV XTL_APP_MASTER_DATASOURCE_PASS root
 
