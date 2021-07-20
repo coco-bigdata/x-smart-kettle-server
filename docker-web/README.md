@@ -10,6 +10,8 @@ create database etl default character set utf8 collate utf8_unicode_ci;
 
 mv ~/smart-kettle-2021.5-make-assembly.tar.gz kettle-fe/
 
+sudo docker-compose build
+
 sudo docker-compose up kettle-fe-mysql
 sudo docker-compose down
 sudo docker-compose up
