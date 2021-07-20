@@ -62,3 +62,43 @@ sudo docker-compose up
 Creating kettle-fe ... done
 Attaching to kettle-fe
 kettle-fe    | Error: Unable to access jarfile /home/bigdata/kettle/smart-kettle-2021.5/server/smart-kettle-2021.5.jar
+
+
+kettle-fe    | com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+kettle-fe    |
+kettle-fe    | The last packet successfully received from the server was 1 milliseconds ago.  The last packet sent successfully to the server was 0 milliseconds ago.
+kettle-fe    |  at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+kettle-fe    |  at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+kettle-fe    |  at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+kettle-fe    |  at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+kettle-fe    |  at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+kettle-fe    |  at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+kettle-fe    |  at com.mysql.jdbc.ExportControlled.transformSocketToSSLSocket(ExportControlled.java:164)
+kettle-fe    |  at com.mysql.jdbc.MysqlIO.negotiateSSLConnection(MysqlIO.java:4901)
+kettle-fe    |  at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1659)
+kettle-fe    |  at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1226)
+kettle-fe    |  at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2205)
+kettle-fe    |  at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2236)
+kettle-fe    |  at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2035)
+kettle-fe    |  at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:790)
+kettle-fe    |  at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+kettle-fe    |  at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+kettle-fe    |  at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+kettle-fe    |  at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+kettle-fe    |  at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+kettle-fe    |  at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+kettle-fe    |  at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:400)
+kettle-fe    |  at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:330)
+kettle-fe    |  at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:149)
+kettle-fe    |  at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+kettle-fe    |  at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:143)
+kettle-fe    |  at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1515)
+kettle-fe    |  at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1578)
+kettle-fe    |  at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2466)
+kettle-fe    | Caused by: javax.net.ssl.SSLHandshakeException: No appropriate protocol (protocol is disabled or cipher suites are inappropriate)
+kettle-fe    |  at sun.security.ssl.HandshakeContext.<init>(HandshakeContext.java:171)
+kettle-fe    |  at sun.security.ssl.ClientHandshakeContext.<init>(ClientHandshakeContext.java:98)
+kettle-fe    |  at sun.security.ssl.TransportContext.kickstart(TransportContext.java:220)
+kettle-fe    |  at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:428)
+kettle-fe    |  at com.mysql.jdbc.ExportControlled.transformSocketToSSLSocket(ExportControlled.java:149)
+kettle-fe    |  ... 21 common frames omitted
