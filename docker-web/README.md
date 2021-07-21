@@ -18,4 +18,5 @@ sudo docker-compose up
 sudo docker-compose up -d
 
 mysql -h127.0.0.1 -uroot -p -P3316 xtl < doc/database/MySql/系统脚本/create.sql
+mysql -h127.0.0.1 -uroot -p -P3316 xtl < doc/database/MySql/系统脚本/init.sql
 ```
