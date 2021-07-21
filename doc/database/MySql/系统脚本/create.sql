@@ -123,63 +123,6 @@ create table xtl.x_menu
 )
 ;
 
-comment on table x_menu is '菜单权限表'
-;
-
-comment on column x_menu.menu_id is '菜单ID'
-;
-
-comment on column x_menu.menu_name is '菜单名称'
-;
-
-comment on column x_menu.parent_id is '父菜单ID'
-;
-
-comment on column x_menu.order_num is '显示顺序'
-;
-
-comment on column x_menu.path is '路由地址'
-;
-
-comment on column x_menu.component is '组件路径'
-;
-
-comment on column x_menu.is_frame is '是否为外链（0是 1否）'
-;
-
-comment on column x_menu.is_cache is '是否缓存（0缓存 1不缓存）'
-;
-
-comment on column x_menu.menu_type is '菜单类型（M目录 C菜单 F按钮）'
-;
-
-comment on column x_menu.visible is '菜单状态（0显示 1隐藏）'
-;
-
-comment on column x_menu.status is '菜单状态（0正常 1停用）'
-;
-
-comment on column x_menu.perms is '权限标识'
-;
-
-comment on column x_menu.icon is '菜单图标'
-;
-
-comment on column x_menu.create_by is '创建者'
-;
-
-comment on column x_menu.create_time is '创建时间'
-;
-
-comment on column x_menu.update_by is '更新者'
-;
-
-comment on column x_menu.update_time is '更新时间'
-;
-
-comment on column x_menu.remark is '备注'
-;
-
 create table xtl.x_monitor
 (
 	id int not null auto_increment
@@ -224,51 +167,6 @@ create table xtl.x_oper_log
 )
 ;
 
-comment on column x_oper_log.method is '调用方法'
-;
-
-comment on column x_oper_log.oper_url is '请求地址'
-;
-
-comment on column x_oper_log.oper_ip is 'IP地址'
-;
-
-comment on column x_oper_log.oper_location is '操作地点'
-;
-
-comment on column x_oper_log.oper_param is '请求入参'
-;
-
-comment on column x_oper_log.json_result is '返回结果'
-;
-
-comment on column x_oper_log.status is '操作状态 (0 失败 1 成功)'
-;
-
-comment on column x_oper_log.error_msg is '错误消息'
-;
-
-comment on column x_oper_log.oper_time is '操作时间'
-;
-
-comment on column x_oper_log.operator_name is '操作名称 （0其它 1新增 2修改 3删除 4 强退 5 清空数据）'
-;
-
-comment on column x_oper_log.module_name is '模块名称'
-;
-
-comment on column x_oper_log.request_type is '请求方式'
-;
-
-comment on column x_oper_log.client_type is '操作客户端 (0 PC 1 MOBILE 2 PAD)'
-;
-
-comment on column x_oper_log.oper_user_name is '操作人'
-;
-
-comment on column x_oper_log.oper_dept_name is '操作人所属部门'
-;
-
 create table xtl.x_params
 (
 	id int not null auto_increment
@@ -299,39 +197,6 @@ create table xtl.x_post
 	update_time datetime null,
 	remark varchar(500) null
 )
-;
-
-comment on table x_post is '岗位信息表'
-;
-
-comment on column x_post.post_id is '岗位ID'
-;
-
-comment on column x_post.post_code is '岗位编码'
-;
-
-comment on column x_post.post_name is '岗位名称'
-;
-
-comment on column x_post.post_sort is '显示顺序'
-;
-
-comment on column x_post.status is '状态（0正常 1停用）'
-;
-
-comment on column x_post.create_by is '创建者'
-;
-
-comment on column x_post.create_time is '创建时间'
-;
-
-comment on column x_post.update_by is '更新者'
-;
-
-comment on column x_post.update_time is '更新时间'
-;
-
-comment on column x_post.remark is '备注'
 ;
 
 create table xtl.x_quartz
@@ -392,51 +257,6 @@ create table xtl.x_role
 )
 ;
 
-comment on table x_role is '角色信息表'
-;
-
-comment on column x_role.role_id is '角色ID'
-;
-
-comment on column x_role.role_name is '角色名称'
-;
-
-comment on column x_role.role_key is '角色权限字符串'
-;
-
-comment on column x_role.role_sort is '显示顺序'
-;
-
-comment on column x_role.data_scope is '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）'
-;
-
-comment on column x_role.menu_check_strictly is '菜单树选择项是否关联显示'
-;
-
-comment on column x_role.dept_check_strictly is '部门树选择项是否关联显示'
-;
-
-comment on column x_role.status is '角色状态（0正常 1停用）'
-;
-
-comment on column x_role.del_flag is '删除标志（0代表存在 2代表删除）'
-;
-
-comment on column x_role.create_by is '创建者'
-;
-
-comment on column x_role.create_time is '创建时间'
-;
-
-comment on column x_role.update_by is '更新者'
-;
-
-comment on column x_role.update_time is '更新时间'
-;
-
-comment on column x_role.remark is '备注'
-;
-
 create table xtl.x_role_dept
 (
 	role_id bigint not null,
@@ -445,30 +265,12 @@ create table xtl.x_role_dept
 )
 ;
 
-comment on table x_role_dept is '角色和部门关联表'
-;
-
-comment on column x_role_dept.role_id is '角色ID'
-;
-
-comment on column x_role_dept.dept_id is '部门ID'
-;
-
 create table xtl.x_role_menu
 (
 	role_id bigint not null,
 	menu_id bigint not null,
 	primary key (role_id, menu_id)
 )
-;
-
-comment on table x_role_menu is '角色和菜单关联表'
-;
-
-comment on column x_role_menu.role_id is '角色ID'
-;
-
-comment on column x_role_menu.menu_id is '菜单ID'
 ;
 
 create table xtl.x_template
@@ -529,66 +331,6 @@ create table xtl.x_user
 )
 ;
 
-comment on table x_user is '用户信息表'
-;
-
-comment on column x_user.user_id is '用户ID'
-;
-
-comment on column x_user.dept_id is '部门ID'
-;
-
-comment on column x_user.user_name is '用户账号'
-;
-
-comment on column x_user.nick_name is '用户昵称'
-;
-
-comment on column x_user.user_type is '用户类型（00系统用户）'
-;
-
-comment on column x_user.email is '用户邮箱'
-;
-
-comment on column x_user.phonenumber is '手机号码'
-;
-
-comment on column x_user.sex is '用户性别（0男 1女 2未知）'
-;
-
-comment on column x_user.avatar is '头像地址'
-;
-
-comment on column x_user.password is '密码'
-;
-
-comment on column x_user.status is '帐号状态（0正常 1停用）'
-;
-
-comment on column x_user.del_flag is '删除标志（0代表存在 2代表删除）'
-;
-
-comment on column x_user.login_ip is '最后登录IP'
-;
-
-comment on column x_user.login_date is '最后登录时间'
-;
-
-comment on column x_user.create_by is '创建者'
-;
-
-comment on column x_user.create_time is '创建时间'
-;
-
-comment on column x_user.update_by is '更新者'
-;
-
-comment on column x_user.update_time is '更新时间'
-;
-
-comment on column x_user.remark is '备注'
-;
-
 create table xtl.x_user_post
 (
 	user_id bigint not null,
@@ -597,29 +339,11 @@ create table xtl.x_user_post
 )
 ;
 
-comment on table x_user_post is '用户与岗位关联表'
-;
-
-comment on column x_user_post.user_id is '用户ID'
-;
-
-comment on column x_user_post.post_id is '岗位ID'
-;
-
 create table xtl.x_user_role
 (
 	user_id bigint not null,
 	role_id bigint not null,
 	primary key (user_id, role_id)
 )
-;
-
-comment on table x_user_role is '用户和角色关联表'
-;
-
-comment on column x_user_role.user_id is '用户ID'
-;
-
-comment on column x_user_role.role_id is '角色ID'
 ;
 
